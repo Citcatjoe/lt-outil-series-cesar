@@ -1,0 +1,26 @@
+$item-teaser--title: #FFFFFF;
+
+.item-teaser
+{
+    width: calc(25% - 35px) ;
+    //padding: 17.5px;
+    margin: 17.5px;
+    float: left;
+
+    .item-teaser--figure
+    {
+        margin: 0;
+        width: 100%;
+        padding-bottom: 75%;
+        //height: 450px;
+        //background: red;
+        background-position: center center;
+        background-size: cover;
+    }
+
+    .item-teaser--title 
+    {
+        font-family: 'Montserrat';
+        color: $item-teaser--title;
+    }
+}

@@ -7,55 +7,39 @@ import ContentDetails from "./components/ContentDetails";
 import data from "./data/Data";
 import SelectCurrency from "./components/SelectCurrency.js"
 import ItemTeaser from "./components/ItemTeaser.js"
+import "./scss/ItemTeaser.scss";
+require("typeface-montserrat");
 // import { throws } from 'assert';
 
 class App extends Component {
   constructor(props) {
     super(props);
+    this.frameClose = this.frameClose.bind(this);
+    this.frameOpen = this.frameOpen.bind(this);
     this.state = {
-      // isVisible: false, // DEBUG / false
-      // article: null
-      
       articles: [],
       articlePassed: "",
-      frameVisible: true 
-      // currencyA: data.currencies[0],
-      // currencyB: data.currencies[1],
-      // currencyAval: data.currencies[0].sellRate,
-      // currencyBval: data.currencies[1].sellRate
+      frameVisible: false 
     };
-    // this.showFrame = this.showFrame.bind(this);
-    // this.seeArticle = this.seeArticle.bind(this);
+  }
+
+  frameOpen() {
+    this.setState({
+      frameVisible: true
+    });
   }
   
-
-  componentWillMount() {
-    // fires immediately before the initial render
+  frameClose() {
+    this.setState({
+      frameVisible: false 
+    });
   }
 
   componentDidMount() {
-    //this.setState({ isLoading: true });
     this.fetchData();
-
-
-      
   };
-  
-  
-  componentDidUpdate() {
-    // console.log(this.state.articles);
-  }
-
-
-
-
-
-
 
   fetchData() {
-
-
-
     fetch('http://web.tcch.ch/tv-test/') //     // https://www.letemps.ch/tv-shows
       .then((response) => response.json())
       .then((json) => {
@@ -65,8 +49,6 @@ class App extends Component {
       }).catch(function () {
         console.log("Error when loading json");
       });
-
-      
   }
 
   
@@ -88,26 +70,25 @@ class App extends Component {
               additionalClasses='stackable stuff yolo'
             />
           </div> */}
-          {
-            articles.length > 0 ? articles.map(item => {
-              // const title = item.title;
-              // const image = item.np8_main_media;
-              return <ItemTeaser key={item.title} title={item.title} image={item.np8_main_media}>
-                </ItemTeaser>;
-            }) : null
-          }
+          
 
          
         </aside>
         <main>
-          
+            {
+              articles.length > 0 ? articles.map(item => {
+                // const title = item.title;
+                // const image = item.np8_main_media;
+                  return <ItemTeaser key={item.title} title={item.title} image={item.np8_main_media} frameOpen={this.frameOpen} />;
+              }) : null
+            }
         </main>
         
         
         {/* <Frame isVisible={this.state.isVisible} article={this.state.article}></Frame> */}
         <Frame frameVisible={frameVisible}>
             <p>ici un text</p> 
-            <ContentDetails></ContentDetails>
+          <ContentDetails frameClose={this.frameClose}></ContentDetails>
         </Frame>
         
       </div>

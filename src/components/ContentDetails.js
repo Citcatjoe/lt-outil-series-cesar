@@ -23,6 +23,7 @@ class ContentDetails extends Component {
         return (
             // petite structure header-body-footer, on est pas obligés de garder bien sur
             <div className={`content-details`}>
+                <p onClick={this.props.frameClose}>hello</p>
                 {/* {itemFull.body} */}
             </div>
 
