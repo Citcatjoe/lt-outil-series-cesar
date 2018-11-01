@@ -1,64 +1,85 @@
 import React, { Component } from 'react';
-import './App.scss';
-import "./components/frame.scss";
-import MovieCards from "./components/movieCards.js";
 import Frame from "./components/frame";
 import ContentDetails from "./components/ContentDetails";
-import data from "./data/Data";
-import SelectCurrency from "./components/SelectCurrency.js"
-import ItemTeaser from "./components/ItemTeaser.js"
+import ItemTeaser from "./components/ItemTeaser.js";
+
+import './App.scss';
+import "./components/frame.scss";
 import "./scss/ItemTeaser.scss";
+
+import cross from "./img/cross.svg";
+
+import data from "./data/Data";
+
 require("typeface-montserrat");
 // import { throws } from 'assert';
+
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.frameClose = this.frameClose.bind(this);
-    this.frameOpen = this.frameOpen.bind(this);
+    this.articleClose = this.articleClose.bind(this);
+    this.articleOpen = this.articleOpen.bind(this);
     this.state = {
       articles: [],
-      articlePassed: "",
-      frameVisible: false 
+      gridVisible: true,
+      frameVisible: false
     };
   }
 
-  frameOpen() {
-    this.setState({
-      frameVisible: true
-    });
+  articleOpen(item) {
+    this.setState(
+      {
+        gridVisible: false,
+        item: item
+      },
+      () => {
+        setTimeout(() => {
+          this.setState({ 
+            frameVisible: true 
+          });
+        }, 500);
+      }
+    );
   }
-  
-  frameClose() {
-    this.setState({
-      frameVisible: false 
-    });
+
+  articleClose() {
+    this.setState(
+      {
+        frameVisible: false,
+      },
+      () => {
+        setTimeout(() => {
+          this.setState({
+            gridVisible: true
+          });
+        }, 500);
+      }
+    );
   }
 
   componentDidMount() {
     this.fetchData();
-  };
+  }
 
   fetchData() {
-    fetch('http://web.tcch.ch/tv-test/') //     // https://www.letemps.ch/tv-shows
-      .then((response) => response.json())
-      .then((json) => {
-        this.setState({ 
-          articles: json 
+    fetch("http://web.tcch.ch/tv-test/") //     // https://www.letemps.ch/tv-shows
+      .then(response => response.json())
+      .then(json => {
+        this.setState({
+          articles: json
         });
-      }).catch(function () {
+      })
+      .catch(function() {
         console.log("Error when loading json");
       });
   }
 
-  
-
-
-
   render() {
     const { articles } = this.state;
     const { frameVisible } = this.state;
-    
+    const { gridVisible } = this.state;
+
     return (
       <div className="App">
         <aside>
@@ -70,27 +91,28 @@ class App extends Component {
               additionalClasses='stackable stuff yolo'
             />
           </div> */}
-          
-
-         
         </aside>
         <main>
-            {
-              articles.length > 0 ? articles.map(item => {
-                // const title = item.title;
-                // const image = item.np8_main_media;
-                  return <ItemTeaser key={item.title} title={item.title} image={item.np8_main_media} frameOpen={this.frameOpen} />;
-              }) : null
-            }
+          <div class="main-header"></div>
+          <div className={`grid ${gridVisible ? "is-visible" : ""}`}>
+            {articles.length > 0
+              ? articles.map((item, index) => {
+                  return (
+                    <ItemTeaser
+                      key={index}
+                      item={item}
+                      articleOpen={this.articleOpen}
+                    />
+                  );
+                })
+              : null}
+          </div>
         </main>
-        
-        
-        {/* <Frame isVisible={this.state.isVisible} article={this.state.article}></Frame> */}
+
         <Frame frameVisible={frameVisible}>
-            <p>ici un text</p> 
-          <ContentDetails frameClose={this.frameClose}></ContentDetails>
+          <p>ici un text</p>
+          <ContentDetails articleClose={this.articleClose} item={this.state.item} />
         </Frame>
-        
       </div>
     );
   }

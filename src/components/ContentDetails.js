@@ -18,14 +18,18 @@ class ContentDetails extends Component {
     // }
 
     render() {
-        const itemFull = this.props.itemFull;
-        console.log(itemFull)
+        //const itemFull = this.props.itemFull;
+        //console.log(itemFull)
+        if (!this.props.item) {
+            return false;
+        }
         return (
-            // petite structure header-body-footer, on est pas obligés de garder bien sur
-            <div className={`content-details`}>
-                <p onClick={this.props.frameClose}>hello</p>
-                {/* {itemFull.body} */}
-            </div>
+                // petite structure header-body-footer, on est pas obligés de garder bien sur
+                <div className={`content-details`}>
+                    <h1>{this.props.item.title}</h1>
+                    <p onClick={this.props.articleClose}>hello</p>
+                    {/* {itemFull.body} */}
+                </div>
 
         )
     }

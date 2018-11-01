@@ -1,26 +1,65 @@
-$item-teaser--title: #FFFFFF;
+@import "../App.scss";
 
-.item-teaser
+
+.item-teaser 
 {
     width: calc(25% - 35px) ;
     //padding: 17.5px;
     margin: 17.5px;
     float: left;
+    position: relative;
+    cursor: pointer;
+    &:hover 
+    {
+         .item-teaser--overlay
+         {
+             opacity: .85;
+         }
+    }
+
+
+    .item-teaser--overlay
+    {
+        width: 100%;
+        padding-bottom: 145%;
+        /* Rectangle 4: */
+        background-image: linear-gradient(-45deg, $flash-color1 0%, $flash-color2 100%);
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        transition: all 0.2s;
+
+        .item-teaser--overlay-icon
+        {
+            width: 24px;
+            height: 24px;
+            position: absolute;
+            //transform: rotate(45deg);
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
 
     .item-teaser--figure
     {
         margin: 0;
         width: 100%;
-        padding-bottom: 75%;
         //height: 450px;
         //background: red;
         background-position: center center;
         background-size: cover;
+        padding-bottom: 145%;
     }
 
     .item-teaser--title 
     {
         font-family: 'Montserrat';
-        color: $item-teaser--title;
+        color: $color2;
+        font-size: 14px;
+        font-weight: 500;
+        background: rgba(247, 247, 247, .1); 
+        margin: 0;
+        padding: 14px 0;
     }
 }
