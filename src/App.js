@@ -2,14 +2,12 @@ import React, { Component } from 'react';
 import Frame from "./components/frame";
 import ContentDetails from "./components/ContentDetails";
 import ItemTeaser from "./components/ItemTeaser.js";
+import FilterOrder from "./components/FilterOrder.js";
 
 import './App.scss';
-import "./components/frame.scss";
+import "./scss/Frame.scss";
 import "./scss/ItemTeaser.scss";
-
-import cross from "./img/cross.svg";
-
-import data from "./data/Data";
+import "./scss/FilterOrder.scss";
 
 require("typeface-montserrat");
 // import { throws } from 'assert';
@@ -80,8 +78,7 @@ class App extends Component {
     const { frameVisible } = this.state;
     const { gridVisible } = this.state;
 
-    return (
-      <div className="App">
+    return <div className="App">
         <aside>
           {/* <div>
             <MovieCards
@@ -93,19 +90,13 @@ class App extends Component {
           </div> */}
         </aside>
         <main>
-          <div class="main-header"></div>
+          <div className="main-header">
+            <FilterOrder />
+          </div>
           <div className={`grid ${gridVisible ? "is-visible" : ""}`}>
-            {articles.length > 0
-              ? articles.map((item, index) => {
-                  return (
-                    <ItemTeaser
-                      key={index}
-                      item={item}
-                      articleOpen={this.articleOpen}
-                    />
-                  );
-                })
-              : null}
+            {articles.length > 0 ? articles.map((item, index) => {
+                  return <ItemTeaser key={index} item={item} articleOpen={this.articleOpen} />;
+                }) : null}
           </div>
         </main>
 
@@ -113,8 +104,7 @@ class App extends Component {
           <p>ici un text</p>
           <ContentDetails articleClose={this.articleClose} item={this.state.item} />
         </Frame>
-      </div>
-    );
+      </div>;
   }
 }
 

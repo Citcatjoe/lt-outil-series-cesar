@@ -1,12 +1,15 @@
-$color1: #28303F;
-$color2: #F7F7F7;
+$color1: #28303F; //bg foncé
+$color2: #F7F7F7; //presque blanc
+$color3: #7B7F88;
+$color4: #3D4552; //text ordre
+$color5: #3C4651; //bg recherche
 $flash-color1: #FB278B;
 $flash-color2: #F61153;
 
 
 
 .App {
-  text-align: center; 
+  //text-align: center; 
   height: 100%;
 }
 
@@ -32,11 +35,11 @@ aside
 
 main 
 {
-  width: calc(100% - 435px);
+  width: calc(100% - 400px);
   min-height: 100%;
   background: $color1;
   float: right;
-  padding: 17.5px;
+  
   // display: flex;
   // justify-content: space-between;
   // flex-wrap: wrap;
@@ -44,7 +47,9 @@ main
   .main-header 
   {
     width: 100%;
-    height: calc(125px - 17.5px);
+    height: 125px;
+    position: relative;
+    //padding: 17.5px;
   }
 }
 
@@ -54,6 +59,7 @@ main
   transform: translateY(50px);
   opacity: 0;
   transition: all 0.5s;
+  padding: 17.5px;
 
   &.is-visible
   {
