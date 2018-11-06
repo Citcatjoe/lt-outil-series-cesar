@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs"; 
 import Frame from "./components/frame";
 import ContentDetails from "./components/ContentDetails";
 import ItemTeaser from "./components/ItemTeaser.js";
+import FilterSearch from "./components/FilterSearch.js";
 import FilterOrder from "./components/FilterOrder.js";
 
-import './App.scss';
+import './App.scss'; 
+import "./scss/AsideTabs.scss";
 import "./scss/Frame.scss";
 import "./scss/ItemTeaser.scss";
+import "./scss/FilterSearch.scss";
 import "./scss/FilterOrder.scss";
+
+import asideFooterBg from "./img/aside-footer-bg.svg";
 
 require("typeface-montserrat");
 // import { throws } from 'assert';
@@ -20,6 +26,7 @@ class App extends Component {
     this.articleOpen = this.articleOpen.bind(this);
     this.state = {
       articles: [],
+      headerVisible: true,
       gridVisible: true,
       frameVisible: false
     };
@@ -28,13 +35,14 @@ class App extends Component {
   articleOpen(item) {
     this.setState(
       {
+        headerVisible: false,
         gridVisible: false,
         item: item
       },
       () => {
         setTimeout(() => {
-          this.setState({ 
-            frameVisible: true 
+          this.setState({
+            frameVisible: true
           });
         }, 500);
       }
@@ -49,6 +57,7 @@ class App extends Component {
       () => {
         setTimeout(() => {
           this.setState({
+            headerVisible: true,
             gridVisible: true
           });
         }, 500);
@@ -75,22 +84,41 @@ class App extends Component {
 
   render() {
     const { articles } = this.state;
+    const { headerVisible } = this.state;
     const { frameVisible } = this.state;
     const { gridVisible } = this.state;
 
     return <div className="App">
         <aside>
-          {/* <div>
-            <MovieCards
-              data={this.state.data}
-              showData={this.seeArticle}
-              numberOfCards='one'
-              additionalClasses='stackable stuff yolo'
-            />
+          {/* <div className="aside-header">
+            <nav>
+              <ul>
+                <li>Suggestions</li>
+                <li> Sur mesure</li>
+              </ul>
+            </nav>
           </div> */}
+
+          
+          <Tabs>
+            <TabList>
+              <Tab>Suggestions</Tab>
+              <Tab>Sur mesure</Tab>
+            </TabList>
+
+            <TabPanel>
+              <h3 className="aside-title">Nos suggestions rapides</h3>
+            </TabPanel>
+            <TabPanel>
+              <h3 className="aside-title">Filtrage personnalisé</h3>
+            </TabPanel>
+          </Tabs>
+
+          <img className="aside-footer-bg" src={asideFooterBg} />
         </aside>
         <main>
-          <div className="main-header">
+          <div className={`main-header ${headerVisible ? "is-visible" : ""}`}>
+            <FilterSearch />
             <FilterOrder />
           </div>
           <div className={`grid ${gridVisible ? "is-visible" : ""}`}>
