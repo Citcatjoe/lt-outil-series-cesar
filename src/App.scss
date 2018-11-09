@@ -3,8 +3,8 @@ $color2: #F7F7F7; //presque blanc
 $color3: #7B7F88;
 $color4: #3D4552; //text ordre
 $color5: #3C4651; //bg recherche
-$flash-color1: #FB278B;
-$flash-color2: #F61153;
+$flash-color1: #ff0078;
+$flash-color2: #ff0049; 
 
 *,
 *:after,
@@ -32,7 +32,25 @@ aside
   position: fixed;
   padding: 0 40px;
 
-  
+  .aside-footer-list
+  {
+    position: absolute;
+    bottom: 35px;
+    width: 100%;
+    z-index: 10;
+    padding: 0;
+    
+    .aside-footer-list-item
+    {
+      list-style: none;
+      padding-inline-start: 0;
+      font-family: 'Montserrat';
+      font-size: 14px;
+      color: $color1;
+      opacity: .32;
+      padding: 7px 0;
+    }
+  }  
 
   .aside-footer-bg
   {
@@ -87,6 +105,8 @@ main
     transition: all 0.5s;
   }
 }
+
+
 
 // .App-logo {
 //   animation: App-logo-spin infinite 20s linear;

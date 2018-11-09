@@ -3,6 +3,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import Frame from "./components/frame";
 import ContentDetails from "./components/ContentDetails";
 import ItemTeaser from "./components/ItemTeaser.js";
+import FilterButton from "./components/FilterButton.js";
 import FilterSearch from "./components/FilterSearch.js";
 import FilterOrder from "./components/FilterOrder.js";
 
@@ -12,6 +13,7 @@ import "./scss/Frame.scss";
 import "./scss/ItemTeaser.scss";
 import "./scss/FilterSearch.scss";
 import "./scss/FilterOrder.scss";
+import "./scss/FilterButton.scss";
 
 import asideFooterBg from "./img/aside-footer-bg.svg";
 
@@ -24,11 +26,19 @@ class App extends Component {
     super(props);
     this.articleClose = this.articleClose.bind(this);
     this.articleOpen = this.articleOpen.bind(this);
-    this.state = {
-      articles: [],
-      headerVisible: true,
-      gridVisible: true,
-      frameVisible: false
+    this.buttonHandle = this.buttonHandle.bind(this);
+    this.state = { 
+      articles: [], 
+      headerVisible: true, 
+      gridVisible: true, 
+      frameVisible: false, 
+      buttons: [
+        { status: false, label:"Se délasser en mangeant ou en repassant" }, 
+        { status: false, label:"Frissonner" },
+        { status: false, label:"En discuter demain au bureau" }, 
+        { status: false, label:"Remonter le temps" }, 
+        { status: false, label:"Regarder un truc complètement frappé" }
+      ] 
     };
   }
 
@@ -65,6 +75,22 @@ class App extends Component {
     );
   }
 
+  buttonHandle(key) {
+    var buttons = this.state.buttons;
+
+    var newStateButtons = buttons.map((button, index) => {
+      button.status = false;
+      if (index === key) {
+        button.status = true;
+      }
+      return button;
+    });
+
+    this.setState({
+      buttons: newStateButtons
+    });
+  }
+
   componentDidMount() {
     this.fetchData();
   }
@@ -87,6 +113,7 @@ class App extends Component {
     const { headerVisible } = this.state;
     const { frameVisible } = this.state;
     const { gridVisible } = this.state;
+    const { buttons } = this.state;
 
     return <div className="App">
         <aside>
@@ -99,7 +126,6 @@ class App extends Component {
             </nav>
           </div> */}
 
-          
           <Tabs>
             <TabList>
               <Tab>Suggestions</Tab>
@@ -108,12 +134,26 @@ class App extends Component {
 
             <TabPanel>
               <h3 className="aside-title">Nos suggestions rapides</h3>
+              {
+                buttons.length > 0 ? buttons.map((button, index) => {
+                return <FilterButton index={index} key={index} button={button} buttonHandle={this.buttonHandle} />;
+                }) : null
+              }
             </TabPanel>
             <TabPanel>
               <h3 className="aside-title">Filtrage personnalisé</h3>
             </TabPanel>
           </Tabs>
-
+          <ul className="aside-footer-list">
+            <li className="aside-footer-list-item">
+              Partager sur Facebook
+            </li>
+            <li className="aside-footer-list-item">Partager sur Twitter</li>
+            <li className="aside-footer-list-item">
+              Partager sur Linkedin
+            </li>
+            <li className="aside-footer-list-item">letemps.ch</li>
+          </ul>
           <img className="aside-footer-bg" src={asideFooterBg} />
         </aside>
         <main>
@@ -122,9 +162,11 @@ class App extends Component {
             <FilterOrder />
           </div>
           <div className={`grid ${gridVisible ? "is-visible" : ""}`}>
-            {articles.length > 0 ? articles.map((item, index) => {
-                  return <ItemTeaser key={index} item={item} articleOpen={this.articleOpen} />;
-                }) : null}
+            {
+              articles.length > 0 ? articles.map((item, index) => {
+                  return <ItemTeaser index={index} key={index} item={item} articleOpen={this.articleOpen} />;
+                }) : null
+            }
           </div>
         </main>
 
