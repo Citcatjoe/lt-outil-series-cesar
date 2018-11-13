@@ -1,0 +1,10 @@
+@import "../App.scss";
+
+.content-details
+{
+    overflow: auto;
+    min-width: 100%;
+    min-height: 100%;
+    background-size: 100% auto !important;
+    background-position: center top;
+}

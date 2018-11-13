@@ -12,12 +12,9 @@ class Frame extends Component {
 
   render() {
     const frameVisible = this.props.frameVisible;
-    const children = this.props.children;
-    //const itemFull = this.props.itemFull;
-
-    // if (!article) {
-    //   return null
-    // }
+    const children = this.props.children; 
+    
+    
 
     return (
       // petite structure header-body-footer, on est pas obligés de garder bien sur

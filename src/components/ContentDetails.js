@@ -18,15 +18,21 @@ class ContentDetails extends Component {
     // }
 
     render() {
+        
+        
         //const itemFull = this.props.itemFull;
         //console.log(itemFull)
         if (!this.props.item) {
             return false;
         }
+
+        const styles = { background: "url(" + this.props.item.np8_main_media + ")" };
+        
         return (
                 // petite structure header-body-footer, on est pas obligés de garder bien sur
-                <div className={`content-details`}>
+            <div className={`content-details`} style={styles}>
                     <h1>{this.props.item.title}</h1>
+                    <h1>{this.props.item.np8_main_media}</h1>
                     <p onClick={this.props.articleClose}>hello</p>
                     {/* {itemFull.body} */}
                 </div>

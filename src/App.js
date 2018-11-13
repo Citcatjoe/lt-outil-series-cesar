@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs"; 
-import Frame from "./components/frame";
+import Frame from "./components/Frame";
 import ContentDetails from "./components/ContentDetails";
 import ItemTeaser from "./components/ItemTeaser.js";
 import FilterButton from "./components/FilterButton.js";
@@ -9,7 +9,8 @@ import FilterOrder from "./components/FilterOrder.js";
 
 import './App.scss'; 
 import "./scss/AsideTabs.scss";
-import "./scss/Frame.scss";
+import "./scss/Frame.scss"; 
+import "./scss/ContentDetails.scss";
 import "./scss/ItemTeaser.scss";
 import "./scss/FilterSearch.scss";
 import "./scss/FilterOrder.scss";
@@ -77,7 +78,6 @@ class App extends Component {
 
   buttonHandle(key) {
     var buttons = this.state.buttons;
-
     var newStateButtons = buttons.map((button, index) => {
       button.status = false;
       if (index === key) {
@@ -171,7 +171,6 @@ class App extends Component {
         </main>
 
         <Frame frameVisible={frameVisible}>
-          <p>ici un text</p>
           <ContentDetails articleClose={this.articleClose} item={this.state.item} />
         </Frame>
       </div>;
