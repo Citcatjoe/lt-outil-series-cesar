@@ -26,16 +26,33 @@ class ContentDetails extends Component {
             return false;
         }
 
-        const styles = { background: "url(" + this.props.item.np8_main_media + ")" };
+        const backgroundImg = { background: "url(" + this.props.item.np8_main_media + ")" };
         
         return (
                 // petite structure header-body-footer, on est pas obligés de garder bien sur
-            <div className={`content-details`} style={styles}>
-                    <h1>{this.props.item.title}</h1>
-                    <h1>{this.props.item.np8_main_media}</h1>
+            <div className={`content`}>
+                <div className={`content-background`} style={backgroundImg}></div>
+                <div className={`content-gradient`}></div>
+                <div className={`content-details`}>
+                    <div className={`content-details-header`}>
+                    </div>
+                    <div className={`content-details-body`}>
+                        <div className={`content-details-body-col1`}>
+                            <img src={this.props.item.np8_main_media} alt=""></img>
+                        </div>
+                       
+                        <div className={`content-details-body-col2`}>
+                            <h1>{this.props.item.title}</h1>
+                        </div>
+                        
+                    </div>
+                    
+                    
                     <p onClick={this.props.articleClose}>hello</p>
-                    {/* {itemFull.body} */}
                 </div>
+             
+                {/* {itemFull.body} */}
+            </div>
 
         )
     }
