@@ -1,6 +1,5 @@
 @import "../App.scss";
 
-
 .item-teaser 
 {
     width: calc(25% - 35px) ;
@@ -9,11 +8,32 @@
     float: left;
     position: relative;
     cursor: pointer;
+
+    @include breakpoint(xl) { 
+        width: calc(33.33332% - 35px)
+    }
+
+    @include breakpoint(lg) { 
+        width: calc(50% - 35px)
+    }
+
+    @include breakpoint(md) { 
+        width: calc(33.33332% - 35px)
+    }
+
+    @include breakpoint(sm) { 
+        width: calc(50% - 35px)
+    }
+
+    @include breakpoint(xs) { 
+        width: calc(100% - 35px)
+    }
+
     &:hover 
     {
          .item-teaser--overlay
          {
-             opacity: .85;
+            opacity: .85;
          }
     }
 

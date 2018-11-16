@@ -6,6 +6,36 @@ $color5: #3C4651; //bg recherche
 $flash-color1: #ff0078;
 $flash-color2: #ff0049; 
 
+@mixin breakpoint($class) {
+@if $class == xxs {
+    @media (max-width: 400px) { @content; }
+  }
+
+  @if $class == xs {
+    @media (max-width: 500px) { @content; }
+  }
+ 
+  @else if $class == sm {
+    @media (max-width: 768px) { @content; } 
+  }
+ 
+  @else if $class == md {
+    @media (max-width: 992px) { @content; }
+  }
+ 
+  @else if $class == lg {
+    @media (max-width: 1200px) { @content; }
+  }
+
+  @else if $class == xl {
+    @media (max-width: 1600px) { @content; }
+  }
+ 
+  @else {
+    @warn "Breakpoint mixin supports: xxs, xs, sm, md, lg, xl";
+  }
+} 
+
 *,
 *:after,
 *:before {
@@ -27,10 +57,15 @@ aside
 {
   width: 400px;
   height: 100%;
-  background: $color2;
+  background-color: $color2;
+  background-repeat: no-repeat !important;
   float: left;
   position: fixed;
   padding: 0 40px;
+
+  @include breakpoint(md) { 
+      transform: translateX(-100%);
+  }
 
   .aside-footer-list
   {
@@ -68,6 +103,10 @@ main
   min-height: 100%;
   background: $color1;
   float: right;
+
+  @include breakpoint(md) { 
+      width: 100%;
+  }
   
   // display: flex;
   // justify-content: space-between;
@@ -82,6 +121,10 @@ main
     transition: all 0.5s;
     //padding: 17.5px;
 
+    @include breakpoint(xs) { 
+        height: 150px;
+    }
+
     &.is-visible
     {
       opacity: 1;
@@ -92,6 +135,7 @@ main
 
 .grid 
 {
+  overflow: auto;
   transform-origin: center top;
   transform: translateY(50px);
   opacity: 0;
@@ -105,6 +149,8 @@ main
     transition: all 0.5s;
   }
 }
+
+
 
 
 

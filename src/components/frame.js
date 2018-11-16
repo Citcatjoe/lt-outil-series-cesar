@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Parser from 'html-react-parser';
+
 
 class Frame extends Component {
 

@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import Parser from 'html-react-parser';
 
+
 class ContentDetails extends Component {
+    
 
     // hantableeToggle(e) {
     //     e.preventDefault();
@@ -35,6 +37,7 @@ class ContentDetails extends Component {
                 <div className={`content-gradient`}></div>
                 <div className={`content-details`}>
                     <div className={`content-details-header`}>
+                        <button className={`content-close`} onClick={this.props.articleClose}>Fermer</button>
                     </div>
                     <div className={`content-details-body`}>
                         <div className={`content-details-body-col1`}>
@@ -42,13 +45,22 @@ class ContentDetails extends Component {
                         </div>
                        
                         <div className={`content-details-body-col2`}>
-                            <h1>{this.props.item.title}</h1>
+                            <h1 className={`body-h1`}>{this.props.item.title}</h1>
+                            <span className={`body-highlighted`}>{this.props.item.lt_tv_show_genre}</span>
+                            <p className={`body-p`}>{Parser(this.props.item.body)}</p>
+                            <ul>
+                                <li><span>Années prod. :</span>{this.props.item.np8_start_date} - {this.props.item.np8_end_date ? this.props.item.np8_end_date : 'aujourdhui'}</li>
+                                <li><span>Réalisé par :</span>???</li>
+                                <li><span>Format :</span>Épisodes de {this.props.item.lt_reading_time} minutes</li>
+                                <li><span>Distributeur :</span>{this.props.item.lt_distributor}</li>
+                                <li><span>Provenance :</span>{this.props.item.lt_country}</li>
+                            </ul>
                         </div>
                         
                     </div>
                     
                     
-                    <p onClick={this.props.articleClose}>hello</p>
+                    
                 </div>
              
                 {/* {itemFull.body} */}

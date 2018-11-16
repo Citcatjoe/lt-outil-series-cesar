@@ -7,6 +7,10 @@
     top: 35px;
     transform: translateX(-50%);
 
+    @include breakpoint(xs) { 
+        width: calc(100% - 70px);
+    }
+
     .filter-search--textfield
     {
         width: 335px;
@@ -20,6 +24,10 @@
         border: 0;
         border-radius: 50px;
         outline: 0 !important;
+
+        @include breakpoint(xs) { 
+            width: 100%;
+        }
     }
     
     .filter-search--icon

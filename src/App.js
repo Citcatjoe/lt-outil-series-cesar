@@ -17,10 +17,12 @@ import "./scss/FilterOrder.scss";
 import "./scss/FilterButton.scss";
 
 import asideFooterBg from "./img/aside-footer-bg.svg";
+import asideBg1 from "./img/aside-bg-1.png";
 
 require("typeface-montserrat");
 // import { throws } from 'assert';
 
+const asideBg1Style = { background: "url(" + asideBg1 + ")" };
 
 class App extends Component {
   constructor(props) {
@@ -116,7 +118,7 @@ class App extends Component {
     const { buttons } = this.state;
 
     return <div className="App">
-        <aside>
+        <aside style={asideBg1Style}>
           {/* <div className="aside-header">
             <nav>
               <ul>
