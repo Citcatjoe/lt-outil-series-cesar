@@ -27,11 +27,14 @@ const asideBg1Style = { background: "url(" + asideBg1 + ")" };
 class App extends Component {
   constructor(props) {
     super(props);
+    this.introClose = this.introClose.bind(this);
     this.articleClose = this.articleClose.bind(this);
     this.articleOpen = this.articleOpen.bind(this);
     this.buttonHandle = this.buttonHandle.bind(this);
     this.state = { 
       articles: [], 
+      introVisible: true,
+      introInnerVisible: true,
       headerVisible: true, 
       gridVisible: true, 
       frameVisible: false, 
@@ -43,6 +46,25 @@ class App extends Component {
         { status: false, label:"Regarder un truc complètement frappé" }
       ] 
     };
+  }
+
+  introClose(){
+    // this.setState({
+    //   introInnerVisible: false
+    // });
+
+    this.setState(
+      {
+        introInnerVisible: false
+      },
+      () => {
+        setTimeout(() => {
+          this.setState({
+            introVisible: false
+          });
+        }, 200);
+      }
+    );
   }
 
   articleOpen(item) {
@@ -98,12 +120,10 @@ class App extends Component {
   }
 
   fetchData() {
-    fetch("http://web.tcch.ch/tv-test/") //     // https://www.letemps.ch/tv-shows
+    fetch("http://web.tcch.ch/tv-test/index_read.php") //     // https://www.letemps.ch/tv-shows
       .then(response => response.json())
       .then(json => {
-        this.setState({
-          articles: json
-        });
+        this.setState({ articles: json });
       })
       .catch(function() {
         console.log("Error when loading json");
@@ -116,6 +136,8 @@ class App extends Component {
     const { frameVisible } = this.state;
     const { gridVisible } = this.state;
     const { buttons } = this.state;
+    const { introVisible } = this.state;
+    const { introInnerVisible } = this.state;
 
     return <div className="App">
         <aside style={asideBg1Style}>
@@ -166,7 +188,7 @@ class App extends Component {
           <div className={`grid ${gridVisible ? "is-visible" : ""}`}>
             {
               articles.length > 0 ? articles.map((item, index) => {
-                  return <ItemTeaser index={index} key={index} item={item} articleOpen={this.articleOpen} />;
+              return <ItemTeaser index={index} key={index} item={item} introVisible={introVisible}  introInnerVisible={introInnerVisible} articleOpen={this.articleOpen} introClose={this.introClose} />;
                 }) : null
             }
           </div>
