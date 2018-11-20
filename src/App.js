@@ -4,6 +4,7 @@ import Frame from "./components/Frame";
 import ContentDetails from "./components/ContentDetails";
 import ItemTeaser from "./components/ItemTeaser.js";
 import FilterButton from "./components/FilterButton.js";
+import AsideToggle from "./components/AsideToggle.js";
 import FilterSearch from "./components/FilterSearch.js";
 import FilterOrder from "./components/FilterOrder.js";
 
@@ -12,17 +13,19 @@ import "./scss/AsideTabs.scss";
 import "./scss/Frame.scss"; 
 import "./scss/ContentDetails.scss";
 import "./scss/ItemTeaser.scss";
+import "./scss/AsideToggle.scss";
 import "./scss/FilterSearch.scss";
 import "./scss/FilterOrder.scss";
 import "./scss/FilterButton.scss";
 
 import asideFooterBg from "./img/aside-footer-bg.svg";
 import asideBg1 from "./img/aside-bg-1.png";
+import cross from "./img/cross.svg";
 
 require("typeface-montserrat");
 // import { throws } from 'assert';
 
-const asideBg1Style = { background: "url(" + asideBg1 + ")" };
+const asideBg1Style = { backgroundImage: "url(" + asideBg1 + ")" };
 
 class App extends Component {
   constructor(props) {
@@ -31,8 +34,11 @@ class App extends Component {
     this.articleClose = this.articleClose.bind(this);
     this.articleOpen = this.articleOpen.bind(this);
     this.buttonHandle = this.buttonHandle.bind(this);
+    this.asideToggle = this.asideToggle.bind(this);
     this.state = { 
       articles: [], 
+      asideCloseButtonVisible: false,
+      asideVisible: false,
       introVisible: true,
       introInnerVisible: true,
       headerVisible: true, 
@@ -52,7 +58,7 @@ class App extends Component {
     // this.setState({
     //   introInnerVisible: false
     // });
-
+    
     this.setState(
       {
         introInnerVisible: false
@@ -79,7 +85,9 @@ class App extends Component {
           this.setState({
             frameVisible: true
           });
+          document.body.classList.add("no-scroll");
         }, 500);
+        
       }
     );
   }
@@ -95,6 +103,7 @@ class App extends Component {
             headerVisible: true,
             gridVisible: true
           });
+          document.body.classList.remove("no-scroll");
         }, 500);
       }
     );
@@ -115,6 +124,45 @@ class App extends Component {
     });
   }
 
+  asideToggle() {
+    //alert("coucou");
+    //e.preventDefault();
+    if (this.state.asideVisible)
+    {
+      this.setState(
+        {
+          asideCloseButtonVisible: false
+        },
+        () => {
+          setTimeout(() => {
+            this.setState({
+              asideVisible: false
+            });
+          }, 250);
+
+        }
+      );
+    }
+    else 
+    {
+      this.setState(
+        {
+          
+          asideVisible: true
+        },
+        () => {
+          setTimeout(() => {
+            this.setState({
+              asideCloseButtonVisible: true
+            });
+          }, 250);
+
+        }
+      );
+    }
+    
+  } 
+
   componentDidMount() {
     this.fetchData();
   }
@@ -132,6 +180,8 @@ class App extends Component {
 
   render() {
     const { articles } = this.state;
+    const { asideCloseButtonVisible } = this.state;
+    const { asideVisible } = this.state;
     const { headerVisible } = this.state;
     const { frameVisible } = this.state;
     const { gridVisible } = this.state;
@@ -140,16 +190,10 @@ class App extends Component {
     const { introInnerVisible } = this.state;
 
     return <div className="App">
-        <aside style={asideBg1Style}>
-          {/* <div className="aside-header">
-            <nav>
-              <ul>
-                <li>Suggestions</li>
-                <li> Sur mesure</li>
-              </ul>
-            </nav>
-          </div> */}
-
+        <aside style={asideBg1Style} className={`${asideVisible ? "is-visible" : ""}`}>
+        <div className={`aside--close-button ${asideCloseButtonVisible ? "is-visible" : ""}`} onClick={this.asideToggle}>
+            <img className="aside--close-button--img" src={cross} />
+          </div>
           <Tabs>
             <TabList>
               <Tab>Suggestions</Tab>
@@ -158,11 +202,9 @@ class App extends Component {
 
             <TabPanel>
               <h3 className="aside-title">Nos suggestions rapides</h3>
-              {
-                buttons.length > 0 ? buttons.map((button, index) => {
-                return <FilterButton index={index} key={index} button={button} buttonHandle={this.buttonHandle} />;
-                }) : null
-              }
+              {buttons.length > 0 ? buttons.map((button, index) => {
+                    return <FilterButton index={index} key={index} button={button} buttonHandle={this.buttonHandle} />;
+                  }) : null}
             </TabPanel>
             <TabPanel>
               <h3 className="aside-title">Filtrage personnalisé</h3>
@@ -180,17 +222,16 @@ class App extends Component {
           </ul>
           <img className="aside-footer-bg" src={asideFooterBg} />
         </aside>
-        <main>
+        <main className={`${asideVisible ? "is-moved-right" : ""}`}>
           <div className={`main-header ${headerVisible ? "is-visible" : ""}`}>
+            <AsideToggle asideToggle={this.asideToggle} />
             <FilterSearch />
             <FilterOrder />
           </div>
           <div className={`grid ${gridVisible ? "is-visible" : ""}`}>
-            {
-              articles.length > 0 ? articles.map((item, index) => {
-              return <ItemTeaser index={index} key={index} item={item} introVisible={introVisible}  introInnerVisible={introInnerVisible} articleOpen={this.articleOpen} introClose={this.introClose} />;
-                }) : null
-            }
+            {articles.length > 0 ? articles.map((item, index) => {
+                  return <ItemTeaser index={index} key={index} item={item} introVisible={introVisible} introInnerVisible={introInnerVisible} articleOpen={this.articleOpen} introClose={this.introClose} />;
+                }) : null}
           </div>
         </main>
 

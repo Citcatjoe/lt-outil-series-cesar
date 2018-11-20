@@ -14,6 +14,20 @@
     display: none;
     visibility: hidden;
 
+    @include breakpoint(xl) { 
+        width: 66.66665%;
+        padding-bottom: 50%;
+    }
+
+    @include breakpoint(lg) { 
+        width: 100%;
+        padding-bottom: 17.5px;
+        //background: red;
+        //margin: 17.5px 0;
+    }
+
+    
+
     &.is-visible
     {
         opacity: 1;
@@ -39,6 +53,12 @@
         background: $color4;
         opacity: 0;
         transition: all 0.2s;
+
+        @include breakpoint(lg) { 
+            width: 100% !important;
+            position: static;
+            transform: translate(0, 0);
+        }
 
         &.is-visible
         {

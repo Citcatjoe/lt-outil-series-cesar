@@ -44,10 +44,38 @@ $flash-color2: #ff0049;
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
 
+  body 
+  {
+    
+    &.no-scroll 
+    {
+      overflow: hidden;
+    }
+  }
+
+  body::-webkit-scrollbar {
+    width: 6px;
+    background-color: $color1;
+  }
+
+  body::-webkit-scrollbar-thumb {
+    background-color: $flash-color1;
+  }
+
 .App {
   //text-align: center; 
   height: 100%;
+  overflow-x: hidden;
 }
+
+.App::-webkit-scrollbar {
+    width: 6px;
+    background-color: $color1;
+  }
+
+  .App::-webkit-scrollbar-thumb {
+    background-color: $flash-color1;
+  }
 
 #root 
 {
@@ -63,9 +91,56 @@ aside
   float: left;
   position: fixed;
   padding: 0 40px;
+  z-index: 10;
+  transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
 
   @include breakpoint(md) { 
-      transform: translateX(-100%);
+      transform: translateX(-400px);
+      width: 400px;
+      
+      //padding: 0 25px;
+  }
+
+  &.is-visible
+  {
+    transform: translateX(0);
+  }
+
+  .aside--close-button
+  {
+    position: absolute;
+    top: 36px;
+    right: 0;
+    transform: translateX(50%) scale(0);
+    background-image: linear-gradient(33deg, #ff0078 0%, #ff0049 100%);
+    border: 3px solid $color2;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    @include breakpoint(md) { 
+        display: block;
+    }
+    
+
+    &.is-visible 
+    {
+      transform: translateX(50%) scale(1);
+    }
+    
+
+    .aside--close-button--img
+    {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform-origin: center center;
+      transform: translate(-50%, -50%) rotate(45deg);
+      width: 33px;
+    }
   }
 
   .aside-footer-list
@@ -104,6 +179,14 @@ main
   min-height: 100%;
   background: $color1;
   float: right;
+  transform: translateX(0);
+  transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+  
+
+  // &.is-moved-right 
+  // {
+  //   transform: translateX(300px);
+  // }
 
   @include breakpoint(md) { 
       width: 100%;
