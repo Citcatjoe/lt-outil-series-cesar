@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs"; 
+//import Select from "react-select";
+
 import Frame from "./components/Frame";
 import ContentDetails from "./components/ContentDetails";
 import ItemTeaser from "./components/ItemTeaser.js";
 import FilterButton from "./components/FilterButton.js";
+import FilterSelect from "./components/FilterSelect.js";
 import AsideToggle from "./components/AsideToggle.js";
 import FilterSearch from "./components/FilterSearch.js";
 import FilterOrder from "./components/FilterOrder.js";
@@ -21,6 +24,7 @@ import "./scss/FilterButton.scss";
 import asideFooterBg from "./img/aside-footer-bg.svg";
 import asideBg1 from "./img/aside-bg-1.png";
 import cross from "./img/cross.svg";
+import { runInThisContext } from 'vm';
 
 require("typeface-montserrat");
 // import { throws } from 'assert';
@@ -35,30 +39,37 @@ class App extends Component {
     this.articleOpen = this.articleOpen.bind(this);
     this.buttonHandle = this.buttonHandle.bind(this);
     this.asideToggle = this.asideToggle.bind(this);
-    this.state = { 
-      articles: [], 
+    this.selectHandle = this.selectHandle.bind(this);
+    this.state = {
+      articles: [],
+      articlesFiltered: null,
       asideCloseButtonVisible: false,
       asideVisible: false,
       introVisible: true,
       introInnerVisible: true,
-      headerVisible: true, 
-      gridVisible: true, 
-      frameVisible: false, 
+      headerVisible: true,
+      gridVisible: true,
+      frameVisible: false,
+      selectedOption: false,
       buttons: [
-        { status: false, label:"Se délasser en mangeant ou en repassant" }, 
-        { status: false, label:"Frissonner" },
-        { status: false, label:"En discuter demain au bureau" }, 
-        { status: false, label:"Remonter le temps" }, 
-        { status: false, label:"Regarder un truc complètement frappé" }
-      ] 
+        { status: false, label: "Se délasser en mangeant ou en repassant" },
+        { status: false, label: "Frissonner" },
+        { status: false, label: "En discuter demain au bureau" },
+        { status: false, label: "Remonter le temps" },
+        { status: false, label: "Regarder un truc complètement frappé" }
+      ],
+      selectCategory: [
+        { status: false, label: "Se délasser en mangeant ou en repassant" }
+        
+      ],
     };
   }
 
-  introClose(){
+  introClose() {
     // this.setState({
     //   introInnerVisible: false
     // });
-    
+
     this.setState(
       {
         introInnerVisible: false
@@ -87,7 +98,6 @@ class App extends Component {
           });
           document.body.classList.add("no-scroll");
         }, 500);
-        
       }
     );
   }
@@ -95,7 +105,7 @@ class App extends Component {
   articleClose() {
     this.setState(
       {
-        frameVisible: false,
+        frameVisible: false
       },
       () => {
         setTimeout(() => {
@@ -107,6 +117,19 @@ class App extends Component {
         }, 500);
       }
     );
+  }
+
+  selectHandle(selectedOption) {
+    let x = null;
+    if (selectedOption !== null) {
+      x = this.state.articles.filter(
+        article => article.lt_tv_show_genre === selectedOption.value
+      );
+    }
+    this.setState({
+      selectedOption: selectedOption,
+      articlesFiltered: x
+    });
   }
 
   buttonHandle(key) {
@@ -127,8 +150,7 @@ class App extends Component {
   asideToggle() {
     //alert("coucou");
     //e.preventDefault();
-    if (this.state.asideVisible)
-    {
+    if (this.state.asideVisible) {
       this.setState(
         {
           asideCloseButtonVisible: false
@@ -139,15 +161,11 @@ class App extends Component {
               asideVisible: false
             });
           }, 250);
-
         }
       );
-    }
-    else 
-    {
+    } else {
       this.setState(
         {
-          
           asideVisible: true
         },
         () => {
@@ -156,16 +174,16 @@ class App extends Component {
               asideCloseButtonVisible: true
             });
           }, 250);
-
         }
       );
     }
-    
-  } 
+  }
 
   componentDidMount() {
     this.fetchData();
   }
+
+  
 
   fetchData() {
     fetch("http://web.tcch.ch/tv-test/index_read.php") //     // https://www.letemps.ch/tv-shows
@@ -179,19 +197,33 @@ class App extends Component {
   }
 
   render() {
-    const { articles } = this.state;
+    let { articles, articlesFiltered } = this.state;
     const { asideCloseButtonVisible } = this.state;
     const { asideVisible } = this.state;
     const { headerVisible } = this.state;
     const { frameVisible } = this.state;
     const { gridVisible } = this.state;
     const { buttons } = this.state;
+    const { selectCategory } = this.state;
     const { introVisible } = this.state;
     const { introInnerVisible } = this.state;
 
-    return <div className="App">
-        <aside style={asideBg1Style} className={`${asideVisible ? "is-visible" : ""}`}>
-        <div className={`aside--close-button ${asideCloseButtonVisible ? "is-visible" : ""}`} onClick={this.asideToggle}>
+    if(articlesFiltered !== null) {
+      articles = articlesFiltered;
+    }
+
+    return (
+      <div className="App">
+        <aside
+          style={asideBg1Style}
+          className={`${asideVisible ? "is-visible" : ""}`}
+        >
+          <div
+            className={`aside--close-button ${
+              asideCloseButtonVisible ? "is-visible" : ""
+            }`}
+            onClick={this.asideToggle}
+          >
             <img className="aside--close-button--img" src={cross} />
           </div>
           <Tabs>
@@ -202,22 +234,35 @@ class App extends Component {
 
             <TabPanel>
               <h3 className="aside-title">Nos suggestions rapides</h3>
-              {buttons.length > 0 ? buttons.map((button, index) => {
-                    return <FilterButton index={index} key={index} button={button} buttonHandle={this.buttonHandle} />;
-                  }) : null}
+              {buttons.length > 0
+                ? buttons.map((button, index) => {
+                    return (
+                      <FilterButton
+                        index={index}
+                        key={index}
+                        button={button}
+                        buttonHandle={this.buttonHandle}
+                      />
+                    );
+                  })
+                : null}
             </TabPanel>
             <TabPanel>
               <h3 className="aside-title">Filtrage personnalisé</h3>
+              {/* <FilterSelect articles={articles} selectHandle={this.selectHandle} /> */}
+              {
+                selectCategory.length > 0
+                  ? selectCategory.map((select, index) => {
+                    return <FilterSelect articles={articles} selectHandle={this.selectHandle} index={index} key={index} selectCategory={selectCategory} />;
+                  })
+                  : 'No results'
+              }
             </TabPanel>
           </Tabs>
           <ul className="aside-footer-list">
-            <li className="aside-footer-list-item">
-              Partager sur Facebook
-            </li>
+            <li className="aside-footer-list-item">Partager sur Facebook</li>
             <li className="aside-footer-list-item">Partager sur Twitter</li>
-            <li className="aside-footer-list-item">
-              Partager sur Linkedin
-            </li>
+            <li className="aside-footer-list-item">Partager sur Linkedin</li>
             <li className="aside-footer-list-item">letemps.ch</li>
           </ul>
           <img className="aside-footer-bg" src={asideFooterBg} />
@@ -229,16 +274,34 @@ class App extends Component {
             <FilterOrder />
           </div>
           <div className={`grid ${gridVisible ? "is-visible" : ""}`}>
-            {articles.length > 0 ? articles.map((item, index) => {
-                  return <ItemTeaser index={index} key={index} item={item} introVisible={introVisible} introInnerVisible={introInnerVisible} articleOpen={this.articleOpen} introClose={this.introClose} />;
-                }) : null}
+            {
+              articles.length > 0
+              ? articles.map((item, index) => {
+                  return (
+                    <ItemTeaser
+                      index={index}
+                      key={index}
+                      item={item}
+                      introVisible={introVisible}
+                      introInnerVisible={introInnerVisible}
+                      articleOpen={this.articleOpen}
+                      introClose={this.introClose}
+                    />
+                  );
+                })
+              : 'No results'
+            }
           </div>
         </main>
 
         <Frame frameVisible={frameVisible}>
-          <ContentDetails articleClose={this.articleClose} item={this.state.item} />
+          <ContentDetails
+            articleClose={this.articleClose}
+            item={this.state.item}
+          />
         </Frame>
-      </div>;
+      </div>
+    );
   }
 }
 
