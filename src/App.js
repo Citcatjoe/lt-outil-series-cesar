@@ -39,7 +39,8 @@ class App extends Component {
     this.articleOpen = this.articleOpen.bind(this);
     this.buttonHandle = this.buttonHandle.bind(this);
     this.asideToggle = this.asideToggle.bind(this);
-    this.selectHandle = this.selectHandle.bind(this);
+    this.selectCategoryHandle = this.selectCategoryHandle.bind(this);
+    this.selectFormatHandle = this.selectFormatHandle.bind(this);
     this.state = {
       articles: [],
       articlesFiltered: null,
@@ -58,9 +59,49 @@ class App extends Component {
         { status: false, label: "Remonter le temps" },
         { status: false, label: "Regarder un truc complètement frappé" }
       ],
-      selectCategory: [
-        { status: false, label: "Se délasser en mangeant ou en repassant" }
+      selects: [ 
+        { 
+          selectName: "category", 
+          selectJsonLabel: "lt_tv_show_genre",
+          selectValues: [
+            { value: "Comédie", label: "Comédie" },
+            { value: "Société", label: "Société" }
+          ]
+        },
+        {
+          selectName: "format",
+          selectJsonLabel: "lt_tv_show_genre",
+          selectValues: [
+            { value: "3", label: "3" },
+            { value: "5", label: "5" }
+          ]
+        },
         
+        
+      ],
+      selectCategory: [
+        { value: "Comédie", label: "Comédie" },
+        { value: "Société", label: "Société" },
+        { value: "Sentimental", label: "Sentimental" },
+        { value: "Policier", label: "Policier" },
+        { value: "Fantastique", label: "Fantastique" },
+        { value: "Historique", label: "Historique" },
+        { value: "Guerre", label: "Guerre" },
+        { value: "Action", label: "Action" },
+        { value: "Western", label: "Western" }
+      ],
+      selectFormat: [
+        { value: "3", label: "3" },
+        { value: "5", label: "5" },
+        { value: "21", label: "21" },
+        { value: "25", label: "25" },
+        { value: "40", label: "40" },
+        { value: "42", label: "42" },
+        { value: "45", label: "45" },
+        { value: "55", label: "55" },
+        { value: "56", label: "56" },
+        { value: "59", label: "59" },
+        { value: "60", label: "60" }
       ],
     };
   }
@@ -119,11 +160,24 @@ class App extends Component {
     );
   }
 
-  selectHandle(selectedOption) {
+  selectCategoryHandle(selectedOption) {
     let x = null;
     if (selectedOption !== null) {
       x = this.state.articles.filter(
         article => article.lt_tv_show_genre === selectedOption.value
+      );
+    }
+    this.setState({
+      selectedOption: selectedOption,
+      articlesFiltered: x
+    });
+  }
+
+  selectFormatHandle(selectedOption) {
+    let x = null;
+    if (selectedOption !== null) {
+      x = this.state.articles.filter(
+        article => article.lt_reading_time === selectedOption.value
       );
     }
     this.setState({
@@ -183,8 +237,6 @@ class App extends Component {
     this.fetchData();
   }
 
-  
-
   fetchData() {
     fetch("http://web.tcch.ch/tv-test/index_read.php") //     // https://www.letemps.ch/tv-shows
       .then(response => response.json())
@@ -197,6 +249,7 @@ class App extends Component {
   }
 
   render() {
+    
     let { articles, articlesFiltered } = this.state;
     const { asideCloseButtonVisible } = this.state;
     const { asideVisible } = this.state;
@@ -204,10 +257,12 @@ class App extends Component {
     const { frameVisible } = this.state;
     const { gridVisible } = this.state;
     const { buttons } = this.state;
+    const { selects } = this.state;
     const { selectCategory } = this.state;
+    const { selectFormat } = this.state;
     const { introVisible } = this.state;
     const { introInnerVisible } = this.state;
-
+    console.log(selects);
     if(articlesFiltered !== null) {
       articles = articlesFiltered;
     }
@@ -249,14 +304,11 @@ class App extends Component {
             </TabPanel>
             <TabPanel>
               <h3 className="aside-title">Filtrage personnalisé</h3>
-              {/* <FilterSelect articles={articles} selectHandle={this.selectHandle} /> */}
-              {
-                selectCategory.length > 0
-                  ? selectCategory.map((select, index) => {
-                    return <FilterSelect articles={articles} selectHandle={this.selectHandle} index={index} key={index} selectCategory={selectCategory} />;
-                  })
-                  : 'No results'
-              }
+              {/* <FilterSelect articles={articles} selectCategoryHandle={this.selectCategoryHandle} /> */}
+              
+              <FilterSelect selectCategoryHandle={this.selectCategoryHandle} selectCategory={selectCategory} />
+              <FilterSelect selectFormatHandle={this.selectFormatHandle} selectFormat={selectFormat} />
+              
             </TabPanel>
           </Tabs>
           <ul className="aside-footer-list">
