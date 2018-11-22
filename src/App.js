@@ -39,8 +39,9 @@ class App extends Component {
     this.articleOpen = this.articleOpen.bind(this);
     this.buttonHandle = this.buttonHandle.bind(this);
     this.asideToggle = this.asideToggle.bind(this);
-    this.selectCategoryHandle = this.selectCategoryHandle.bind(this);
-    this.selectFormatHandle = this.selectFormatHandle.bind(this);
+    this.selectHandle = this.selectHandle.bind(this);
+    // this.selectCategoryHandle = this.selectCategoryHandle.bind(this);
+    // this.selectFormatHandle = this.selectFormatHandle.bind(this);
     this.state = {
       articles: [],
       articlesFiltered: null,
@@ -63,17 +64,25 @@ class App extends Component {
         { 
           selectName: "category", 
           selectJsonLabel: "lt_tv_show_genre",
-          selectValues: [
+          selectOptions: [
             { value: "Comédie", label: "Comédie" },
             { value: "Société", label: "Société" }
           ]
         },
         {
           selectName: "format",
-          selectJsonLabel: "lt_tv_show_genre",
-          selectValues: [
+          selectJsonLabel: "lt_reading_time",
+          selectOptions: [
             { value: "3", label: "3" },
             { value: "5", label: "5" }
+          ]
+        },
+        {
+          selectName: "Origine",
+          selectJsonLabel: "lt_country",
+          selectOptions: [
+            { value: "France", label: "France" },
+            { value: "Allemagne", label: "Allemagne" }
           ]
         },
         
@@ -160,12 +169,15 @@ class App extends Component {
     );
   }
 
-  selectCategoryHandle(selectedOption) {
+  selectHandle(selectedOption, selectJsonLabel) {
     let x = null;
+    
     if (selectedOption !== null) {
       x = this.state.articles.filter(
-        article => article.lt_tv_show_genre === selectedOption.value
+        article => article.lt_reading_time === selectedOption.value
+        
       );
+      console.log('app.js = ' +selectJsonLabel)
     }
     this.setState({
       selectedOption: selectedOption,
@@ -173,18 +185,31 @@ class App extends Component {
     });
   }
 
-  selectFormatHandle(selectedOption) {
-    let x = null;
-    if (selectedOption !== null) {
-      x = this.state.articles.filter(
-        article => article.lt_reading_time === selectedOption.value
-      );
-    }
-    this.setState({
-      selectedOption: selectedOption,
-      articlesFiltered: x
-    });
-  }
+  // selectCategoryHandle(selectedOption) {
+  //   let x = null;
+  //   if (selectedOption !== null) {
+  //     x = this.state.articles.filter(
+  //       article => article.lt_tv_show_genre === selectedOption.value
+  //     );
+  //   }
+  //   this.setState({
+  //     selectedOption: selectedOption,
+  //     articlesFiltered: x
+  //   });
+  // }
+
+  // selectFormatHandle(selectedOption) {
+  //   let x = null;
+  //   if (selectedOption !== null) {
+  //     x = this.state.articles.filter(
+  //       article => article.lt_reading_time === selectedOption.value
+  //     );
+  //   }
+  //   this.setState({
+  //     selectedOption: selectedOption,
+  //     articlesFiltered: x
+  //   });
+  // }
 
   buttonHandle(key) {
     var buttons = this.state.buttons;
@@ -262,7 +287,7 @@ class App extends Component {
     const { selectFormat } = this.state;
     const { introVisible } = this.state;
     const { introInnerVisible } = this.state;
-    console.log(selects);
+    
     if(articlesFiltered !== null) {
       articles = articlesFiltered;
     }
@@ -305,9 +330,18 @@ class App extends Component {
             <TabPanel>
               <h3 className="aside-title">Filtrage personnalisé</h3>
               {/* <FilterSelect articles={articles} selectCategoryHandle={this.selectCategoryHandle} /> */}
-              
-              <FilterSelect selectCategoryHandle={this.selectCategoryHandle} selectCategory={selectCategory} />
-              <FilterSelect selectFormatHandle={this.selectFormatHandle} selectFormat={selectFormat} />
+              {
+                selects.length > 0
+                ? selects.map((select, index) => {
+                  //console.log(select);
+                  return (
+                    <FilterSelect index={index} key={index} articles={articles} select={select} selectHandle={this.selectHandle} />
+                  );
+                })
+                : null
+              }
+              {/* <FilterSelect selectCategoryHandle={this.selectCategoryHandle} selectCategory={selectCategory} />
+              <FilterSelect selectFormatHandle={this.selectFormatHandle} selectFormat={selectFormat} /> */}
               
             </TabPanel>
           </Tabs>
