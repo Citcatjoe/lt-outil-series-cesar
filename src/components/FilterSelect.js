@@ -4,16 +4,15 @@ import Select from "react-select";
 class FilterSelect extends Component {
   state = {
     selectedOption: null,
-    selectJsonLabel: null
+    selectJsonLabel: this.props.select.selectJsonLabel
   };
 
-  handleChange = (selectedOption, selectJsonLabel) => {
+  handleChange = (selectedOption) => {
     this.setState({ 
       selectedOption: selectedOption,
-      selectJsonLabel: 'mon cul'
     });
-    console.log('(fonction) selectJsonLabel ' + selectJsonLabel);
-    this.props.selectHandle(selectedOption, selectJsonLabel);
+    console.log('(fonction) selectJsonLabel ' + this.state.selectJsonLabel);
+    this.props.selectHandle(selectedOption, this.state.selectJsonLabel);
     
   };
 
@@ -27,9 +26,9 @@ class FilterSelect extends Component {
     //console.log(select + 'lol');
 
     return (
-      <div>
-        <p>{selectName}<br></br>{selectJsonLabel}</p>
-        <Select options={selectOptions} value={selectedOption} onChange={this.handleChange} isClearable={true} />
+      <div className='filter-select'>
+        {/* <p>{selectName}</p> */}
+        <Select className='select' classNamePrefix="select" options={selectOptions} value={selectedOption} onChange={this.handleChange} isClearable={true} placeholder={selectName} />
       </div>
     );
   }

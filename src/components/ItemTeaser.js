@@ -12,6 +12,9 @@ class ItemTeaser extends React.Component {
     //     });
     // } 
 
+    componentDidMount() {
+        console.log("GrandChild did mount.");
+    }
     
 
     render(){

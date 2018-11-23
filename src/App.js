@@ -4,22 +4,25 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 
 import Frame from "./components/Frame";
 import ContentDetails from "./components/ContentDetails";
-import ItemTeaser from "./components/ItemTeaser.js";
-import FilterButton from "./components/FilterButton.js";
-import FilterSelect from "./components/FilterSelect.js";
-import AsideToggle from "./components/AsideToggle.js";
-import FilterSearch from "./components/FilterSearch.js";
-import FilterOrder from "./components/FilterOrder.js";
+import Loading from "./components/Loading";
+import ItemTeaser from "./components/ItemTeaser";
+import FilterButton from "./components/FilterButton";
+import FilterSelect from "./components/FilterSelect";
+import AsideToggle from "./components/AsideToggle";
+import FilterSearch from "./components/FilterSearch";
+import FilterOrder from "./components/FilterOrder";
 
 import './App.scss'; 
 import "./scss/AsideTabs.scss";
 import "./scss/Frame.scss"; 
 import "./scss/ContentDetails.scss";
+import "./scss/Loading.scss";
 import "./scss/ItemTeaser.scss";
 import "./scss/AsideToggle.scss";
 import "./scss/FilterSearch.scss";
 import "./scss/FilterOrder.scss";
 import "./scss/FilterButton.scss";
+import "./scss/FilterSelect.scss";
 
 import asideFooterBg from "./img/aside-footer-bg.svg";
 import asideBg1 from "./img/aside-bg-1.png";
@@ -40,6 +43,7 @@ class App extends Component {
     this.buttonHandle = this.buttonHandle.bind(this);
     this.asideToggle = this.asideToggle.bind(this);
     this.selectHandle = this.selectHandle.bind(this);
+    this.hideLoading = this.hideLoading.bind(this);
     // this.selectCategoryHandle = this.selectCategoryHandle.bind(this);
     // this.selectFormatHandle = this.selectFormatHandle.bind(this);
     this.state = {
@@ -52,7 +56,9 @@ class App extends Component {
       headerVisible: true,
       gridVisible: true,
       frameVisible: false,
+      loading: true,
       selectedOption: false,
+      filteredOptions: [],
       buttons: [
         { status: false, label: "Se délasser en mangeant ou en repassant" },
         { status: false, label: "Frissonner" },
@@ -62,7 +68,7 @@ class App extends Component {
       ],
       selects: [ 
         { 
-          selectName: "category", 
+          selectName: "Genre", 
           selectJsonLabel: "lt_tv_show_genre",
           selectOptions: [
             { value: "Comédie", label: "Comédie" },
@@ -70,7 +76,23 @@ class App extends Component {
           ]
         },
         {
-          selectName: "format",
+          selectName: "Public",
+          selectJsonLabel: "lt_informed_public",
+          selectOptions: [
+            { value: "Tout le monde dans la famille", label: "Tout le monde dans la famille" },
+            { value: "Public averti", label: "Public averti" }
+          ]
+        },
+        {
+          selectName: "Provenance de la série",
+          selectJsonLabel: "lt_country",
+          selectOptions: [
+            { value: "France", label: "France" },
+            { value: "Allemagne", label: "Allemagne" }
+          ]
+        },
+        {
+          selectName: "Format des épisodes",
           selectJsonLabel: "lt_reading_time",
           selectOptions: [
             { value: "3", label: "3" },
@@ -78,13 +100,21 @@ class App extends Component {
           ]
         },
         {
-          selectName: "Origine",
-          selectJsonLabel: "lt_country",
+          selectName: "État de la production",
+          selectJsonLabel: "np8_end_date",
           selectOptions: [
-            { value: "France", label: "France" },
-            { value: "Allemagne", label: "Allemagne" }
+            { value: "", label: "En cours" },
+            { value: "Terminée", label: "Terminée" }
           ]
         },
+        {
+          selectName: "Histoire suivie",
+          selectJsonLabel: "lt_tv_show_serial",
+          selectOptions: [
+            { value: "Feuilleton", label: "Oui" },
+            { value: "Histoires autonomes", label: "Non" }
+          ]
+        }
         
         
       ],
@@ -113,6 +143,13 @@ class App extends Component {
         { value: "60", label: "60" }
       ],
     };
+  }
+
+  hideLoading() {
+    // this.setState({
+    //   loading: false
+    // });
+    alert('coucou');
   }
 
   introClose() {
@@ -170,18 +207,41 @@ class App extends Component {
   }
 
   selectHandle(selectedOption, selectJsonLabel) {
-    let x = null;
+    let articles = this.state.articles,
+      filteredOptions = this.state.filteredOptions;
     
+    // Ici on regarde si on filter ou on clear le filtre
+    // puis on sauve ça dans notre variable locale
     if (selectedOption !== null) {
-      x = this.state.articles.filter(
-        article => article.lt_reading_time === selectedOption.value
-        
-      );
-      console.log('app.js = ' +selectJsonLabel)
+      filteredOptions[selectJsonLabel] = selectedOption.value
+    }else{
+      if (filteredOptions[selectJsonLabel]) {
+        delete filteredOptions[selectJsonLabel];
+      }
     }
+
+    console.log(filteredOptions);
+
+    for (var index in filteredOptions) {
+      if (filteredOptions.hasOwnProperty(index)) {
+        // eslint-disable-next-line no-loop-func
+        articles = articles.filter(article => article[index] === filteredOptions[index]);
+      }
+    }
+
+    // Ici on parcour chaque filtre pour filtre les articles
+    // c'est un filtre additionnel, c'est à dire que nous allons
+    // filtre le reste des articles qui sont déjà filtré.
+    filteredOptions.forEach((filter, index) => {
+      console.log(filter, index);
+      
+    });
+
+    // On place tout ça dans le state
     this.setState({
       selectedOption: selectedOption,
-      articlesFiltered: x
+      articlesFiltered: articles,
+      filteredOptions: filteredOptions
     });
   }
 
@@ -259,19 +319,20 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.fetchData();
-  }
-
-  fetchData() {
     fetch("http://web.tcch.ch/tv-test/index_read.php") //     // https://www.letemps.ch/tv-shows
       .then(response => response.json())
       .then(json => {
-        this.setState({ articles: json });
+        // setTimeout(() => {
+          this.setState({ articles: json, loading: false });
+        // }, 3000);
       })
-      .catch(function() {
+      .catch(function () {
         console.log("Error when loading json");
-      });
+    });
   }
+
+  
+  
 
   render() {
     
@@ -281,10 +342,9 @@ class App extends Component {
     const { headerVisible } = this.state;
     const { frameVisible } = this.state;
     const { gridVisible } = this.state;
+    const { loading } = this.state;
     const { buttons } = this.state;
     const { selects } = this.state;
-    const { selectCategory } = this.state;
-    const { selectFormat } = this.state;
     const { introVisible } = this.state;
     const { introInnerVisible } = this.state;
     
@@ -359,7 +419,9 @@ class App extends Component {
             <FilterSearch />
             <FilterOrder />
           </div>
+          <Loading loading={loading} />
           <div className={`grid ${gridVisible ? "is-visible" : ""}`}>
+              
             {
               articles.length > 0
               ? articles.map((item, index) => {
@@ -372,10 +434,11 @@ class App extends Component {
                       introInnerVisible={introInnerVisible}
                       articleOpen={this.articleOpen}
                       introClose={this.introClose}
+                      hideLoading={this.hideLoading}
                     />
                   );
                 })
-              : 'No results'
+              : <p>hello</p>
             }
           </div>
         </main>
