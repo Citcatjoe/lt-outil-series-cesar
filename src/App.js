@@ -93,8 +93,8 @@ class App extends Component {
           selectName: "Provenance de la série",
           selectJsonLabel: "lt_country",
           selectOptions: [
+            // complété au chargement du json (Danemark et éventuels nouveaux pays)
             { value: "Canada", label: "Canada" },
-            { value: "Danemark", label: "Danemark" },
             { value: "États-Unis", label: "États-Unis" },
             { value: "France", label: "France" },
             { value: "Grande-Bretagne", label: "Grande-Bretagne" },
@@ -347,24 +347,38 @@ class App extends Component {
       .then(response => response.json())
       .then(json => {
           this.setState({ articles: json, loading: false });
-          // compter valeurs
 
+          // test: génération auto du menu déroulant «Provenance»
           var countryList = [];
           json.map((row, index) => {
-            var countries = row['lt_country'].split(', ');
+            // on saute les pays non renseignés et on splitte les coproductions
+            var countries = row['lt_country'].length > 0 ? row['lt_country'].split(', ') : [];
             return countryList = countryList.concat(countries);
           });
-          console.log(countryList);
-          /*{
-            selectName: "Provenance de la série",
-            selectJsonLabel: "lt_country",
-            selectOptions: [
-              { value: "États-Unis", label: "États-Unis" },
-              { value: "France", label: "France" },
-              { value: "Allemagne", label: "Allemagne" }
-            ]
-          }*/
 
+          // filtrage et tri
+          countryList = countryList.filter (function (value, index, countryList) {
+              return countryList.indexOf(value) === index;
+          });
+          countryList.sort(
+            function (a, b) {
+              // Pour États-Unis, ... (accent initial)
+              return a.localeCompare(b);
+          });
+
+          var countryOptions = [];
+          countryList.map((item, index) => {
+            return countryOptions.push({ value: item, label: item });
+          });
+
+          // on update les selects souhaités
+          let selects = this.state.selects;
+          selects.forEach((item) => {
+            if ( item.selectJsonLabel === 'lt_country'){
+              item.selectOptions = countryOptions;
+            }
+          });
+          this.setState( {'selects': selects} );
       })
       .catch(function () {
         console.log("Error when loading json");
