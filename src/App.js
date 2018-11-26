@@ -127,33 +127,7 @@ class App extends Component {
             { value: "Histoires autonomes", label: "Non" }
           ]
         }
-
-
-      ],
-      selectCategory: [
-        { value: "Comédie", label: "Comédie" },
-        { value: "Société", label: "Société" },
-        { value: "Sentimental", label: "Sentimental" },
-        { value: "Policier", label: "Policier" },
-        { value: "Fantastique", label: "Fantastique" },
-        { value: "Historique", label: "Historique" },
-        { value: "Guerre", label: "Guerre" },
-        { value: "Action", label: "Action" },
-        { value: "Western", label: "Western" }
-      ],
-      selectFormat: [
-        { value: "3", label: "3" },
-        { value: "5", label: "5" },
-        { value: "21", label: "21" },
-        { value: "25", label: "25" },
-        { value: "40", label: "40" },
-        { value: "42", label: "42" },
-        { value: "45", label: "45" },
-        { value: "55", label: "55" },
-        { value: "56", label: "56" },
-        { value: "59", label: "59" },
-        { value: "60", label: "60" }
-      ],
+      ]
     };
   }
 
@@ -232,7 +206,7 @@ class App extends Component {
       }
     }
 
-    console.log(filteredOptions);
+    // DEBUG console.log(filteredOptions);
 
     // on utilise *let* pour eviter de déclencher no-loop-func
     for (let index in filteredOptions) {
@@ -255,6 +229,14 @@ class App extends Component {
           }
           articles = articles.filter(article => categorizeLength(article[index]) === filteredOptions[index] );
 
+        // date de fin? -> série en cours / terminée
+        } else if ( index === 'np8_end_date' ) {
+          if( filteredOptions[index] === 'Terminée' ){
+            articles = articles.filter(article => article[index] !== '');
+          } else {
+            articles = articles.filter(article => article[index] === '');
+          }
+          
         // simple égalité
         } else {
           articles = articles.filter(article => article[index] === filteredOptions[index]);
@@ -266,7 +248,7 @@ class App extends Component {
     // c'est un filtre additionnel, c'est à dire que nous allons
     // filtre le reste des articles qui sont déjà filtré.
     filteredOptions.forEach((filter, index) => {
-      console.log(filter, index);
+      // DEBUG console.log(filter, index);
     });
 
     // On place tout ça dans le state
