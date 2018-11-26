@@ -105,7 +105,10 @@ class App extends Component {
           selectJsonLabel: "lt_reading_time",
           selectOptions: [
             { value: "3", label: "3" },
-            { value: "5", label: "5" }
+            { value: "5", label: "5" },
+            { value: "<15", label: "Moins de 15 minutes" },
+            { value: "<=30", label: "De 15 à 30 minutes" },
+            { value: ">30", label: "Plus de 30 minutes" },
           ]
         },
         {
@@ -234,9 +237,26 @@ class App extends Component {
     // on utilise *let* pour eviter de déclencher no-loop-func
     for (let index in filteredOptions) {
       if (filteredOptions.hasOwnProperty(index)) {
-        if( ['lt_tv_show_genre', 'lt_country'].indexOf(index) >= 0 ) { // categories pouvant contenir plusieurs éléments
+
+        // categories pouvant contenir plusieurs éléments
+        if( ['lt_tv_show_genre', 'lt_country'].indexOf(index) >= 0 ) {
           articles = articles.filter(article => article[index].includes( filteredOptions[index] ) );
-        }else{
+
+        // durée
+        } else if ( index === 'lt_reading_time' ) {
+          let categorizeLength = function(d){
+            if ( d < 15 ){
+              return '<15';
+            } else if ( d <= 30 ) {
+              return '<=30';
+            } else {
+              return '>30';
+            }
+          }
+          articles = articles.filter(article => categorizeLength(article[index]) === filteredOptions[index] );
+
+        // simple égalité
+        } else {
           articles = articles.filter(article => article[index] === filteredOptions[index]);
         }
       }
