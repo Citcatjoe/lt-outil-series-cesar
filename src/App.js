@@ -72,8 +72,13 @@ class App extends Component {
           selectName: "Genre",
           selectJsonLabel: "lt_tv_show_genre",
           selectOptions: [
+            { value: "Action", label: "Action" },
             { value: "Comédie", label: "Comédie" },
-            { value: "Société", label: "Société" }
+            { value: "Historique", label: "Historique" },
+            { value: "Policier", label: "Policier" },
+            { value: "Science-fiction, fantastique", label: "Science-fiction, fantastique" },
+            { value: "Sentimental", label: "Sentimental" },
+            { value: "Société", label: "Société" },
           ]
         },
         {
@@ -88,9 +93,11 @@ class App extends Component {
           selectName: "Provenance de la série",
           selectJsonLabel: "lt_country",
           selectOptions: [
+            { value: "Canada", label: "Canada" },
+            { value: "Danemark", label: "Danemark" },
             { value: "États-Unis", label: "États-Unis" },
             { value: "France", label: "France" },
-            { value: "Allemagne", label: "Allemagne" }
+            { value: "Grande-Bretagne", label: "Grande-Bretagne" },
           ]
         },
         {
@@ -224,10 +231,14 @@ class App extends Component {
 
     console.log(filteredOptions);
 
-    for (var index in filteredOptions) {
+    // on utilise *let* pour eviter de déclencher no-loop-func
+    for (let index in filteredOptions) {
       if (filteredOptions.hasOwnProperty(index)) {
-        // eslint-disable-next-line no-loop-func
-        articles = articles.filter(article => article[index] === filteredOptions[index]);
+        if( ['lt_tv_show_genre', 'lt_country'].indexOf(index) >= 0 ) { // categories pouvant contenir plusieurs éléments
+          articles = articles.filter(article => article[index].includes( filteredOptions[index] ) );
+        }else{
+          articles = articles.filter(article => article[index] === filteredOptions[index]);
+        }
       }
     }
 
@@ -236,7 +247,6 @@ class App extends Component {
     // filtre le reste des articles qui sont déjà filtré.
     filteredOptions.forEach((filter, index) => {
       console.log(filter, index);
-
     });
 
     // On place tout ça dans le state
@@ -322,21 +332,18 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch("http://web.tcch.ch/tv-test/index_read.php") //     // https://www.letemps.ch/tv-shows
+    fetch("http://web.tcch.ch/tv-test/index_read.php") // prod: https://www.letemps.ch/tv-shows
       .then(response => response.json())
       .then(json => {
-        // setTimeout(() => {
           this.setState({ articles: json, loading: false });
           // compter valeurs
-          /*
-          var countryCounts = {};
-          json.map((row, index) => {
-            var countries = row['lt_country'].split(', ')
 
-            return countryCounts[ row['lt_country'] ] = countryCounts[ row['lt_country'] ] ? countryCounts[ row['lt_country'] ] + 1 : 1;
+          var countryList = [];
+          json.map((row, index) => {
+            var countries = row['lt_country'].split(', ');
+            return countryList = countryList.concat(countries);
           });
-          console.log(countryCounts);
-          */
+          console.log(countryList);
           /*{
             selectName: "Provenance de la série",
             selectJsonLabel: "lt_country",
@@ -347,8 +354,6 @@ class App extends Component {
             ]
           }*/
 
-          //console.log(json);
-        // }, 3000);
       })
       .catch(function () {
         console.log("Error when loading json");
