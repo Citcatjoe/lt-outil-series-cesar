@@ -113,8 +113,8 @@ class App extends Component {
           selectName: "État de la production",
           selectJsonLabel: "np8_end_date",
           selectOptions: [
-            { value: "", label: "En cours" },
-            { value: "Terminée", label: "Terminée" }
+            { value: false, label: "En cours" },
+            { value: true, label: "Terminée" }
           ]
         },
         {
@@ -212,35 +212,36 @@ class App extends Component {
     // on utilise *let* pour eviter de déclencher no-loop-func
     for (let index in filteredOptions) {
       if (filteredOptions.hasOwnProperty(index)) {
+        switch (true) {
 
-        // categories pouvant contenir plusieurs éléments
-        if( ['lt_tv_show_genre', 'lt_country'].indexOf(index) >= 0 ) {
-          articles = articles.filter(article => article[index].includes( filteredOptions[index] ) );
+          // categories pouvant contenir plusieurs éléments
+          case ['lt_tv_show_genre', 'lt_country'].indexOf(index) >= 0:
+            articles = articles.filter(article => article[index].includes( filteredOptions[index] ) );
+            break;
 
-        // durée
-        } else if ( index === 'lt_reading_time' ) {
-          let categorizeLength = function(d){
-            if ( d < 15 ){
-              return '<15';
-            } else if ( d <= 30 ) {
-              return '<=30';
-            } else {
-              return '>30';
+          // durée
+          case index === 'lt_reading_time':
+            const categorizeLength = function(lengthTime) {
+              lengthTime = parseInt(lengthTime, 10);
+              if ( lengthTime < 15 ){
+                return '<15';
+              } else if ( lengthTime <= 30 ) {
+                return '<=30';
+              } else {
+                return '>30';
+              }
             }
-          }
-          articles = articles.filter(article => categorizeLength(article[index]) === filteredOptions[index] );
+            articles = articles.filter(article => categorizeLength(article[index]) === filteredOptions[index] );
+            break;
 
-        // date de fin? -> série en cours / terminée
-        } else if ( index === 'np8_end_date' ) {
-          if( filteredOptions[index] === 'Terminée' ){
-            articles = articles.filter(article => article[index] !== '');
-          } else {
-            articles = articles.filter(article => article[index] === '');
-          }
+          // série en cours / terminée
+          case index === 'np8_end_date':
+            articles = articles.filter(article => article['completed'] === filteredOptions[index]);
+            break;
 
-        // simple égalité
-        } else {
-          articles = articles.filter(article => article[index] === filteredOptions[index]);
+          // simple égalité
+          default:
+            articles = articles.filter(article => article[index] === filteredOptions[index]);
         }
       }
     }
@@ -292,11 +293,13 @@ class App extends Component {
     let articles = this.state.articles;
 
     var newStateButtons = buttons.map((button, index) => {
-      button.status = false;
       if (index === key) {
-        button.status = true;
-        console.log(button);
-        articles = articles.filter(article => article['lt_tv_show_quick_suggestion'] === button.label );
+        if (button.status === false) {
+          articles = articles.filter(article => article['lt_tv_show_quick_suggestion'] === button.label );
+        }
+        button.status = ! button.status;
+      } else {
+        button.status = false;
       }
       return button;
     });
@@ -346,6 +349,12 @@ class App extends Component {
     fetch("http://web.tcch.ch/tv-test/index_read.php") // prod: https://www.letemps.ch/tv-shows
       .then(response => response.json())
       .then(json => {
+
+          // ajout d’une colonne pour «En cours / Terminé»
+          json.map((row, index) => {
+            return row['completed'] = row['np8_end_date'] === '' ? false : true;
+          });
+
           this.setState({ articles: json, loading: false });
 
           // test: génération auto du menu déroulant «Provenance»
