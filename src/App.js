@@ -59,9 +59,9 @@ class App extends Component {
       loading: true,
       selectedOption: false,
       filteredOptions: [],
-      // TODO Idéalement: création dynamique de ces boutons, montrer le nombre pour chaque choix?
+
       buttons: [
-        { status: false, label: "Se délasser en mangeant ou en repassant" },
+        { status: false, label: "Se délasser en mangeant ou repassant" },
         { status: false, label: "Frissonner" },
         { status: false, label: "En discuter demain au bureau" },
         { status: false, label: "Remonter le temps" },
@@ -104,8 +104,6 @@ class App extends Component {
           selectName: "Format des épisodes",
           selectJsonLabel: "lt_reading_time",
           selectOptions: [
-            { value: "3", label: "3" },
-            { value: "5", label: "5" },
             { value: "<15", label: "Moins de 15 minutes" },
             { value: "<=30", label: "De 15 à 30 minutes" },
             { value: ">30", label: "Plus de 30 minutes" },
@@ -208,6 +206,9 @@ class App extends Component {
 
     // DEBUG console.log(filteredOptions);
 
+    // On ne réaffiche pas l’intro «Le guide ultime…»
+    articles = articles.filter(article => article['lt_tv_show_tag'] !== 'intro' );
+
     // on utilise *let* pour eviter de déclencher no-loop-func
     for (let index in filteredOptions) {
       if (filteredOptions.hasOwnProperty(index)) {
@@ -236,7 +237,7 @@ class App extends Component {
           } else {
             articles = articles.filter(article => article[index] === '');
           }
-          
+
         // simple égalité
         } else {
           articles = articles.filter(article => article[index] === filteredOptions[index]);
@@ -288,12 +289,20 @@ class App extends Component {
   // TODO: handle à déplacer dans FilterButton.js?
   buttonHandle(key) {
     var buttons = this.state.buttons;
+    let articles = this.state.articles;
+
     var newStateButtons = buttons.map((button, index) => {
       button.status = false;
       if (index === key) {
         button.status = true;
+        console.log(button);
+        articles = articles.filter(article => article['lt_tv_show_quick_suggestion'] === button.label );
       }
       return button;
+    });
+
+    this.setState({
+      articlesFiltered: articles
     });
 
     this.setState({
