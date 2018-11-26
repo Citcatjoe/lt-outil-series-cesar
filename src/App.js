@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs"; 
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 //import Select from "react-select";
 
 import Frame from "./components/Frame";
@@ -12,9 +12,9 @@ import AsideToggle from "./components/AsideToggle";
 import FilterSearch from "./components/FilterSearch";
 import FilterOrder from "./components/FilterOrder";
 
-import './App.scss'; 
+import './App.scss';
 import "./scss/AsideTabs.scss";
-import "./scss/Frame.scss"; 
+import "./scss/Frame.scss";
 import "./scss/ContentDetails.scss";
 import "./scss/Loading.scss";
 import "./scss/ItemTeaser.scss";
@@ -59,6 +59,7 @@ class App extends Component {
       loading: true,
       selectedOption: false,
       filteredOptions: [],
+      // TODO Idéalement: création dynamique de ces boutons, montrer le nombre pour chaque choix?
       buttons: [
         { status: false, label: "Se délasser en mangeant ou en repassant" },
         { status: false, label: "Frissonner" },
@@ -66,9 +67,9 @@ class App extends Component {
         { status: false, label: "Remonter le temps" },
         { status: false, label: "Regarder un truc complètement frappé" }
       ],
-      selects: [ 
-        { 
-          selectName: "Genre", 
+      selects: [
+        {
+          selectName: "Genre",
           selectJsonLabel: "lt_tv_show_genre",
           selectOptions: [
             { value: "Comédie", label: "Comédie" },
@@ -87,6 +88,7 @@ class App extends Component {
           selectName: "Provenance de la série",
           selectJsonLabel: "lt_country",
           selectOptions: [
+            { value: "États-Unis", label: "États-Unis" },
             { value: "France", label: "France" },
             { value: "Allemagne", label: "Allemagne" }
           ]
@@ -115,8 +117,8 @@ class App extends Component {
             { value: "Histoires autonomes", label: "Non" }
           ]
         }
-        
-        
+
+
       ],
       selectCategory: [
         { value: "Comédie", label: "Comédie" },
@@ -209,7 +211,7 @@ class App extends Component {
   selectHandle(selectedOption, selectJsonLabel) {
     let articles = this.state.articles,
       filteredOptions = this.state.filteredOptions;
-    
+
     // Ici on regarde si on filter ou on clear le filtre
     // puis on sauve ça dans notre variable locale
     if (selectedOption !== null) {
@@ -234,7 +236,7 @@ class App extends Component {
     // filtre le reste des articles qui sont déjà filtré.
     filteredOptions.forEach((filter, index) => {
       console.log(filter, index);
-      
+
     });
 
     // On place tout ça dans le state
@@ -271,6 +273,7 @@ class App extends Component {
   //   });
   // }
 
+  // TODO: handle à déplacer dans FilterButton.js?
   buttonHandle(key) {
     var buttons = this.state.buttons;
     var newStateButtons = buttons.map((button, index) => {
@@ -324,6 +327,27 @@ class App extends Component {
       .then(json => {
         // setTimeout(() => {
           this.setState({ articles: json, loading: false });
+          // compter valeurs
+          /*
+          var countryCounts = {};
+          json.map((row, index) => {
+            var countries = row['lt_country'].split(', ')
+
+            return countryCounts[ row['lt_country'] ] = countryCounts[ row['lt_country'] ] ? countryCounts[ row['lt_country'] ] + 1 : 1;
+          });
+          console.log(countryCounts);
+          */
+          /*{
+            selectName: "Provenance de la série",
+            selectJsonLabel: "lt_country",
+            selectOptions: [
+              { value: "États-Unis", label: "États-Unis" },
+              { value: "France", label: "France" },
+              { value: "Allemagne", label: "Allemagne" }
+            ]
+          }*/
+
+          //console.log(json);
         // }, 3000);
       })
       .catch(function () {
@@ -331,11 +355,11 @@ class App extends Component {
     });
   }
 
-  
-  
+
+
 
   render() {
-    
+
     let { articles, articlesFiltered } = this.state;
     const { asideCloseButtonVisible } = this.state;
     const { asideVisible } = this.state;
@@ -347,7 +371,7 @@ class App extends Component {
     const { selects } = this.state;
     const { introVisible } = this.state;
     const { introInnerVisible } = this.state;
-    
+
     if(articlesFiltered !== null) {
       articles = articlesFiltered;
     }
@@ -364,7 +388,7 @@ class App extends Component {
             }`}
             onClick={this.asideToggle}
           >
-            <img className="aside--close-button--img" src={cross} />
+            <img className="aside--close-button--img" alt="Fermer" src={cross} />
           </div>
           <Tabs>
             <TabList>
@@ -402,7 +426,7 @@ class App extends Component {
               }
               {/* <FilterSelect selectCategoryHandle={this.selectCategoryHandle} selectCategory={selectCategory} />
               <FilterSelect selectFormatHandle={this.selectFormatHandle} selectFormat={selectFormat} /> */}
-              
+
             </TabPanel>
           </Tabs>
           <ul className="aside-footer-list">
@@ -411,7 +435,7 @@ class App extends Component {
             <li className="aside-footer-list-item">Partager sur Linkedin</li>
             <li className="aside-footer-list-item">letemps.ch</li>
           </ul>
-          <img className="aside-footer-bg" src={asideFooterBg} />
+          <img className="aside-footer-bg" alt="" src={asideFooterBg} />
         </aside>
         <main className={`${asideVisible ? "is-moved-right" : ""}`}>
           <div className={`main-header ${headerVisible ? "is-visible" : ""}`}>
@@ -421,7 +445,7 @@ class App extends Component {
           </div>
           <Loading loading={loading} />
           <div className={`grid ${gridVisible ? "is-visible" : ""}`}>
-              
+
             {
               articles.length > 0
               ? articles.map((item, index) => {
