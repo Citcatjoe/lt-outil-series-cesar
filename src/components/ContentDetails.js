@@ -17,7 +17,7 @@ class ContentDetails extends Component {
   //     }
   // }
 
-    
+
 
   render() {
     //const itemFull = this.props.itemFull;
@@ -64,7 +64,8 @@ class ContentDetails extends Component {
                     : "aujourdhui"}
                 </li>
                 <li>
-                  <span>Réalisé par :</span>???
+                  <span>Réalisé par :</span>
+                  {this.props.item.np8_gallery_author}
                 </li>
                 <li>
                   <span>Format :</span>Épisodes de{" "}
