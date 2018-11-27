@@ -27,7 +27,7 @@ import "./scss/FilterSelect.scss";
 import asideFooterBg from "./img/aside-footer-bg.svg";
 import asideBg1 from "./img/aside-bg-1.png";
 import cross from "./img/cross.svg";
-import { runInThisContext } from 'vm';
+import noResults from "./img/no-results.svg";
 
 require("typeface-montserrat");
 // import { throws } from 'assert';
@@ -44,6 +44,7 @@ class App extends Component {
     this.asideToggle = this.asideToggle.bind(this);
     this.selectHandle = this.selectHandle.bind(this);
     this.hideLoading = this.hideLoading.bind(this);
+    this.resetFilters = this.resetFilters.bind(this);
     // this.selectCategoryHandle = this.selectCategoryHandle.bind(this);
     // this.selectFormatHandle = this.selectFormatHandle.bind(this);
     this.state = {
@@ -143,6 +144,10 @@ class App extends Component {
         { value: "60", label: "60" }
       ],
     };
+  }
+
+  resetFilters() {
+    this.setState({ filteredOptions: [], articlesFiltered: null});
   }
 
   hideLoading() {
@@ -395,7 +400,7 @@ class App extends Component {
                 ? selects.map((select, index) => {
                   //console.log(select);
                   return (
-                    <FilterSelect index={index} key={index} articles={articles} select={select} selectHandle={this.selectHandle} />
+                    <FilterSelect index={index} key={index} articles={articles} select={select} selectHandle={this.selectHandle} filteredOptions={this.state.filteredOptions} />
                   );
                 })
                 : null
@@ -438,7 +443,7 @@ class App extends Component {
                     />
                   );
                 })
-              : <p>hello</p>
+                : <div className="no-results"><div className="no-results--inner"><img className="aside--close-button--img" src={noResults} /><h4 className="no-results--title">Votre recherche n'a produit aucun résultat</h4><button className="no-results--button" onClick={this.resetFilters}>Réinitialiser les filtres</button></div></div>
             }
           </div>
         </main>

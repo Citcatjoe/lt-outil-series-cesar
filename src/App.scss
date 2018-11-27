@@ -236,6 +236,44 @@ main
   }
 }
 
+.no-results
+{
+  padding: 17.5px;
+  text-align: center;
+
+  .no-results--inner
+  {
+    padding: 17.5px;
+    background: $color4;
+    //max-width: 500px;
+    margin: auto;
+
+    img 
+    {
+      width: 100px;
+    }
+
+    .no-results--title
+    {
+      color: $color2;
+      font-size: 22px;
+      font-weight: 500;
+      font-family: 'Montserrat';
+
+    }
+
+    .no-results--button
+    {
+      background-image: linear-gradient(33deg, $flash-color1 0%, $flash-color2 100%);
+      color: $color2;
+      padding: 15px 17px;
+      font-size: 16px;
+    }
+  }
+
+  
+}
+
 
 
 

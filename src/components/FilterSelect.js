@@ -7,28 +7,41 @@ class FilterSelect extends Component {
     selectJsonLabel: this.props.select.selectJsonLabel
   };
 
-  handleChange = (selectedOption) => {
-    this.setState({ 
-      selectedOption: selectedOption,
+  static getDerivedStateFromProps(props, state) {
+    if (state.selectedOption && props.filteredOptions[state.selectJsonLabel] !== state.selectedOption.value) {
+      return { selectedOption: null };
+    }
+  }
+
+  handleChange = selectedOption => {
+    this.setState({
+      selectedOption: selectedOption
     });
-    console.log('(fonction) selectJsonLabel ' + this.state.selectJsonLabel);
+    console.log("(fonction) selectJsonLabel " + this.state.selectJsonLabel);
     this.props.selectHandle(selectedOption, this.state.selectJsonLabel);
-    
   };
 
   render() {
     const { selectedOption } = this.state;
-    const selectName  = this.props.select.selectName;
+    const selectName = this.props.select.selectName;
     const selectJsonLabel = this.props.select.selectJsonLabel;
     const selectOptions = this.props.select.selectOptions;
-    
-    console.log('(render) selectJsonLabel ' + selectJsonLabel);
+
+    console.log("(render) selectJsonLabel " + selectJsonLabel);
     //console.log(select + 'lol');
 
     return (
-      <div className='filter-select'>
+      <div className="filter-select">
         {/* <p>{selectName}</p> */}
-        <Select className='select' classNamePrefix="select" options={selectOptions} value={selectedOption} onChange={this.handleChange} isClearable={true} placeholder={selectName} />
+        <Select
+          className="select"
+          classNamePrefix="select"
+          options={selectOptions}
+          value={selectedOption}
+          onChange={this.handleChange}
+          isClearable={true}
+          placeholder={selectName}
+        />
       </div>
     );
   }
