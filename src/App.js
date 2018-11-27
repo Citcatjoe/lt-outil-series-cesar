@@ -30,6 +30,7 @@ import cross from "./img/cross.svg";
 import noResults from "./img/no-results.svg";
 
 require("typeface-montserrat");
+var sortJsonArray = require("sort-json-array");
 // import { throws } from 'assert';
 
 const asideBg1Style = { backgroundImage: "url(" + asideBg1 + ")" };
@@ -47,9 +48,11 @@ class App extends Component {
     this.resetFilters = this.resetFilters.bind(this);
     this.searchHandler = this.searchHandler.bind(this);
     this.searchingFor = this.searchingFor.bind(this);
+    this.orderHandle = this.orderHandle.bind(this);
     // this.selectCategoryHandle = this.selectCategoryHandle.bind(this);
     // this.selectFormatHandle = this.selectFormatHandle.bind(this);
     this.state = {
+      baseData: [],
       articles: [],
       articlesFiltered: null,
       asideCloseButtonVisible: false,
@@ -63,6 +66,7 @@ class App extends Component {
       selectedOption: false,
       filteredOptions: [],
       searchTerm: '',
+      orderLabel: "Ordre",
 
       buttons: [
         { status: false, label: "Se délasser en mangeant ou repassant" },
@@ -133,6 +137,18 @@ class App extends Component {
     };
   }
 
+  orderHandle(value, sort, label) {
+    if (typeof sort === 'string' && sort.length === 0) {
+      sort = 'desc';
+    }
+
+    var o = sortJsonArray(this.state.articles, value, sort);
+    this.setState({
+      articles: o,
+      orderLabel: label
+    });
+  }
+
   // La fonction utilisée comme filtre
   searchingFor(searchTerm) {
     return function(x) {
@@ -150,10 +166,17 @@ class App extends Component {
     var buttons = this.state.buttons;
     buttons.map((button) => {
       button.status = false;
-      //return button;
+      return button;
     });
+
     //Merci Ivo
-    this.setState({ filteredOptions: [], articlesFiltered: null, searchTerm: ''});
+    this.setState({
+      filteredOptions: [],
+      articlesFiltered: null,
+      searchTerm: "",
+      //orderLabel: null,
+      buttons: buttons,
+    });
   }
 
   hideLoading() {
@@ -382,7 +405,7 @@ class App extends Component {
             return row['completed'] = row['np8_end_date'] === '' ? false : true;
           });
 
-          this.setState({ articles: json, loading: false });
+          this.setState({ baseData: json, articles: json, loading: false });
 
           // test: génération auto du menu déroulant «Provenance»
           var countryList = [];
@@ -441,16 +464,21 @@ class App extends Component {
     if(articlesFiltered !== null) {
       articles = articlesFiltered;
     }
+    articles = articles.filter(this.searchingFor(this.state.searchTerm));
+
+    // if (orderLabel === undefined) {
+    //   orderLabel = "Ordre";
+    // }
 
     return <div className="App">
-        <aside style={asideBg1Style} className={`${asideVisible ? "is-visible" : ""}`}>
+        <aside style={asideBg1Style} className={`${asideVisible ? "is-visible" : ""}`} onClick={this.orderHandle}>
           <div className={`aside--close-button ${asideCloseButtonVisible ? "is-visible" : ""}`} onClick={this.asideToggle}>
             <img className="aside--close-button--img" alt="Fermer" src={cross} />
           </div>
-          <Tabs>
+          <Tabs defaultIndex={0} onSelect={this.resetFilters}>
             <TabList>
-              <Tab onClick={this.resetFilters}>Suggestions</Tab>
-            <Tab onClick={this.resetFilters}>Sur mesure</Tab>
+              <Tab>Suggestions</Tab>
+              <Tab>Sur mesure</Tab>
             </TabList>
 
             <TabPanel>
@@ -486,23 +514,35 @@ class App extends Component {
           <div className={`main-header ${headerVisible ? "is-visible" : ""}`}>
             <AsideToggle asideToggle={this.asideToggle} />
             {/* <input type="text" ></input> */}
-            <FilterSearch onChange={this.searchHandler} searchTerm={this.state.searchTerm}/>
-            <FilterOrder />
+            <FilterSearch onChange={this.searchHandler} searchTerm={this.state.searchTerm} />
+            <FilterOrder orderHandle={this.orderHandle} orderLabel={this.state.orderLabel} />
           </div>
           <Loading loading={loading} />
           <div className={`grid ${gridVisible ? "is-visible" : ""}`}>
-              {/* {
+            {/* {
                 articles.filter(this.searchingFor(this.state.searchTerm)).map(article =>
                   <div>
                     <p>{article.title}</p>
                   </div>  
                 )
               } */}
-          {articles.length > 0 ? articles.filter(this.searchingFor(this.state.searchTerm)).map((item, index) => {
-                return <ItemTeaser index={index} key={index} item={item} introVisible={introVisible} introInnerVisible={introInnerVisible} articleOpen={this.articleOpen} introClose={this.introClose} hideLoading={this.hideLoading} />;
-              }) : <div className="no-results">
+            {articles.length > 0 ? articles
+                .map((item, index) => {
+                  return (
+                    <ItemTeaser
+                      index={index}
+                      key={index}
+                      item={item}
+                      introVisible={introVisible}
+                      introInnerVisible={introInnerVisible}
+                      articleOpen={this.articleOpen}
+                      introClose={this.introClose}
+                      hideLoading={this.hideLoading}
+                    />
+                  );
+                }) : <div className="no-results">
                 <div className="no-results--inner">
-                  <img className="aside--close-button--img" src={noResults} />
+                  <img className="aside--close-button--img" src={noResults} alt="" />
                   <h4 className="no-results--title">
                     Votre recherche n'a produit aucun résultat
                   </h4>

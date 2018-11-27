@@ -11,6 +11,7 @@ class FilterSelect extends Component {
     if (state.selectedOption && props.filteredOptions[state.selectJsonLabel] !== state.selectedOption.value) {
       return { selectedOption: null };
     }
+    return {};
   }
 
   handleChange = selectedOption => {
@@ -24,7 +25,6 @@ class FilterSelect extends Component {
   render() {
     const { selectedOption } = this.state;
     const selectName = this.props.select.selectName;
-    const selectJsonLabel = this.props.select.selectJsonLabel;
     const selectOptions = this.props.select.selectOptions;
 
     //console.log("(render) selectJsonLabel " + selectJsonLabel);

@@ -12,13 +12,13 @@ class AsideToggle extends Component {
         return (
             // petite structure header-body-footer, on est pas obligés de garder bien sur
             <div className={`aside-toggle`} onClick={this.props.asideToggle}>
-                <img className="aside-toggle--icon" src={filter} />
+                <img className="aside-toggle--icon" src={filter} alt="" />
                 <span className="aside-toggle--text">Filtrer</span>
             </div>
 
         )
     }
-    
+
 }
 
 

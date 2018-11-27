@@ -26,7 +26,7 @@ class ItemTeaser extends React.Component {
         if (!intro) {
             return <div className="item-teaser" onClick={this.props.articleOpen.bind(this, this.props.item)}>
                 <div className="item-teaser--overlay">
-                    <img className="item-teaser--overlay-icon" src={cross} />
+                    <img className="item-teaser--overlay-icon" src={cross} alt="" />
                 </div>
                 <figure className="item-teaser--figure" style={{ backgroundImage: "url(" + image + ")" }} />
                 {/* <img src={image} alt={title} /> */}
