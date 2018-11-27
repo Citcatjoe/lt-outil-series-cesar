@@ -79,7 +79,15 @@ class ContentDetails extends Component {
                   <span>Provenance :</span>
                   {this.props.item.lt_country}
                 </li>
+                <li class="article-link">
+                {this.props.item.np8_news_ref
+                  ? Parser('<span>Lire aussi :</span>' + this.props.item.np8_news_ref)
+                  : ""}
+                </li>
               </ul>
+              <div className="links">
+
+              </div>
             </div>
           </div>
         </div>
