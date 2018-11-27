@@ -81,7 +81,7 @@ class ContentDetails extends Component {
                 </li>
                 <li class="article-link">
                 {this.props.item.np8_news_ref
-                  ? Parser('<span>Lire aussi :</span>' + this.props.item.np8_news_ref)
+                  ? Parser("<span>Lire aussi :</span>" + this.props.item.np8_news_ref)
                   : ""}
                 </li>
               </ul>
