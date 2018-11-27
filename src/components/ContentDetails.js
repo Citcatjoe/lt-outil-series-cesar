@@ -54,7 +54,7 @@ class ContentDetails extends Component {
               <span className={`body-highlighted`}>
                 {this.props.item.lt_tv_show_genre}
               </span>
-              <p className={`body-p`}>{Parser(this.props.item.body)}</p>
+              <div className={`body-p`}>{Parser(this.props.item.body)}</div>
               <ul>
                 <li>
                   <span>Années prod. :</span>
