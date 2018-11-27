@@ -45,6 +45,8 @@ class App extends Component {
     this.selectHandle = this.selectHandle.bind(this);
     this.hideLoading = this.hideLoading.bind(this);
     this.resetFilters = this.resetFilters.bind(this);
+    this.searchHandler = this.searchHandler.bind(this);
+    this.searchingFor = this.searchingFor.bind(this);
     // this.selectCategoryHandle = this.selectCategoryHandle.bind(this);
     // this.selectFormatHandle = this.selectFormatHandle.bind(this);
     this.state = {
@@ -60,6 +62,7 @@ class App extends Component {
       loading: true,
       selectedOption: false,
       filteredOptions: [],
+      searchTerm: '',
 
       buttons: [
         { status: false, label: "Se délasser en mangeant ou repassant" },
@@ -115,7 +118,7 @@ class App extends Component {
           selectJsonLabel: "np8_end_date",
           selectOptions: [
             { value: false, label: "En cours" },
-            { value: true, label: "Terminée" }
+            { value: true, label: "searchTerminée" }
           ]
         },
         {
@@ -130,6 +133,18 @@ class App extends Component {
     };
   }
 
+  // La fonction utilisée comme filtre
+  searchingFor(searchTerm) {
+    return function(x) {
+      return x.title.toLowerCase().includes(searchTerm.toLowerCase()) || !searchTerm;
+    }
+  }
+
+  // On met dans searchTerm la valeur de l'élément qui subit un événement
+  searchHandler(event) {
+    this.setState({searchTerm: event.target.value})
+  }
+
   resetFilters() {
     //Un bout de buttonHandle pour reset les bouton en même temps.
     var buttons = this.state.buttons;
@@ -138,7 +153,7 @@ class App extends Component {
       //return button;
     });
     //Merci Ivo
-    this.setState({ filteredOptions: [], articlesFiltered: null});
+    this.setState({ filteredOptions: [], articlesFiltered: null, searchTerm: ''});
   }
 
   hideLoading() {
@@ -246,7 +261,7 @@ class App extends Component {
             articles = articles.filter(article => categorizeLength(article[index]) === filteredOptions[index] );
             break;
 
-          // série en cours / terminée
+          // série en cours / searchTerminée
           case index === 'np8_end_date':
             articles = articles.filter(article => article['completed'] === filteredOptions[index]);
             break;
@@ -362,7 +377,7 @@ class App extends Component {
       .then(response => response.json())
       .then(json => {
 
-          // ajout d’une colonne pour «En cours / Terminé»
+          // ajout d’une colonne pour «En cours / searchTerminé»
           json.map((row, index) => {
             return row['completed'] = row['np8_end_date'] === '' ? false : true;
           });
@@ -470,12 +485,20 @@ class App extends Component {
         <main className={`${asideVisible ? "is-moved-right" : ""}`}>
           <div className={`main-header ${headerVisible ? "is-visible" : ""}`}>
             <AsideToggle asideToggle={this.asideToggle} />
-            <FilterSearch />
+            {/* <input type="text" ></input> */}
+            <FilterSearch onChange={this.searchHandler} searchTerm={this.state.searchTerm}/>
             <FilterOrder />
           </div>
           <Loading loading={loading} />
           <div className={`grid ${gridVisible ? "is-visible" : ""}`}>
-            {articles.length > 0 ? articles.map((item, index) => {
+              {/* {
+                articles.filter(this.searchingFor(this.state.searchTerm)).map(article =>
+                  <div>
+                    <p>{article.title}</p>
+                  </div>  
+                )
+              } */}
+          {articles.length > 0 ? articles.filter(this.searchingFor(this.state.searchTerm)).map((item, index) => {
                 return <ItemTeaser index={index} key={index} item={item} introVisible={introVisible} introInnerVisible={introInnerVisible} articleOpen={this.articleOpen} introClose={this.introClose} hideLoading={this.hideLoading} />;
               }) : <div className="no-results">
                 <div className="no-results--inner">

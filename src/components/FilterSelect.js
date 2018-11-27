@@ -17,7 +17,7 @@ class FilterSelect extends Component {
     this.setState({
       selectedOption: selectedOption
     });
-    console.log("(fonction) selectJsonLabel " + this.state.selectJsonLabel);
+    //console.log("(fonction) selectJsonLabel " + this.state.selectJsonLabel);
     this.props.selectHandle(selectedOption, this.state.selectJsonLabel);
   };
 
@@ -27,7 +27,7 @@ class FilterSelect extends Component {
     const selectJsonLabel = this.props.select.selectJsonLabel;
     const selectOptions = this.props.select.selectOptions;
 
-    console.log("(render) selectJsonLabel " + selectJsonLabel);
+    //console.log("(render) selectJsonLabel " + selectJsonLabel);
     //console.log(select + 'lol');
 
     return (
