@@ -61,7 +61,7 @@ class ContentDetails extends Component {
                   {this.props.item.np8_start_date} -{" "}
                   {this.props.item.np8_end_date
                     ? this.props.item.np8_end_date
-                    : "aujourdhui"}
+                    : "aujourd’hui"}
                 </li>
                 <li>
                   <span>Réalisé par :</span>
@@ -79,7 +79,15 @@ class ContentDetails extends Component {
                   <span>Provenance :</span>
                   {this.props.item.lt_country}
                 </li>
+                <li class="article-link">
+                {this.props.item.np8_news_ref
+                  ? Parser("<span>Lire aussi :</span>" + this.props.item.np8_news_ref)
+                  : ""}
+                </li>
               </ul>
+              <div className="links">
+
+              </div>
             </div>
           </div>
         </div>
