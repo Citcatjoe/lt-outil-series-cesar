@@ -65,7 +65,9 @@ class App extends Component {
       selectedOption: false,
       filteredOptions: [],
       searchTerm: '',
-      orderLabel: "Ordre",
+      orderLabel: null,
+      orderValue: null,
+      orderSort: null,
       buttons: [
         { status: false, label: "Se délasser en mangeant ou repassant" },
         { status: false, label: "Frissonner" },
@@ -136,9 +138,11 @@ class App extends Component {
   }
 
   orderHandle(value, sort, label) {
-    if (typeof sort === 'string' && sort.length === 0) {
-      sort = 'desc';
-    }
+    // if (typeof sort === 'string' && sort.length === 0) {
+    //   sort = 'desc';
+    // }
+
+    
 
     var o = null;
     if (this.state.articlesFiltered !== null)
@@ -152,7 +156,9 @@ class App extends Component {
     
     this.setState({
       articlesFiltered: o,
-      orderLabel: label
+      orderLabel: label,
+      orderValue: value,
+      orderSort: sort
     });
   }
 
@@ -175,7 +181,7 @@ class App extends Component {
       button.status = false;
       return button;
     });
-
+    
     //var o = sortJsonArray(this.state.articles, "title", "asc");
     //Merci Ivo
     this.setState({
@@ -183,7 +189,9 @@ class App extends Component {
       articlesFiltered: null,
       //articles: o,
       searchTerm: "",
-      orderLabel: 'Ordre',
+      orderLabel: null,
+      orderSort: null,
+      orderValue: null,
       buttons: buttons,
       introVisible: false
     });
@@ -331,13 +339,29 @@ class App extends Component {
       return button;
     });
 
-    this.setState({
-      articlesFiltered: articles
-    });
+    
 
     this.setState({
       buttons: newStateButtons
     });
+
+
+    var o = null;
+    if (this.state.orderLabel !== null) {
+      o = sortJsonArray(articles, this.state.orderValue, this.state.orderSort);
+      this.setState({
+        articlesFiltered: o
+
+      });
+    }
+    else{
+        this.setState({
+      articlesFiltered: articles
+    });
+    }
+    
+
+    
   }
 
   asideToggle() {

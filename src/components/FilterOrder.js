@@ -29,7 +29,7 @@ class FilterOrder extends Component {
         // const image = this.props.item.np8_main_media;
         return <div className={`filter-order ${isOpen ? "is-open" : "is-closed"}`} onClick={e => this.handleToggle(e)}>
             <span className="filter-order--text">
-                {this.props.orderLabel} 
+                {this.props.orderLabel ? this.props.orderLabel : 'Ordre'} 
             </span>
             <img className="filter-order--icon" src={angle} alt="" />
 
