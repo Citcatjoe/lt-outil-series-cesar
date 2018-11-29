@@ -12,7 +12,7 @@ TODO LIST AVANT V1:
 - [ ] Compte des résultat dans les filtre lors de leur usage
 - [ ] Compte des résultat dans aside pour que l'utilisateur sache toujours le nb de résultats
 - [ ] Bouton retour en haut
-- [X] Le reset doit il reset l'ordre ? ou l'ordre reste pour toute la navigation ?
+- [ ] Le reset doit il reset l'ordre ? ou l'ordre reste pour toute la navigation ?
 
 ### Autre
 - [ ] Générer une colonne qui fera office de classement initial (par date de publication)
