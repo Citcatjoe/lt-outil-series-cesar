@@ -8,11 +8,11 @@ TODO LIST AVANT V1:
 - [ ] Pimper le style mobile (teaser, aside...)
 
 ### UX
-- [ ] Delete automatiquement l'introduction dès qu'on fait une action
+- [X] Delete automatiquement l'introduction dès qu'on fait une action
 - [ ] Compte des résultat dans les filtre lors de leur usage
-- [ ] Compte des résultat dans aside pour que l'utilisateur sache toujours le nb de résultats
+- [X] Compte des résultat dans aside pour que l'utilisateur sache toujours le nb de résultats
 - [ ] Bouton retour en haut
-- [ ] Le reset doit il reset l'ordre ? ou l'ordre reste pour toute la navigation ?
+- [X] Le reset doit il reset l'ordre ? Done: le reset ne reset plus l'ordre. Ordre initial: 'Ajouts récents'
 
 ### Autre
 - [ ] Générer une colonne qui fera office de classement initial (par date de publication)
@@ -24,4 +24,4 @@ TODO LIST AVANT V1:
 - [ ] Les images utilisées ne sont pas bonne
 - [ ] Faire les partage (aside et détail)
 - [ ] Eléments manquants
-- [ ] Quid des caractères bizaroïdes ?
+- [X] Quid des caractères bizaroïdes ? (A corriger dans Drupal)
