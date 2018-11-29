@@ -44,7 +44,6 @@ class App extends Component {
     this.buttonHandle = this.buttonHandle.bind(this);
     this.asideToggle = this.asideToggle.bind(this);
     this.selectHandle = this.selectHandle.bind(this);
-    this.hideLoading = this.hideLoading.bind(this);
     this.resetFilters = this.resetFilters.bind(this);
     this.searchHandler = this.searchHandler.bind(this);
     this.searchingFor = this.searchingFor.bind(this);
@@ -66,8 +65,9 @@ class App extends Component {
       selectedOption: false,
       filteredOptions: [],
       searchTerm: '',
-      orderLabel: "Ordre",
-
+      orderLabel: null,
+      orderValue: null,
+      orderSort: null,
       buttons: [
         { status: false, label: "Se délasser en mangeant ou repassant" },
         { status: false, label: "Frissonner" },
@@ -122,7 +122,7 @@ class App extends Component {
           selectJsonLabel: "np8_end_date",
           selectOptions: [
             { value: false, label: "En cours" },
-            { value: true, label: "searchTerminée" }
+            { value: true, label: "Terminée" }
           ]
         },
         {
@@ -138,14 +138,27 @@ class App extends Component {
   }
 
   orderHandle(value, sort, label) {
-    if (typeof sort === 'string' && sort.length === 0) {
-      sort = 'desc';
-    }
+    // if (typeof sort === 'string' && sort.length === 0) {
+    //   sort = 'desc';
+    // }
 
-    var o = sortJsonArray(this.state.articles, value, sort);
+    
+
+    var o = null;
+    if (this.state.articlesFiltered !== null)
+    {
+      o = sortJsonArray(this.state.articlesFiltered, value, sort);
+    }
+    else
+    {
+      o = sortJsonArray(this.state.articles, value, sort);
+    }
+    
     this.setState({
-      articles: o,
-      orderLabel: label
+      articlesFiltered: o,
+      orderLabel: label,
+      orderValue: value,
+      orderSort: sort
     });
   }
 
@@ -168,22 +181,20 @@ class App extends Component {
       button.status = false;
       return button;
     });
-
+    
+    //var o = sortJsonArray(this.state.articles, "title", "asc");
     //Merci Ivo
     this.setState({
-      filteredOptions: [],
+    filteredOptions: [],
       articlesFiltered: null,
+      //articles: o,
       searchTerm: "",
-      //orderLabel: null,
+      orderLabel: null,
+      orderSort: null,
+      orderValue: null,
       buttons: buttons,
+      introVisible: false
     });
-  }
-
-  hideLoading() {
-    // this.setState({
-    //   loading: false
-    // });
-    alert('coucou');
   }
 
   introClose() {
@@ -257,7 +268,7 @@ class App extends Component {
     // DEBUG console.log(filteredOptions);
 
     // On ne réaffiche pas l’intro «Le guide ultime…»
-    articles = articles.filter(article => article['lt_tv_show_tag'] !== 'intro' );
+    //articles = articles.filter(article => article['lt_tv_show_tag'] !== 'intro' );
 
     // on utilise *let* pour eviter de déclencher no-loop-func
     for (let index in filteredOptions) {
@@ -311,32 +322,6 @@ class App extends Component {
     });
   }
 
-  // selectCategoryHandle(selectedOption) {
-  //   let x = null;
-  //   if (selectedOption !== null) {
-  //     x = this.state.articles.filter(
-  //       article => article.lt_tv_show_genre === selectedOption.value
-  //     );
-  //   }
-  //   this.setState({
-  //     selectedOption: selectedOption,
-  //     articlesFiltered: x
-  //   });
-  // }
-
-  // selectFormatHandle(selectedOption) {
-  //   let x = null;
-  //   if (selectedOption !== null) {
-  //     x = this.state.articles.filter(
-  //       article => article.lt_reading_time === selectedOption.value
-  //     );
-  //   }
-  //   this.setState({
-  //     selectedOption: selectedOption,
-  //     articlesFiltered: x
-  //   });
-  // }
-
   // TODO: handle à déplacer dans FilterButton.js?
   buttonHandle(key) {
     var buttons = this.state.buttons;
@@ -354,13 +339,29 @@ class App extends Component {
       return button;
     });
 
-    this.setState({
-      articlesFiltered: articles
-    });
+    
 
     this.setState({
       buttons: newStateButtons
     });
+
+
+    var o = null;
+    if (this.state.orderLabel !== null) {
+      o = sortJsonArray(articles, this.state.orderValue, this.state.orderSort);
+      this.setState({
+        articlesFiltered: o
+
+      });
+    }
+    else{
+        this.setState({
+      articlesFiltered: articles
+    });
+    }
+    
+
+    
   }
 
   asideToggle() {
@@ -444,9 +445,6 @@ class App extends Component {
     });
   }
 
-
-
-
   render() {
 
     let { articles, articlesFiltered } = this.state;
@@ -466,19 +464,15 @@ class App extends Component {
     }
     articles = articles.filter(this.searchingFor(this.state.searchTerm));
 
-    // if (orderLabel === undefined) {
-    //   orderLabel = "Ordre";
-    // }
-
     return <div className="App">
-        <aside style={asideBg1Style} className={`${asideVisible ? "is-visible" : ""}`} onClick={this.orderHandle}>
+        <aside style={asideBg1Style} className={`${asideVisible ? "is-visible" : ""}`}>
           <div className={`aside--close-button ${asideCloseButtonVisible ? "is-visible" : ""}`} onClick={this.asideToggle}>
             <img className="aside--close-button--img" alt="Fermer" src={cross} />
           </div>
-          <Tabs defaultIndex={0} onSelect={this.resetFilters}>
+          <Tabs defaultIndex={0}>
             <TabList>
-              <Tab>Suggestions</Tab>
-              <Tab>Sur mesure</Tab>
+              <Tab onClick={this.resetFilters}>Suggestions</Tab>
+              <Tab onClick={this.resetFilters}>Sur mesure</Tab>
             </TabList>
 
             <TabPanel>
