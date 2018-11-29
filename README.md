@@ -8,7 +8,7 @@ TODO LIST AVANT V1:
 - [ ] Pimper le style mobile (teaser, aside...)
 
 ### UX
-- [ ] Delete automatiquement l'introduction dès qu'on fait une action
+- [X] Delete automatiquement l'introduction dès qu'on fait une action
 - [ ] Compte des résultat dans les filtre lors de leur usage
 - [ ] Compte des résultat dans aside pour que l'utilisateur sache toujours le nb de résultats
 - [ ] Bouton retour en haut
