@@ -24,4 +24,4 @@ TODO LIST AVANT V1:
 - [ ] Les images utilisées ne sont pas bonne
 - [ ] Faire les partage (aside et détail)
 - [ ] Eléments manquants
-- [ ] Quid des caractères bizaroïdes ?
+- [X] Quid des caractères bizaroïdes ? (A corriger dans Drupal)
