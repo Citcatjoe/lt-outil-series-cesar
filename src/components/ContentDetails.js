@@ -57,31 +57,31 @@ class ContentDetails extends Component {
               <div className={`body-p`}>{Parser(this.props.item.body)}</div>
               <ul>
                 <li>
-                  <span>Années prod. :</span>
-                  {this.props.item.np8_start_date} -{" "}
+                  <span className="col1">Années prod. :</span>
+                  <span className="col2">{this.props.item.np8_start_date} -{" "}
                   {this.props.item.np8_end_date
                     ? this.props.item.np8_end_date
-                    : "aujourd’hui"}
+                      : "aujourd’hui"}</span>
                 </li>
                 <li>
-                  <span>Réalisé par :</span>
-                  {this.props.item.np8_gallery_author}
+                  <span className="col1">Réalisé par :</span>
+                  <span className="col2">{this.props.item.np8_gallery_author}</span>
                 </li>
                 <li>
-                  <span>Format :</span>Épisodes de{" "}
-                  {this.props.item.lt_reading_time} minutes
+                  <span className="col1">Format :</span>
+                  <span className="col2">Épisodes de{" "}{this.props.item.lt_reading_time} minutes</span>
                 </li>
                 <li>
-                  <span>Distributeur :</span>
-                  {this.props.item.lt_distributor}
+                  <span className="col1">Distributeur :</span>
+                  <span className="col2">{this.props.item.lt_distributor}</span>
                 </li>
                 <li>
-                  <span>Provenance :</span>
-                  {this.props.item.lt_country}
+                  <span className="col1">Provenance :</span>
+                        <span className="col2">{this.props.item.lt_country}</span>
                 </li>
                 <li className="article-link">
                 {this.props.item.np8_news_ref
-                  ? Parser("<span>Lire aussi :</span>" + this.props.item.np8_news_ref)
+                  ? Parser("<span className='col1'>Lire aussi :</span><span className='col2'" + this.props.item.np8_news_ref + "</span>")
                   : ""}
                 </li>
               </ul>

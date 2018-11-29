@@ -29,23 +29,26 @@ class FilterOrder extends Component {
         // const image = this.props.item.np8_main_media;
         return <div className={`filter-order ${isOpen ? "is-open" : "is-closed"}`} onClick={e => this.handleToggle(e)}>
             <span className="filter-order--text">
-                {this.props.orderLabel ? this.props.orderLabel : 'Ordre'} 
+                {this.props.orderLabel ? this.props.orderLabel : 'Ajouts récents'} 
             </span>
             <img className="filter-order--icon" src={angle} alt="" />
 
             <ul className="filter-order--items">
-              <li className="filter-order--items--item" onClick={this.props.orderHandle.bind(this, "title", "asc", "Nom asc.")}>
-                Par nom
-              </li>
-              <li className="filter-order--items--item" onClick={this.props.orderHandle.bind(this, "title", "des", "Nom desc.")}>
-                Par nom inv.
-              </li>
-              <li className="filter-order--items--item" onClick={this.props.orderHandle.bind(this, "np8_start_date", "asc", "Année asc.")}>
-                Par année
-              </li>
-              <li className="filter-order--items--item" onClick={this.props.orderHandle.bind(this, "np8_start_date", "des", "Année desc.")}>
-                Par année inv.
-              </li>
+                <li className="filter-order--items--item" onClick={this.props.orderHandle.bind(this, "created", "des", "Ajouts récents")}>
+                    Ajouts récents
+                </li>
+                <li className="filter-order--items--item" onClick={this.props.orderHandle.bind(this, "title", "asc", "Par nom")}>
+                    Par nom
+                </li>
+                <li className="filter-order--items--item" onClick={this.props.orderHandle.bind(this, "title", "des", "Par nom inv.")}>
+                    Par nom inv.
+                </li>
+                <li className="filter-order--items--item" onClick={this.props.orderHandle.bind(this, "np8_start_date", "asc", "Par année")}>
+                    Par année
+                </li>
+                <li className="filter-order--items--item" onClick={this.props.orderHandle.bind(this, "np8_start_date", "des", "Par année inv.")}>
+                    Par année inv.
+                </li>
             </ul>
           </div>;
     }
