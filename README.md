@@ -3,7 +3,7 @@
 TODO LIST AVANT V1:
 
 ### Style
-- [ ] Liens dans le détai d'un article
+- [X] Liens dans le détai d'un article
 - [ ] Changer le titre des teaser pour éviter que les titres sur deux lignes sèment la crème
 - [ ] Pimper le style mobile (teaser, aside...)
 
