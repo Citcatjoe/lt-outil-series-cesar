@@ -180,7 +180,20 @@
                 width: calc(100% - 140px);
             }
 
-            a { /* TODO base pour César */ color: #fff; text-decoration: none; }
+            &.related-news img
+            {
+                padding: 0;
+                width: 37px; 
+                height: 37px;
+                margin-right: 10px;
+                background: transparent;
+                float: left;
+                
+            }
+
+            a { /* TODO base pour César */ color: $flash-color1; text-decoration: none; }
+
+
         }
     }
 }

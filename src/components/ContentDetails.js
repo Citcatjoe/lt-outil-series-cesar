@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Parser from 'html-react-parser';
 
+import faviconLt from "../img/favicon-lt.svg";
 
 class ContentDetails extends Component {
   // hantableeToggle(e) {
@@ -79,11 +80,16 @@ class ContentDetails extends Component {
                   <span className="col1">Provenance :</span>
                         <span className="col2">{this.props.item.lt_country}</span>
                 </li>
-                <li className="article-link">
+                {
+                  this.props.item.np8_news_ref == '' ? '' : Parser('<li className="related-news"><span className="col1">Lire aussi:</span><span className="col2">' + '<img src=' + faviconLt + ' alt="">' + this.props.item.np8_news_ref + '</span></li>')
+                  
+                }
+                {/* <li className="article-link">
                 {this.props.item.np8_news_ref
                   ? Parser("<span className='col1'>Lire aussi :</span><span className='col2'" + this.props.item.np8_news_ref + "</span>")
-                  : ""}
-                </li>
+                  : ""} 
+                </li>  */}
+               
               </ul>
               <div className="links">
 
