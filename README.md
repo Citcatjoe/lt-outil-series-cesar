@@ -26,3 +26,4 @@ TODO LIST AVANT V1:
 - [ ] Faire les partage (aside et détail)
 - [ ] Eléments manquants
 - [X] Quid des caractères bizaroïdes ? (A corriger dans Drupal)
+- [ ] La question des genres
