@@ -21,6 +21,7 @@ TODO LIST AVANT V1:
 - [ ] Bouton de remise à zéro des filtres. Un truc clair
 
 ### A discuter avec les journalistes
+- [ ] Signatures
 - [ ] Les images utilisées ne sont pas bonne
 - [ ] Faire les partage (aside et détail)
 - [ ] Eléments manquants
