@@ -6,7 +6,10 @@
     width: 100%;
     //height: 125px;
     
-    
+    .react-tabs__tab-panel
+    {
+        overflow: auto;
+    }
 
     .react-tabs__tab-list
     {

@@ -11,6 +11,7 @@ import FilterSelect from "./components/FilterSelect";
 import AsideToggle from "./components/AsideToggle";
 import FilterSearch from "./components/FilterSearch";
 import FilterOrder from "./components/FilterOrder";
+import AsideCount from "./components/AsideCount";
 
 import './App.scss';
 import "./scss/AsideTabs.scss";
@@ -23,6 +24,7 @@ import "./scss/FilterSearch.scss";
 import "./scss/FilterOrder.scss";
 import "./scss/FilterButton.scss";
 import "./scss/FilterSelect.scss";
+import "./scss/AsideCount.scss";
 
 import asideFooterBg from "./img/aside-footer-bg.svg";
 import asideBg1 from "./img/aside-bg-1.png";
@@ -51,7 +53,6 @@ class App extends Component {
     // this.selectCategoryHandle = this.selectCategoryHandle.bind(this);
     // this.selectFormatHandle = this.selectFormatHandle.bind(this);
     this.state = {
-      baseData: [],
       articles: [],
       articlesFiltered: null,
       asideCloseButtonVisible: false,
@@ -171,7 +172,7 @@ class App extends Component {
 
   // On met dans searchTerm la valeur de l'élément qui subit un événement
   searchHandler(event) {
-    this.setState({searchTerm: event.target.value})
+    this.setState({searchTerm: event.target.value, introVisible: false})
   }
 
   resetFilters() {
@@ -188,12 +189,12 @@ class App extends Component {
     filteredOptions: [],
       articlesFiltered: null,
       //articles: o,
-      searchTerm: "",
-      orderLabel: null,
-      orderSort: null,
-      orderValue: null,
-      buttons: buttons,
-      introVisible: false
+      searchTerm: "", 
+      // orderLabel: null,
+      // orderSort: null,
+      // orderValue: null,
+      buttons: buttons
+      //introVisible: false
     });
   }
 
@@ -305,6 +306,10 @@ class App extends Component {
             articles = articles.filter(article => article[index] === filteredOptions[index]);
         }
       }
+
+      this.setState({
+        introVisible: false
+      });
     }
 
     // Ici on parcour chaque filtre pour filtre les articles
@@ -342,7 +347,8 @@ class App extends Component {
     
 
     this.setState({
-      buttons: newStateButtons
+      buttons: newStateButtons,
+      introVisible: false
     });
 
 
@@ -462,7 +468,9 @@ class App extends Component {
     if(articlesFiltered !== null) {
       articles = articlesFiltered;
     }
+
     articles = articles.filter(this.searchingFor(this.state.searchTerm));
+    //console.log('articles: ' + articles.length);
 
     return <div className="App">
         <aside style={asideBg1Style} className={`${asideVisible ? "is-visible" : ""}`}>
@@ -492,6 +500,7 @@ class App extends Component {
               <FilterSelect selectFormatHandle={this.selectFormatHandle} selectFormat={selectFormat} /> */}
             </TabPanel>
           </Tabs>
+          <AsideCount articlesVar={articles} />
           <ul className="aside-footer-list">
             <li className="aside-footer-list-item">
               Partager sur Facebook

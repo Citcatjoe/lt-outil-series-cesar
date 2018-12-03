@@ -1,0 +1,13 @@
+@import "../App.scss";
+
+.aside--count
+{
+    font-weight: 500;
+    color: $color6;
+    font-family: 'Montserrat';
+
+    .aside--count--highlight
+    {
+        color: $color3;
+    }
+}
