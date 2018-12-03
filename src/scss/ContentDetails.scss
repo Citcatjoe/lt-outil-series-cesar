@@ -152,10 +152,16 @@
     .body-p
     {
         font-family: 'Montserrat';
-        font-weight: 600;
+        font-weight: 500;
         color: $color6;
         line-height: 23px;
         margin-bottom: 30px;
+        //display: inline;
+
+        p 
+        {
+            display: inline;
+        }
     }
 
     ul

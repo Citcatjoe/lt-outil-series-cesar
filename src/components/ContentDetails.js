@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import Parser from 'html-react-parser';
 
+import ShareButtons from "../components/ShareButtons";
+
+import "../scss/ShareButtons.scss";
+
 import faviconLt from "../img/favicon-lt.svg";
 
 class ContentDetails extends Component {
@@ -55,7 +59,8 @@ class ContentDetails extends Component {
               <span className={`body-highlighted`}>
                 {this.props.item.lt_tv_show_genre}
               </span>
-              <div className={`body-p`}>{Parser(this.props.item.body)}</div>
+              <div className={`body-p`}>{Parser(this.props.item.body)}<span className={`body-author`}>&nbsp;&nbsp;– {this.props.item.np8_author_ref}</span></div>
+              
               <ul>
                 <li>
                   <span className="col1">Années prod. :</span>
@@ -84,11 +89,7 @@ class ContentDetails extends Component {
                   this.props.item.np8_news_ref == '' ? '' : Parser('<li className="related-news"><span className="col1">Lire aussi:</span><span className="col2">' + '<img src=' + faviconLt + ' alt="">' + this.props.item.np8_news_ref + '</span></li>')
                   
                 }
-                {/* <li className="article-link">
-                {this.props.item.np8_news_ref
-                  ? Parser("<span className='col1'>Lire aussi :</span><span className='col2'" + this.props.item.np8_news_ref + "</span>")
-                  : ""} 
-                </li>  */}
+                <ShareButtons />
                
               </ul>
               <div className="links">

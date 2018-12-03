@@ -1,0 +1,63 @@
+@import "../App.scss";
+
+.share-buttons
+{
+
+
+
+    list-style: none;
+
+    .col1 
+    {
+        font-family: inherit !important;
+        color: inherit !important;
+    }
+
+    .share-buttons--button
+    {
+        width: 40px;
+
+        img, svg
+        {
+            padding: 0;
+            margin: 0;
+            background: transparent;
+            //width: 6px;
+        }
+
+        &.facebook
+        {
+            img, svg
+            {
+                width: 7px;
+                margin-bottom: -2px;
+                margin-left: -1px;
+            }
+        }
+
+        &.twitter
+        {
+            img, svg
+            {
+                width: 13px;
+                margin-bottom: -2px;
+                margin-left: -1px;
+            }
+        }
+
+        &.linkedin
+        {
+            img, svg
+            {
+                width: 13px;
+                margin-bottom: -2px;
+                margin-left: -1px;
+            }
+        }
+    }
+}
+
+.st0
+{
+    fill: $flash-color1 !important;
+}
