@@ -13,6 +13,7 @@ import FilterSearch from "./components/FilterSearch";
 import FilterOrder from "./components/FilterOrder";
 import AsideCount from "./components/AsideCount";
 import AsideReset from "./components/AsideReset";
+import LogoLtGray from "./components/LogoLtGray";
 
 import './App.scss';
 import "./scss/AsideTabs.scss";
@@ -27,12 +28,12 @@ import "./scss/FilterButton.scss";
 import "./scss/FilterSelect.scss";
 import "./scss/AsideCount.scss";
 import "./scss/AsideReset.scss";
+import "./scss/LogoLtGray.scss";
 
 import asideFooterBg from "./img/aside-footer-bg.svg";
 import asideBg1 from "./img/aside-bg-1.png";
 import cross from "./img/cross.svg";
 import noResults from "./img/no-results.svg";
-import logoLtGray from "./img/logo-lt-gray.svg";
 import ShareButtons from './components/ShareButtons';
 
 
@@ -548,19 +549,20 @@ class App extends Component {
           </Tabs>
           <AsideCount articlesVar={articles} />
           <AsideReset onClick={this.resetFilters} />
+
           <ul className="aside-footer-list">
             <ShareButtons />
-            {/* <li className="aside-footer-list-item">
-              Partager &nbsp;&nbsp;<button>F</button> <button>T</button> <button>L</button>
-            </li> */}
             <li className="aside-footer-list-item">
               Signaler une erreur
             </li>
             <li className="aside-footer-list-item">
               Suggérer une série
             </li>
-          <li className="aside-footer-list-item logo-lt-gray"><a href="https://www.letemps.ch" target="_blank"><img src={logoLtGray} alt=""></img></a></li>
+          <li className="aside-footer-list-item">
+            <LogoLtGray />
+          </li>
           </ul>
+
           <img className="aside-footer-bg" alt="" src={asideFooterBg} />
         </aside>
         <main className={`${asideVisible ? "is-moved-right" : ""}`}>

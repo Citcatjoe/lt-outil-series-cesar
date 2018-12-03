@@ -2,62 +2,51 @@
 
 .share-buttons
 {
-
-
-
-    list-style: none;
-
-    .col1 
+    .share-buttons--button
     {
-        font-family: inherit !important;
-        color: inherit !important;
+        width: 40px;
+        //color: $flash-color1;
+
+        .facebook
+        {
+            width: 7px;
+            margin-bottom: -2px;
+            margin-left: -1px;
+            fill: $flash-color1;
+        }
+
+        .twitter
+        {
+            width: 13px;
+            margin-bottom: -2px;
+            margin-left: -1px;
+            fill: $flash-color1;
+        }
+
+        .linkedin
+        {
+            width: 13px;
+            margin-bottom: -2px;
+            margin-left: -1px;
+            fill: $flash-color1;
+        }
+    }
+}
+
+//Aside list specific
+.aside-footer-list .share-buttons
+{
+    .col1
+    {
+        width: 80px;
     }
 
     .share-buttons--button
     {
-        width: 40px;
-
-        img, svg
-        {
-            padding: 0;
-            margin: 0;
-            background: transparent;
-            //width: 6px;
-        }
-
-        &.facebook
-        {
-            img, svg
-            {
-                width: 7px;
-                margin-bottom: -2px;
-                margin-left: -1px;
-            }
-        }
-
-        &.twitter
-        {
-            img, svg
-            {
-                width: 13px;
-                margin-bottom: -2px;
-                margin-left: -1px;
-            }
-        }
-
-        &.linkedin
-        {
-            img, svg
-            {
-                width: 13px;
-                margin-bottom: -2px;
-                margin-left: -1px;
-            }
-        }
+        border: none;
+        padding: 0;
+        width: auto;
+        margin: 0 5px;
     }
 }
 
-.st0
-{
-    fill: $flash-color1 !important;
-}
