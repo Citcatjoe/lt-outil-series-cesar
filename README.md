@@ -8,11 +8,20 @@ TODO LIST AVANT V1:
 - [ ] Partage
 - [ ] Analytics
 - [ ] Footer Aside
+- [ ] Rédifer intro (N.Du.)
+- [ ] "Distributeur" -> "Diffuseur"
+- [ ] Lien "signaler une erreur"
+- [ ] Lien "Faire une suggestion"
+- [ ] Bouton Reset sur Mobile
+- [ ] Filtre pour diffuseur
+- [ ] "Format" -> "Durée"
+- [ ] Style des onglet
 
 ### Style
 - [X] Liens dans le détai d'un article
 - [ ] Changer le titre des teaser pour éviter que les titres sur deux lignes sèment la crème
 - [ ] Style teaser (titre)
+- [ ] Fix overlay (ligne de pixel et "+")
 
 ### UX
 - [X] Delete automatiquement l'introduction dès qu'on fait une action
