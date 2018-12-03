@@ -13,7 +13,7 @@ TODO LIST AVANT V1:
 - [ ] Lien "signaler une erreur"
 - [ ] Lien "Faire une suggestion"
 - [ ] Bouton Reset sur Mobile
-- [ ] Filtre pour diffuseur
+- [ ] Select pour diffuseur
 - [ ] "Format" -> "Durée"
 - [ ] Style des onglet
 
