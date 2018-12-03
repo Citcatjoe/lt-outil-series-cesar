@@ -2,10 +2,26 @@
 
 TODO LIST AVANT V1:
 
+### À faire pour la sortie mi-décembe
+- [ ] Définir les partage et les faire
+- [ ] Responsive
+- [ ] Partage
+- [ ] Analytics
+- [ ] Footer Aside
+- [ ] Rédifer intro (N.Du.)
+- [ ] "Distributeur" -> "Diffuseur"
+- [ ] Lien "signaler une erreur"
+- [ ] Lien "Faire une suggestion"
+- [X] Bouton Reset dans la colonne de gauche
+- [ ] Select pour diffuseur
+- [ ] "Format" -> "Durée"
+- [ ] Style des onglet
+
 ### Style
 - [X] Liens dans le détai d'un article
 - [ ] Changer le titre des teaser pour éviter que les titres sur deux lignes sèment la crème
-- [ ] Pimper le style mobile (teaser, aside...)
+- [ ] Style teaser (titre)
+- [ ] Fix overlay (ligne de pixel et "+")
 
 ### UX
 - [X] Delete automatiquement l'introduction dès qu'on fait une action
@@ -21,9 +37,8 @@ TODO LIST AVANT V1:
 - [ ] Bouton de remise à zéro des filtres. Un truc clair
 
 ### A discuter avec les journalistes
-- [ ] Signatures
+- [X] Signatures
 - [ ] Les images utilisées ne sont pas bonne
-- [ ] Faire les partage (aside et détail)
 - [ ] Eléments manquants
 - [X] Quid des caractères bizaroïdes ? (A corriger dans Drupal)
 - [ ] La question des genres
