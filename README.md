@@ -12,7 +12,7 @@ TODO LIST AVANT V1:
 - [ ] "Distributeur" -> "Diffuseur"
 - [ ] Lien "signaler une erreur"
 - [ ] Lien "Faire une suggestion"
-- [ ] Bouton Reset sur Mobile
+- [X] Bouton Reset sur Mobile
 - [ ] Select pour diffuseur
 - [ ] "Format" -> "Durée"
 - [ ] Style des onglet
