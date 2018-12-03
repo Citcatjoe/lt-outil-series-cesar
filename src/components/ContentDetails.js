@@ -78,7 +78,7 @@ class ContentDetails extends Component {
                   <span className="col2">Épisodes de{" "}{this.props.item.lt_reading_time} minutes</span>
                 </li>
                 <li>
-                  <span className="col1">Distributeur :</span>
+                  <span className="col1">Diffuseur :</span>
                   <span className="col2">{this.props.item.lt_distributor}</span>
                 </li>
                 <li>
@@ -86,11 +86,13 @@ class ContentDetails extends Component {
                         <span className="col2">{this.props.item.lt_country}</span>
                 </li>
                 {
-                  this.props.item.np8_news_ref == '' ? '' : Parser('<li className="related-news"><span className="col1">Lire aussi:</span><span className="col2">' + '<img src=' + faviconLt + ' alt="">' + this.props.item.np8_news_ref + '</span></li>')
-                  
+                  this.props.item.np8_news_ref === '' ? '' : Parser('<li className="related-news"><span className="col1">Lire aussi:</span><span className="col2"><img src=' + faviconLt + ' alt="">' + this.props.item.np8_news_ref + '</span></li>')
                 }
+
                 <ShareButtons />
                
+
+     
               </ul>
               <div className="links">
 

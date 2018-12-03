@@ -115,6 +115,47 @@ class App extends Component {
           ]
         },
         {
+          selectName: "Diffuseur",
+          selectJsonLabel: "lt_distributor",
+          selectOptions: [
+            { value: "A&E", label: "A&E" },
+            { value: "ABC", label: "ABC" },
+            { value: "AMC", label: "AMC" },
+            { value: "Amazon", label: "Amazon" },
+            { value: "Arte", label: "Arte" },
+            { value: "BBC", label: "BBC" },
+            { value: "CBS", label: "CBS" },
+            { value: "CTV ", label: "CTV " },
+            { value: "Canal+", label: "Canal+" },
+            { value: "Channel 4", label: "Channel 4" },
+            { value: "DR1", label: "DR1" },
+            { value: "E4", label: "E4" },
+            { value: "FOX", label: "FOX" },
+            { value: "FX", label: "FX" },
+            { value: "Facebook Watch", label: "Facebook Watch" },
+            { value: "Fox", label: "Fox" },
+            { value: "France 2", label: "France 2" },
+            { value: "G4", label: "G4" },
+            { value: "HBO", label: "HBO" },
+            { value: "Hulu", label: "Hulu" },
+            { value: "ITV", label: "ITV" },
+            { value: "M6", label: "M6" },
+            { value: "NBC", label: "NBC" },
+            { value: "Netflix", label: "Netflix" },
+            { value: "RTS", label: "RTS" },
+            { value: "RTÉ One", label: "RTÉ One" },
+            { value: "Radio-Canada", label: "Radio-Canada" },
+            { value: "ShowTime", label: "ShowTime" },
+            { value: "Showcase", label: "Showcase" },
+            { value: "Space", label: "Space" },
+            { value: "The CW", label: "The CW" },
+            { value: "The WB", label: "The WB" },
+            { value: "UPN", label: "UPN" },
+            { value: "USA Network", label: "USA Network" },
+            { value: "YouTube", label: "YouTube" },
+          ]
+        },
+        {
           selectName: "Format des épisodes",
           selectJsonLabel: "lt_reading_time",
           selectOptions: [
@@ -148,7 +189,7 @@ class App extends Component {
     //   sort = 'desc';
     // }
 
-    
+
 
     var o = null;
     if (this.state.articlesFiltered !== null)
@@ -159,7 +200,7 @@ class App extends Component {
     {
       o = sortJsonArray(this.state.articles, value, sort);
     }
-    
+
     this.setState({
       articlesFiltered: o,
       orderLabel: label,
@@ -187,14 +228,14 @@ class App extends Component {
       button.status = false;
       return button;
     });
-    
+
     //var o = sortJsonArray(this.state.articles, "title", "asc");
     //Merci Ivo
     this.setState({
     filteredOptions: [],
       articlesFiltered: null,
       //articles: o,
-      searchTerm: "", 
+      searchTerm: "",
       // orderLabel: null,
       // orderSort: null,
       // orderValue: null,
@@ -349,7 +390,7 @@ class App extends Component {
       return button;
     });
 
-    
+
 
     this.setState({
       buttons: newStateButtons,
@@ -370,9 +411,9 @@ class App extends Component {
       articlesFiltered: articles
     });
     }
-    
 
-    
+
+
   }
 
   asideToggle() {
@@ -535,7 +576,7 @@ class App extends Component {
                 articles.filter(this.searchingFor(this.state.searchTerm)).map(article =>
                   <div>
                     <p>{article.title}</p>
-                  </div>  
+                  </div>
                 )
               } */}
             {articles.length > 0 ? articles

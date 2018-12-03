@@ -2,6 +2,7 @@
   "name": "lt-outil-series-cesar",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://labs.letemps.ch/interactive/2018/_sandbox/gus/",
   "dependencies": {
     "html-react-parser": "^0.4.7",
     "react": "^16.6.3",
