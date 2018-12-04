@@ -23,10 +23,11 @@ class FilterSelect extends Component {
   };
 
   render() {
+
     const { selectedOption } = this.state;
     const selectName = this.props.select.selectName;
     const selectOptions = this.props.select.selectOptions;
-
+    const isMulti = this.props.select.isMulti ? true : false;
     //console.log("(render) selectJsonLabel " + selectJsonLabel);
     //console.log(select + 'lol');
 
@@ -40,6 +41,7 @@ class FilterSelect extends Component {
           value={selectedOption}
           onChange={this.handleChange}
           isClearable={true}
+          isMulti={isMulti}
           placeholder={selectName}
         />
       </div>
