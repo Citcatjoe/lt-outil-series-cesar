@@ -5,23 +5,23 @@ TODO LIST AVANT V1:
 ### À faire pour la sortie mi-décembe
 - [ ] Définir les partage et les faire
 - [ ] Responsive
-- [ ] Partage
+- [X] Partage
 - [ ] Analytics
-- [ ] Footer Aside
-- [ ] Rédifer intro (N.Du.)
-- [ ] "Distributeur" -> "Diffuseur"
+- [X] Footer Aside
+- [ ] Rédiger intro (N.Du.)
+- [X] "Distributeur" -> "Diffuseur"
 - [ ] Lien "signaler une erreur"
 - [ ] Lien "Faire une suggestion"
 - [X] Bouton Reset dans la colonne de gauche
 - [ ] Select pour diffuseur
-- [ ] "Format" -> "Durée"
+- [X] "Format" -> "Durée"
 - [ ] Style des onglet
 
 ### Style
 - [X] Liens dans le détai d'un article
-- [ ] Changer le titre des teaser pour éviter que les titres sur deux lignes sèment la crème
+- [X] Changer le titre des teaser pour éviter que les titres sur deux lignes sèment la crème
 - [ ] Style teaser (titre)
-- [ ] Fix overlay (ligne de pixel et "+")
+- [X] Fix overlay (ligne de pixel et "+")
 
 ### UX
 - [X] Delete automatiquement l'introduction dès qu'on fait une action
@@ -31,10 +31,9 @@ TODO LIST AVANT V1:
 - [X] Le reset doit il reset l'ordre ? Done: le reset ne reset plus l'ordre. Ordre initial: 'Ajouts récents'
 
 ### Autre
-- [ ] Générer une colonne qui fera office de classement initial (par date de publication)
-- [ ] Générer une colonne pour le classement manuel ?
-- [ ] Footer aside (lien, logos...)
-- [ ] Bouton de remise à zéro des filtres. Un truc clair
+- [X] Générer une colonne qui fera office de classement initial (par date de publication)(plus besoin)
+- [X] Générer une colonne pour le classement manuel ? (plus besoin)
+- [X] Bouton de remise à zéro des filtres. Un truc clair
 
 ### A discuter avec les journalistes
 - [X] Signatures
