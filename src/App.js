@@ -120,40 +120,19 @@ class App extends Component {
           selectJsonLabel: "lt_distributor",
           isMulti: true,
           selectOptions: [
-            { value: "A&amp;E", label: "A&E" },
-            { value: "ABC", label: "ABC" },
-            { value: "AMC", label: "AMC" },
-            { value: "Amazon", label: "*Amazon" },
+            { value: "Amazon", label: "Amazon" },
             { value: "Arte", label: "Arte" },
-            { value: "BBC", label: "BBC" },
-            { value: "CBS", label: "CBS" },
-            { value: "CTV ", label: "CTV " },
             { value: "Canal+", label: "Canal+" },
-            { value: "Channel 4", label: "Channel 4" },
-            { value: "DR1", label: "DR1" },
-            { value: "E4", label: "E4" },
-            { value: "FOX", label: "*FOX" },
-            { value: "FX", label: "FX" },
             { value: "Facebook Watch", label: "Facebook Watch" },
             { value: "Fox", label: "Fox" },
             { value: "France 2", label: "France 2" },
-            { value: "G4", label: "G4" },
-            { value: "HBO", label: "*HBO" },
+            { value: "HBO", label: "HBO" },
             { value: "Hulu", label: "Hulu" },
-            { value: "ITV", label: "ITV" },
-            { value: "M6", label: "M6" },
-            { value: "NBC", label: "NBC" },
-            { value: "Netflix", label: "*Netflix" },
-            { value: "RTS", label: "*RTS" },
-            { value: "RTÉ One", label: "RTÉ One" },
-            { value: "Radio-Canada", label: "Radio-Canada" },
+            { value: "Netflix", label: "Netflix" },
+            { value: "RTS", label: "RTS" },
             { value: "ShowTime", label: "ShowTime" },
             { value: "Showcase", label: "Showcase" },
-            { value: "Space", label: "Space" },
-            { value: "The CW", label: "The CW" },
-            { value: "The WB", label: "The WB" },
-            { value: "UPN", label: "UPN" },
-            { value: "USA Network", label: "*USA Network" },
+            { value: "USA Network", label: "USA Network" },
             { value: "YouTube", label: "YouTube" },
           ]
         },
@@ -330,16 +309,27 @@ class App extends Component {
     // on utilise *let* pour eviter de déclencher no-loop-func
     for (let index in filteredOptions) {
       if (filteredOptions.hasOwnProperty(index)) {
-        //console.log('>>' + filteredOptions);
         switch (true) {
+
+          // diffuseurs: plusieurs choix, plusieurs éléments
           case index === 'lt_distributor':
-            let possibilities = 'Netflix|Amazon';
-            articles = articles.filter(article => article[index].includes( possibilities ) );
-            /*filteredOptions[selectJsonLabel] = [];
-            for (let item of selectedOption) {
-              filteredOptions[selectJsonLabel].push( item.value );
-            }*/
-            console.log(selectedOption)
+
+            const containsDiffusor = function(show_diffusors, choosen_diffusors) {
+              let found_list = choosen_diffusors.map(function(choice){
+                if(show_diffusors.includes(choice)){
+                  return true;
+                } else {
+                  return false;
+                }
+              });
+              return found_list.some(item => item === true);
+            }
+
+            // On extrait les valeurs du tableau généré par le plugin react-select
+            let selectedDiffusors = selectedOption.map(function(item){ return item.value; });
+
+            articles = articles.filter(article => containsDiffusor(article[index], selectedDiffusors) === true );
+
             break;
 
           // categories pouvant contenir plusieurs éléments
