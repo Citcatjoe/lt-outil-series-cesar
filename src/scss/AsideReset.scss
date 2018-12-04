@@ -1,0 +1,11 @@
+@import "../App.scss";
+
+.aside--reset
+{
+    display: inline-block;
+    float: right;
+    font-family: 'Montserrat';
+    font-weight: 500;
+    color: $flash-color1;
+    cursor: pointer;
+}

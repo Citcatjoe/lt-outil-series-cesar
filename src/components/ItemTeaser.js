@@ -30,7 +30,10 @@ class ItemTeaser extends React.Component {
                 </div>
                 <figure className="item-teaser--figure" style={{ backgroundImage: "url(" + image + ")" }} />
                 {/* <img src={image} alt={title} /> */}
-                <h2 className="item-teaser--title">{title}</h2>
+                <div className="item-teaser--body">
+                    <h2 className="item-teaser--body--title">{title}</h2>
+                </div>
+                
             </div>;
         }
         return <div className={`intro ${introVisible ? "is-visible" : ""}`}>

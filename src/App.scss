@@ -6,6 +6,7 @@ $color5: #3C4651; //bg recherche
 $color6: #A2ACBB;
 $flash-color1: #ff0078;
 $flash-color2: #ff0049; 
+$brand-color: #930025;
 
 @mixin breakpoint($class) {
 @if $class == xxs {
@@ -146,21 +147,26 @@ aside
   .aside-footer-list
   {
     position: absolute;
-    bottom: 35px;
+    bottom: 20px;
     width: 100%;
     z-index: 10;
     padding: 0;
-    
-    .aside-footer-list-item
+    font-family: 'Montserrat';
+    font-size: 14px;
+    font-weight: 500;
+    color: $color1;
+
+    li 
     {
       list-style: none;
       padding-inline-start: 0;
-      font-family: 'Montserrat';
-      font-size: 14px;
-      color: $color1;
-      opacity: .32;
       padding: 7px 0;
+      display: flex;
+      color: $color6;
+      list-style: none;
+      padding-inline-start: 0;
     }
+      
   }  
 
   .aside-footer-bg
@@ -273,6 +279,8 @@ main
 
   
 }
+
+
 
 
 

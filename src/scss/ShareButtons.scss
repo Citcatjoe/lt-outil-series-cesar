@@ -1,0 +1,52 @@
+@import "../App.scss";
+
+.share-buttons
+{
+    .share-buttons--button
+    {
+        width: 40px;
+        //color: $flash-color1;
+
+        .facebook
+        {
+            width: 7px;
+            margin-bottom: -2px;
+            margin-left: -1px;
+            fill: $flash-color1;
+        }
+
+        .twitter
+        {
+            width: 13px;
+            margin-bottom: -2px;
+            margin-left: -1px;
+            fill: $flash-color1;
+        }
+
+        .linkedin
+        {
+            width: 13px;
+            margin-bottom: -2px;
+            margin-left: -1px;
+            fill: $flash-color1;
+        }
+    }
+}
+
+//Aside list specific
+.aside-footer-list .share-buttons
+{
+    .col1
+    {
+        width: 80px;
+    }
+
+    .share-buttons--button
+    {
+        border: none;
+        padding: 0;
+        width: auto;
+        margin: 0 5px;
+    }
+}
+
