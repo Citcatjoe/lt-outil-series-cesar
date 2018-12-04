@@ -3,6 +3,9 @@
 .filter-select
 {
     margin-bottom: 13px; 
+    @include breakpoint(xl) { 
+        margin-bottom: 10px;
+    }
     
 }
 
@@ -11,12 +14,21 @@
     font-family: 'Montserrat';
     font-weight: 500;
 
+    
+
     .select__control
     {
         border-radius: 50px;
         background: transparent;
         border: 2px solid $flash-color1;
         font-size: 13.5px;
+
+        @include breakpoint(xl) { 
+            min-height: 30px !important;
+            height: 35px;
+        }
+
+        
 
         //> .select__value-container.select__value-container--has-value { background: red;}
 

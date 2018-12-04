@@ -42,6 +42,11 @@ var sortJsonArray = require("sort-json-array");
 // import { throws } from 'assert';
 
 const asideBg1Style = { backgroundImage: "url(" + asideBg1 + ")" };
+// const asideFooterBgStyle = { 
+//     backgroundImage: "url(" + asideFooterBg + ")",
+//     backgroundPosition: 'top right',
+//      backgroundSize: 'cover'
+// };
 
 class App extends Component {
   constructor(props) {
@@ -157,7 +162,7 @@ class App extends Component {
           ]
         },
         {
-          selectName: "Format des épisodes",
+          selectName: "Durée des épisodes",
           selectJsonLabel: "lt_reading_time",
           selectOptions: [
             { value: "<15", label: "Moins de 15 minutes" },
@@ -521,49 +526,52 @@ class App extends Component {
 
     return <div className="App">
         <aside style={asideBg1Style} className={`${asideVisible ? "is-visible" : ""}`}>
-          <div className={`aside--close-button ${asideCloseButtonVisible ? "is-visible" : ""}`} onClick={this.asideToggle}>
-            <img className="aside--close-button--img" alt="Fermer" src={cross} />
+          <div className="aside-top">
+            <div className={`aside--close-button ${asideCloseButtonVisible ? "is-visible" : ""}`} onClick={this.asideToggle}>
+              <img className="aside--close-button--img" alt="Fermer" src={cross} />
+            </div>
+            <Tabs defaultIndex={0}>
+              <TabList>
+                <Tab onClick={this.resetFilters}>Suggestions</Tab>
+                <Tab onClick={this.resetFilters}>Sur mesure</Tab>
+              </TabList>
+
+              <TabPanel>
+                <h3 className="aside-title">Nos suggestions rapides</h3>
+                {buttons.length > 0 ? buttons.map((button, index) => {
+                      return <FilterButton index={index} key={index} button={button} buttonHandle={this.buttonHandle} />;
+                    }) : null}
+              </TabPanel>
+              <TabPanel>
+                <h3 className="aside-title">Filtrage personnalisé</h3>
+                {/* <FilterSelect articles={articles} selectCategoryHandle={this.selectCategoryHandle} /> */}
+                {selects.length > 0 ? selects.map((select, index) => {
+                      //console.log(select);
+                      return <FilterSelect index={index} key={index} articles={articles} select={select} selectHandle={this.selectHandle} filteredOptions={this.state.filteredOptions} />;
+                    }) : null}
+                {/* <FilterSelect selectCategoryHandle={this.selectCategoryHandle} selectCategory={selectCategory} />
+                <FilterSelect selectFormatHandle={this.selectFormatHandle} selectFormat={selectFormat} /> */}
+              </TabPanel>
+            </Tabs>
+            <AsideCount articlesVar={articles} />
+            <AsideReset onClick={this.resetFilters} />
+
+          
+
+            {/* <img className="aside-footer-bg" alt="" src={asideFooterBg} /> */}
           </div>
-          <Tabs defaultIndex={0}>
-            <TabList>
-              <Tab onClick={this.resetFilters}>Suggestions</Tab>
-              <Tab onClick={this.resetFilters}>Sur mesure</Tab>
-            </TabList>
-
-            <TabPanel>
-              <h3 className="aside-title">Nos suggestions rapides</h3>
-              {buttons.length > 0 ? buttons.map((button, index) => {
-                    return <FilterButton index={index} key={index} button={button} buttonHandle={this.buttonHandle} />;
-                  }) : null}
-            </TabPanel>
-            <TabPanel>
-              <h3 className="aside-title">Filtrage personnalisé</h3>
-              {/* <FilterSelect articles={articles} selectCategoryHandle={this.selectCategoryHandle} /> */}
-              {selects.length > 0 ? selects.map((select, index) => {
-                    //console.log(select);
-                    return <FilterSelect index={index} key={index} articles={articles} select={select} selectHandle={this.selectHandle} filteredOptions={this.state.filteredOptions} />;
-                  }) : null}
-              {/* <FilterSelect selectCategoryHandle={this.selectCategoryHandle} selectCategory={selectCategory} />
-              <FilterSelect selectFormatHandle={this.selectFormatHandle} selectFormat={selectFormat} /> */}
-            </TabPanel>
-          </Tabs>
-          <AsideCount articlesVar={articles} />
-          <AsideReset onClick={this.resetFilters} />
-
           <ul className="aside-footer-list">
             <ShareButtons />
             <li className="aside-footer-list-item">
               Signaler une erreur
-            </li>
+                </li>
             <li className="aside-footer-list-item">
               Suggérer une série
+                </li>
+            <li className="aside-footer-list-item">
+              <LogoLtGray />
             </li>
-          <li className="aside-footer-list-item">
-            <LogoLtGray />
-          </li>
           </ul>
-
-          <img className="aside-footer-bg" alt="" src={asideFooterBg} />
         </aside>
         <main className={`${asideVisible ? "is-moved-right" : ""}`}>
           <div className={`main-header ${headerVisible ? "is-visible" : ""}`}>

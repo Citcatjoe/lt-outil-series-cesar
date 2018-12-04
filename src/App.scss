@@ -83,6 +83,16 @@ $brand-color: #930025;
   height: 100%;
 }
 
+aside::-webkit-scrollbar {
+    width: 6px;
+    background-color: transparent;
+    display: none
+  }
+
+  aside::-webkit-scrollbar-thumb {
+    background-color: $flash-color1;
+  }
+
 aside
 {
   width: 400px;
@@ -91,9 +101,21 @@ aside
   background-repeat: no-repeat !important;
   float: left;
   position: fixed;
-  padding: 0 40px;
+  //padding: 0 40px;
   z-index: 10;
   transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+  overflow: visible;
+
+  // @include breakpoint(xl) { 
+  //     position: 
+  // }
+
+  @include breakpoint(xl) { 
+      //overflow-y: scroll;
+      //padding-bottom: 500px;
+      //position: relative;
+      //padding: 0 25px;
+  }
 
   @include breakpoint(md) { 
       transform: translateX(-400px);
@@ -102,9 +124,22 @@ aside
       //padding: 0 25px;
   }
 
+  @include breakpoint(xs) { 
+      width: 100%;
+      overflow-y: scroll;
+      overflow-x: visible;
+      background-size: cover;
+      transform: translateX(-100%);
+  }
+
   &.is-visible
   {
     transform: translateX(0);
+  }
+
+  .aside-top 
+  {
+    padding: 0 40px;
   }
 
   .aside--close-button
@@ -124,6 +159,10 @@ aside
 
     @include breakpoint(md) { 
         display: block;
+    }
+
+    @include breakpoint(xs) { 
+      right: 60px;
     }
     
 
@@ -147,14 +186,36 @@ aside
   .aside-footer-list
   {
     position: absolute;
-    bottom: 20px;
+    bottom: 0;
+    left: 0;
     width: 100%;
     z-index: 10;
-    padding: 0;
+    padding: 0 40px;
     font-family: 'Montserrat';
     font-size: 14px;
     font-weight: 500;
     color: $color1;
+    margin-block-end: 0;
+    margin-block-start: 0;
+    height: 320px;
+    padding-top: 140px;
+
+    background: url('/static/media/aside-footer-bg.e1ffebce.svg');
+
+    // backgroundImage: "url(" + asideFooterBg + ")",
+    // backgroundPosition: 'top right',
+    //  backgroundSize: 'cover'
+
+    @include breakpoint(xl) { 
+        //position: static;
+        background: transparent;
+    }
+
+    @include breakpoint(xs) { 
+      position: static;
+      background: url('/static/media/aside-footer-bg.e1ffebce.svg');
+      background-size: cover;
+    }
 
     li 
     {
@@ -169,14 +230,18 @@ aside
       
   }  
 
-  .aside-footer-bg
-  {
-    position: absolute;
-    width: 100%;
-    height: auto;
-    bottom: 0;
-    left: 0;
-  }
+  // .aside-footer-bg
+  // {
+  //   //position: absolute;
+  //   //width: 100%;
+  //   width: calc(100% + 80px);
+  //   height: auto;
+  //   bottom: 0;
+  //   left: 0;
+  //   transform: translateX(-40px);
+
+    
+  // }
 }
 
 main 
