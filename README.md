@@ -4,18 +4,21 @@ TODO LIST AVANT V1:
 
 ### À faire pour la sortie mi-décembe
 - [ ] Définir les partage et les faire
-- [ ] Responsive
+- [X] Responsive
 - [X] Partage
 - [ ] Analytics
 - [X] Footer Aside
 - [ ] Rédiger intro (N.Du.)
 - [X] "Distributeur" -> "Diffuseur"
-- [ ] Lien "signaler une erreur"
-- [ ] Lien "Faire une suggestion"
+- [X] Lien "signaler une erreur"
+- [X] Lien "Faire une suggestion"
 - [X] Bouton Reset dans la colonne de gauche
-- [ ] Select pour diffuseur
+- [X] Select pour diffuseur
 - [X] "Format" -> "Durée"
 - [ ] Style des onglet
+- [ ] Métas (react-helmet ?)
+- [ ] Favicon
+- [ ] Reset du multiselect (diffuseur)
 
 ### Style
 - [X] Liens dans le détai d'un article
