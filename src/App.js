@@ -42,11 +42,11 @@ var sortJsonArray = require("sort-json-array");
 // import { throws } from 'assert';
 
 const asideBg1Style = { backgroundImage: "url(" + asideBg1 + ")" };
-// const asideFooterBgStyle = { 
-//     backgroundImage: "url(" + asideFooterBg + ")",
-//     backgroundPosition: 'top right',
-//      backgroundSize: 'cover'
-// };
+const asideFooterBgStyle = { 
+    backgroundImage: "url(" + asideFooterBg + ")",
+    backgroundPosition: 'top right',
+    backgroundSize: 'cover'
+};
 
 class App extends Component {
   constructor(props) {
@@ -569,14 +569,14 @@ class App extends Component {
 
             {/* <img className="aside-footer-bg" alt="" src={asideFooterBg} /> */}
           </div>
-          <ul className="aside-footer-list">
+          <ul className="aside-footer-list" style={asideFooterBgStyle}>
             <ShareButtons />
             <li className="aside-footer-list-item">
-              Signaler une erreur
-                </li>
+              <a href="mailto:florian.delafoi@ringieraxelspringer.ch?subject=Une erreur dans le guide des séries" target="_blank">Signaler une erreur</a>
+            </li>
             <li className="aside-footer-list-item">
-              Suggérer une série
-                </li>
+              <a href="mailto:florian.delafoi@ringieraxelspringer.ch?subject=Suggestion pour le guide des séries" target="_blank">Suggérer une série</a>
+            </li>
             <li className="aside-footer-list-item">
               <LogoLtGray />
             </li>

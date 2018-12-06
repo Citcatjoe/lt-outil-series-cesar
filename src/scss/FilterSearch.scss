@@ -8,7 +8,8 @@
     transform: translateX(-50%);
 
     @include breakpoint(xs) { 
-        width: calc(100% - 70px);
+        width: calc(100% - 31px);
+        //top: 14px;
     }
 
     .filter-search--textfield

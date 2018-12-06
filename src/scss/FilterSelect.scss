@@ -9,6 +9,8 @@
     
 }
 
+
+
 .select 
 {
     font-family: 'Montserrat';
@@ -23,9 +25,11 @@
         border: 2px solid $flash-color1;
         font-size: 13.5px;
 
-        @include breakpoint(xl) { 
-            min-height: 30px !important;
-            height: 35px;
+        @include breakpoint(xs) { 
+            // min-height: 30px !important;
+            // height: 35px;
+            font-size: 16px;
+            transform: scale(0.9) translateY(-10px);
         }
 
         

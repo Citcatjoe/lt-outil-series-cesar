@@ -6,6 +6,7 @@
     min-width: 100%;
     min-height: 100%;
     position: relative;
+    -webkit-overflow-scrolling: touch;
 
     &::-webkit-scrollbar {
         width: 6px;
@@ -138,6 +139,12 @@
         font-weight: 600;
         font-size: 44px;
         margin: 0;
+
+        @include breakpoint(xs) { 
+            font-size: 28px;
+            line-height: 32px;
+            margin-bottom: 5px;;
+        }
     }
 
     .body-highlighted

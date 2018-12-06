@@ -12,7 +12,12 @@
     z-index: 10;
     overflow: hidden;
     display: none;
-    visibility: hidden;;
+    visibility: hidden;
+
+    @include breakpoint(xs) { 
+        height: calc(100vh - 150px);
+        top: 150px;
+    }
 
     &.is-visible
     {

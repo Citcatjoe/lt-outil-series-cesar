@@ -47,6 +47,7 @@ $brand-color: #930025;
 
   body 
   {
+    -webkit-overflow-scrolling: touch;
     
     &.no-scroll 
     {
@@ -84,14 +85,20 @@ $brand-color: #930025;
 }
 
 aside::-webkit-scrollbar {
-    width: 6px;
-    background-color: transparent;
-    display: none
+  display: none;
+    // width: 6px;
+    // background-color: $color2;
+    // display: none;
+
+    @include breakpoint(xs) { 
+        //display: auto;
+        //display: inherit;
+    }
   }
 
-  aside::-webkit-scrollbar-thumb {
-    background-color: $flash-color1;
-  }
+//   aside::-webkit-scrollbar-thumb {
+//     background-color: $flash-color1;
+//   }
 
 aside
 {
@@ -105,16 +112,15 @@ aside
   z-index: 10;
   transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
   overflow: visible;
+  //-webkit-overflow-scrolling: touch;
 
   // @include breakpoint(xl) { 
   //     position: 
   // }
 
   @include breakpoint(xl) { 
-      //overflow-y: scroll;
-      //padding-bottom: 500px;
-      //position: relative;
-      //padding: 0 25px;
+      overflow-y: scroll;
+      overflow-x: visible;
   }
 
   @include breakpoint(md) { 
@@ -140,11 +146,16 @@ aside
   .aside-top 
   {
     padding: 0 40px;
+
+    @include breakpoint(xs) { 
+      padding: 0 20px;
+    }
   }
 
   .aside--close-button
   {
     position: absolute;
+    z-index: 100;
     top: 36px;
     right: 0;
     transform: translateX(50%) scale(0);
@@ -200,22 +211,25 @@ aside
     height: 320px;
     padding-top: 140px;
 
-    background: url('/static/media/aside-footer-bg.e1ffebce.svg');
+    //background: url('/static/media/aside-footer-bg.e1ffebce.svg');
 
     // backgroundImage: "url(" + asideFooterBg + ")",
     // backgroundPosition: 'top right',
     //  backgroundSize: 'cover'
+    
 
     @include breakpoint(xl) { 
-        //position: static;
-        background: transparent;
+      
+        position: static;
+        padding: 140px 20px 0 20px;;
+      //background: url('/static/media/aside-footer-bg.e1ffebce.svg');
     }
 
-    @include breakpoint(xs) { 
-      position: static;
-      background: url('/static/media/aside-footer-bg.e1ffebce.svg');
-      background-size: cover;
-    }
+    // @include breakpoint(xs) { 
+    //   position: static;
+    //   background: url('/static/media/aside-footer-bg.e1ffebce.svg');
+    //   background-size: cover;
+    // }
 
     li 
     {
@@ -226,6 +240,12 @@ aside
       color: $color6;
       list-style: none;
       padding-inline-start: 0;
+
+      a 
+      {
+        //text-decoration: none;
+        color: inherit;
+      }
     }
       
   }  
@@ -253,6 +273,7 @@ main
   transform: translateX(0);
   transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
   position: relative;
+  //-webkit-overflow-scrolling: touch;
   
 
   // &.is-moved-right 
@@ -298,6 +319,11 @@ main
   transition: all 0.5s;
   padding: 17.5px;
   //position: relative;
+
+  @include breakpoint(xs) { 
+      padding: 10px;
+      padding-top: 17.5px;
+  }
 
   &.is-visible
   {
