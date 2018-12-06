@@ -13,7 +13,7 @@ TODO LIST AVANT V1:
 - [ ] Lien "signaler une erreur"
 - [ ] Lien "Faire une suggestion"
 - [X] Bouton Reset dans la colonne de gauche
-- [ ] Select pour diffuseur
+- [X] Select pour diffuseur
 - [X] "Format" -> "Durée"
 - [ ] Style des onglet
 
