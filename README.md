@@ -4,7 +4,7 @@ TODO LIST AVANT V1:
 
 ### À faire pour la sortie mi-décembe
 - [ ] Définir les partage et les faire
-- [ ] Responsive
+- [X] Responsive
 - [X] Partage
 - [ ] Analytics
 - [X] Footer Aside
