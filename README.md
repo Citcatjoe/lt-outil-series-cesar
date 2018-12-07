@@ -19,6 +19,7 @@ TODO LIST AVANT V1:
 - [ ] Métas (react-helmet ?)
 - [ ] Favicon
 - [ ] Reset du multiselect (diffuseur)
+- [X] Google Tag Manager
 
 ### Style
 - [X] Liens dans le détai d'un article
