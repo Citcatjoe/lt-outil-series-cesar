@@ -17,7 +17,7 @@ TODO LIST AVANT V1:
 - [X] "Format" -> "Durée"
 - [ ] Style des onglet
 - [X] Favicon
-- [ ] Reset du multiselect (diffuseur)
+- [X] Reset du multiselect (diffuseur)
 - [X] Google Tag Manager
 
 ### Style
