@@ -4,9 +4,9 @@ TODO LIST AVANT V1:
 
 ### À faire pour la sortie mi-décembe
 - [ ] Définir les partage et les faire
+- [ ] Titre / Desc
 - [X] Responsive
 - [X] Partage
-- [ ] Analytics
 - [X] Footer Aside
 - [ ] Rédiger intro (N.Du.)
 - [X] "Distributeur" -> "Diffuseur"
@@ -17,7 +17,7 @@ TODO LIST AVANT V1:
 - [X] "Format" -> "Durée"
 - [ ] Style des onglet
 - [ ] Métas (react-helmet ?)
-- [ ] Favicon
+- [X] Favicon
 - [ ] Reset du multiselect (diffuseur)
 - [X] Google Tag Manager
 
