@@ -154,8 +154,8 @@ class App extends Component {
           selectName: "État de la production",
           selectJsonLabel: "np8_end_date",
           selectOptions: [
-            { value: false, label: "En cours" },
-            { value: true, label: "Terminée" }
+            { value: 'en-cours', label: "En cours" },
+            { value: 'terminee', label: "Terminée" }
           ]
         },
         {
@@ -291,7 +291,7 @@ class App extends Component {
     // Ici on regarde si on filter ou on clear le filtre
     // puis on sauve ça dans notre variable locale
     if (selectedOption !== null) {
-      filteredOptions[selectJsonLabel] = selectedOption.value
+      filteredOptions[selectJsonLabel] = selectedOption.length > 0 ? selectedOption : selectedOption.value;
 
       /* Si select multiple - fonctionne mais l’interface perd la sélection
       if (selectedOption.length){
@@ -305,8 +305,6 @@ class App extends Component {
         delete filteredOptions[selectJsonLabel];
       }
     }
-
-    // DEBUG console.log(filteredOptions);
 
     // On ne réaffiche pas l’intro «Le guide ultime…»
     //articles = articles.filter(article => article['lt_tv_show_tag'] !== 'intro' );
@@ -323,9 +321,8 @@ class App extends Component {
               let found_list = choosen_diffusors.map(function(choice){
                 if(show_diffusors.includes(choice)){
                   return true;
-                } else {
-                  return false;
                 }
+                return false;
               });
               return found_list.some(item => item === true);
             }
@@ -470,7 +467,7 @@ class App extends Component {
 
           // ajout d’une colonne pour «En cours / searchTerminé»
           json.map((row, index) => {
-            return row['completed'] = row['np8_end_date'] === '' ? false : true;
+            return row['completed'] = row['np8_end_date'] === '' ? 'terminee' : 'en-cours';
           });
 
           this.setState({ baseData: json, articles: json, loading: false });
@@ -526,7 +523,7 @@ class App extends Component {
     const { introVisible } = this.state;
     const { introInnerVisible } = this.state;
 
-    if(articlesFiltered !== null) {
+    if(articlesFiltered !== null && articlesFiltered.length > 0) {
       articles = articlesFiltered;
     }
 
@@ -534,6 +531,7 @@ class App extends Component {
     //console.log('articles: ' + articles.length);
 
     return <div className="App">
+
         <aside style={asideBg1Style} className={`${asideVisible ? "is-visible" : ""}`}>
           <div className="aside-top">
             <div className={`aside--close-button ${asideCloseButtonVisible ? "is-visible" : ""}`} onClick={this.asideToggle}>
@@ -572,10 +570,10 @@ class App extends Component {
           <ul className="aside-footer-list" style={asideFooterBgStyle}>
             <ShareButtons />
             <li className="aside-footer-list-item">
-              <a href="mailto:florian.delafoi@ringieraxelspringer.ch?subject=Une erreur dans le guide des séries" target="_blank">Signaler une erreur</a>
+              <a href="mailto:florian.delafoi@ringieraxelspringer.ch?subject=Une erreur dans le guide des séries" target="_blank" rel="noopener noreferrer">Signaler une erreur</a>
             </li>
             <li className="aside-footer-list-item">
-              <a href="mailto:florian.delafoi@ringieraxelspringer.ch?subject=Suggestion pour le guide des séries" target="_blank">Suggérer une série</a>
+            <a href="mailto:florian.delafoi@ringieraxelspringer.ch?subject=Suggestion pour le guide des séries" target="_blank" rel="noopener noreferrer">Suggérer une série</a>
             </li>
             <li className="aside-footer-list-item">
               <LogoLtGray />

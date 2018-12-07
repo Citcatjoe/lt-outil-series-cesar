@@ -40,6 +40,11 @@
         {
             border-color: $flash-color1;
         }
+
+        .select__multi-value 
+        {
+            background-color: transparent;
+        }
         
         &.select__control--is-focused
         {
