@@ -16,7 +16,6 @@ TODO LIST AVANT V1:
 - [X] Select pour diffuseur
 - [X] "Format" -> "Durée"
 - [ ] Style des onglet
-- [ ] Métas (react-helmet ?)
 - [X] Favicon
 - [ ] Reset du multiselect (diffuseur)
 - [X] Google Tag Manager
@@ -24,7 +23,7 @@ TODO LIST AVANT V1:
 ### Style
 - [X] Liens dans le détai d'un article
 - [X] Changer le titre des teaser pour éviter que les titres sur deux lignes sèment la crème
-- [ ] Style teaser (titre)
+- [X] Style teaser (titre)
 - [X] Fix overlay (ligne de pixel et "+")
 
 ### UX
@@ -41,7 +40,7 @@ TODO LIST AVANT V1:
 
 ### A discuter avec les journalistes
 - [X] Signatures
-- [ ] Les images utilisées ne sont pas bonne
-- [ ] Eléments manquants
+- [X] Les images utilisées ne sont pas bonne
+- [X] Eléments manquants
 - [X] Quid des caractères bizaroïdes ? (A corriger dans Drupal)
 - [ ] La question des genres
