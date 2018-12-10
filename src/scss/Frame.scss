@@ -3,6 +3,7 @@
 .frame 
 {
     position: fixed;
+    //z-index: 1001;
     color: $color2;
     height: 100%;
     width: calc(100% - 400px);

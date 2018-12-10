@@ -118,6 +118,12 @@ aside
   //     position: 
   // }
 
+  @media (max-height: 950px){
+    overflow-y: scroll;
+      overflow-x: visible;
+
+  }
+
   @include breakpoint(xl) { 
       overflow-y: scroll;
       overflow-x: visible;
@@ -210,6 +216,12 @@ aside
     margin-block-start: 0;
     height: 320px;
     padding-top: 140px;
+
+    @media (max-height: 950px){
+      position: static;
+        padding: 140px 20px 0 20px;
+
+    }
 
     //background: url('/static/media/aside-footer-bg.e1ffebce.svg');
 

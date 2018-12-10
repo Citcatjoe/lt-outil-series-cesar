@@ -14,6 +14,7 @@ import FilterOrder from "./components/FilterOrder";
 import AsideCount from "./components/AsideCount";
 import AsideReset from "./components/AsideReset";
 import LogoLtGray from "./components/LogoLtGray";
+import BackToTop from "./components/BackToTop";
 
 import './App.scss';
 import "./scss/AsideTabs.scss";
@@ -26,9 +27,10 @@ import "./scss/FilterSearch.scss";
 import "./scss/FilterOrder.scss";
 import "./scss/FilterButton.scss";
 import "./scss/FilterSelect.scss";
-import "./scss/AsideCount.scss";
+import "./scss/AsideCount.scss"; 
 import "./scss/AsideReset.scss";
 import "./scss/LogoLtGray.scss";
+import "./scss/BackToTop.scss";
 
 import asideFooterBg from "./img/aside-footer-bg.svg";
 import asideBg1 from "./img/aside-bg-1.png";
@@ -61,6 +63,7 @@ class App extends Component {
     this.searchHandler = this.searchHandler.bind(this);
     this.searchingFor = this.searchingFor.bind(this);
     this.orderHandle = this.orderHandle.bind(this);
+    //this.scrollTop = this.scrollTop.bind(this);
     // this.selectCategoryHandle = this.selectCategoryHandle.bind(this);
     // this.selectFormatHandle = this.selectFormatHandle.bind(this);
     this.state = {
@@ -168,6 +171,20 @@ class App extends Component {
         }
       ]
     };
+  }
+
+  scrollTop() {
+    // window.scrollTo(0, 0);
+    // document.getElementById('main').scrollTo(0, 0);
+    // var x = document.getElementsByClassName("mainmain").scrollTo(0, 0);
+    // const tabScroll = document.getElementById("main");
+    // window.scrollTo({
+    //   'behavior': 'smooth',
+    //   'left': 0,
+    //   'top': tabScroll.offsetTop - 80
+    // });
+    alert('scrollup')
+    // window.scrollTo(0, window.scrollY - 30);
   }
 
   orderHandle(value, sort, label) {
@@ -531,7 +548,7 @@ class App extends Component {
     //console.log('articles: ' + articles.length);
 
     return <div className="App">
-
+        <BackToTop onClick={this.scrollTop} />
         <aside style={asideBg1Style} className={`${asideVisible ? "is-visible" : ""}`}>
           <div className="aside-top">
             <div className={`aside--close-button ${asideCloseButtonVisible ? "is-visible" : ""}`} onClick={this.asideToggle}>
@@ -580,7 +597,8 @@ class App extends Component {
             </li>
           </ul>
         </aside>
-        <main className={`${asideVisible ? "is-moved-right" : ""}`}>
+        <main className={`${asideVisible ? "is-moved-right" : ""}`} id="main" className="mainmain">
+          
           <div className={`main-header ${headerVisible ? "is-visible" : ""}`}>
             <AsideToggle asideToggle={this.asideToggle} />
             {/* <input type="text" ></input> */}
