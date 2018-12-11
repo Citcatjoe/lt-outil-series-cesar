@@ -22,11 +22,21 @@ class FilterSelect extends Component {
   };
 
   render() {
-
     const { selectedOption } = this.state;
     const selectName = this.props.select.selectName;
     const selectOptions = this.props.select.selectOptions;
     const isMulti = this.props.select.isMulti ? true : false;
+
+    /*    
+    // test décompte dans component -> nouvelle branche
+    let selectOptionsAndCount = Array.from(selectOptions);
+    if(selectName === 'Genre'){
+      for(let item of selectOptionsAndCount){
+        let temp = this.props.articles.filter(article => article['lt_tv_show_genre'] === item['value']);
+        item['label'] = item['label'] + ' (' + temp.length + ')';
+      }
+    }
+    */
 
 
     return (
