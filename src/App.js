@@ -334,10 +334,13 @@ class App extends Component {
             }
 
             // On extrait les valeurs du tableau généré par le plugin react-select
-            let selectedDiffusors = selectedOption.map(function(item){ return item.value; });
-
-            articles = articles.filter(article => containsDiffusor(article[index], selectedDiffusors) === true );
-
+            if(selectedOption !== null && selectedOption.length > 0){
+              let selectedDiffusors = selectedOption.map(function(item){ return item.value; });
+              articles = articles.filter(article => containsDiffusor(article[index], selectedDiffusors) === true );
+            }else{
+              // TODO Problème à débugger (Ivo?)
+              console.log('selectedOption était nul')
+            }
             break;
 
           // categories pouvant contenir plusieurs éléments
