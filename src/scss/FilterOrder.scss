@@ -16,6 +16,7 @@
 
     @include breakpoint(xs) { 
         top: 115px;
+        right: calc(8.5px * 2);
     }
 
     .filter-order--text

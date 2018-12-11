@@ -8,7 +8,7 @@ class FilterSelect extends Component {
   };
 
   static getDerivedStateFromProps(props, state) {
-    if (state.selectedOption && props.filteredOptions[state.selectJsonLabel] !== state.selectedOption.value) {
+    if (!props.filteredOptions[state.selectJsonLabel]) {
       return { selectedOption: null };
     }
     return {};
@@ -18,7 +18,6 @@ class FilterSelect extends Component {
     this.setState({
       selectedOption: selectedOption
     });
-    //console.log("(fonction) selectJsonLabel " + this.state.selectJsonLabel);
     this.props.selectHandle(selectedOption, this.state.selectJsonLabel);
   };
 
@@ -28,8 +27,7 @@ class FilterSelect extends Component {
     const selectName = this.props.select.selectName;
     const selectOptions = this.props.select.selectOptions;
     const isMulti = this.props.select.isMulti ? true : false;
-    //console.log("(render) selectJsonLabel " + selectJsonLabel);
-    //console.log(select + 'lol');
+
 
     return (
       <div className="filter-select">

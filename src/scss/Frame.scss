@@ -3,6 +3,7 @@
 .frame 
 {
     position: fixed;
+    //z-index: 1001;
     color: $color2;
     height: 100%;
     width: calc(100% - 400px);
@@ -14,6 +15,7 @@
     opacity: 0;
     transition: all 0.5s;
     visibility: hidden;
+    -webkit-overflow-scrolling: touch;
 
     @include breakpoint(md) { 
         width: 100%;

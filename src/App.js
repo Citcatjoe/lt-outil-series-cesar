@@ -14,6 +14,7 @@ import FilterOrder from "./components/FilterOrder";
 import AsideCount from "./components/AsideCount";
 import AsideReset from "./components/AsideReset";
 import LogoLtGray from "./components/LogoLtGray";
+import BackToTop from "./components/BackToTop";
 
 import './App.scss';
 import "./scss/AsideTabs.scss";
@@ -26,9 +27,10 @@ import "./scss/FilterSearch.scss";
 import "./scss/FilterOrder.scss";
 import "./scss/FilterButton.scss";
 import "./scss/FilterSelect.scss";
-import "./scss/AsideCount.scss";
+import "./scss/AsideCount.scss"; 
 import "./scss/AsideReset.scss";
 import "./scss/LogoLtGray.scss";
+import "./scss/BackToTop.scss";
 
 import asideFooterBg from "./img/aside-footer-bg.svg";
 import asideBg1 from "./img/aside-bg-1.png";
@@ -42,11 +44,11 @@ var sortJsonArray = require("sort-json-array");
 // import { throws } from 'assert';
 
 const asideBg1Style = { backgroundImage: "url(" + asideBg1 + ")" };
-// const asideFooterBgStyle = { 
-//     backgroundImage: "url(" + asideFooterBg + ")",
-//     backgroundPosition: 'top right',
-//      backgroundSize: 'cover'
-// };
+const asideFooterBgStyle = { 
+    backgroundImage: "url(" + asideFooterBg + ")",
+    backgroundPosition: 'top right',
+    backgroundSize: 'cover'
+};
 
 class App extends Component {
   constructor(props) {
@@ -61,6 +63,7 @@ class App extends Component {
     this.searchHandler = this.searchHandler.bind(this);
     this.searchingFor = this.searchingFor.bind(this);
     this.orderHandle = this.orderHandle.bind(this);
+    //this.scrollTop = this.scrollTop.bind(this);
     // this.selectCategoryHandle = this.selectCategoryHandle.bind(this);
     // this.selectFormatHandle = this.selectFormatHandle.bind(this);
     this.state = {
@@ -154,8 +157,8 @@ class App extends Component {
           selectName: "État de la production",
           selectJsonLabel: "np8_end_date",
           selectOptions: [
-            { value: false, label: "En cours" },
-            { value: true, label: "Terminée" }
+            { value: 'en-cours', label: "En cours" },
+            { value: 'terminee', label: "Terminée" }
           ]
         },
         {
@@ -168,6 +171,20 @@ class App extends Component {
         }
       ]
     };
+  }
+
+  scrollTop() {
+    // window.scrollTo(0, 0);
+    // document.getElementById('main').scrollTo(0, 0);
+    // var x = document.getElementsByClassName("mainmain").scrollTo(0, 0);
+    // const tabScroll = document.getElementById("main");
+    // window.scrollTo({
+    //   'behavior': 'smooth',
+    //   'left': 0,
+    //   'top': tabScroll.offsetTop - 80
+    // });
+    alert('scrollup')
+    // window.scrollTo(0, window.scrollY - 30);
   }
 
   orderHandle(value, sort, label) {
@@ -291,7 +308,7 @@ class App extends Component {
     // Ici on regarde si on filter ou on clear le filtre
     // puis on sauve ça dans notre variable locale
     if (selectedOption !== null) {
-      filteredOptions[selectJsonLabel] = selectedOption.value
+      filteredOptions[selectJsonLabel] = selectedOption.length > 0 ? selectedOption : selectedOption.value;
 
       /* Si select multiple - fonctionne mais l’interface perd la sélection
       if (selectedOption.length){
@@ -305,8 +322,6 @@ class App extends Component {
         delete filteredOptions[selectJsonLabel];
       }
     }
-
-    // DEBUG console.log(filteredOptions);
 
     // On ne réaffiche pas l’intro «Le guide ultime…»
     //articles = articles.filter(article => article['lt_tv_show_tag'] !== 'intro' );
@@ -323,9 +338,8 @@ class App extends Component {
               let found_list = choosen_diffusors.map(function(choice){
                 if(show_diffusors.includes(choice)){
                   return true;
-                } else {
-                  return false;
                 }
+                return false;
               });
               return found_list.some(item => item === true);
             }
@@ -470,7 +484,7 @@ class App extends Component {
 
           // ajout d’une colonne pour «En cours / searchTerminé»
           json.map((row, index) => {
-            return row['completed'] = row['np8_end_date'] === '' ? false : true;
+            return row['completed'] = row['np8_end_date'] === '' ? 'terminee' : 'en-cours';
           });
 
           this.setState({ baseData: json, articles: json, loading: false });
@@ -526,7 +540,7 @@ class App extends Component {
     const { introVisible } = this.state;
     const { introInnerVisible } = this.state;
 
-    if(articlesFiltered !== null) {
+    if(articlesFiltered !== null && articlesFiltered.length > 0) {
       articles = articlesFiltered;
     }
 
@@ -534,6 +548,7 @@ class App extends Component {
     //console.log('articles: ' + articles.length);
 
     return <div className="App">
+        <BackToTop onClick={this.scrollTop} />
         <aside style={asideBg1Style} className={`${asideVisible ? "is-visible" : ""}`}>
           <div className="aside-top">
             <div className={`aside--close-button ${asideCloseButtonVisible ? "is-visible" : ""}`} onClick={this.asideToggle}>
@@ -569,20 +584,21 @@ class App extends Component {
 
             {/* <img className="aside-footer-bg" alt="" src={asideFooterBg} /> */}
           </div>
-          <ul className="aside-footer-list">
+          <ul className="aside-footer-list" style={asideFooterBgStyle}>
             <ShareButtons />
             <li className="aside-footer-list-item">
-              Signaler une erreur
-                </li>
+              <a href="mailto:florian.delafoi@ringieraxelspringer.ch?subject=Une erreur dans le guide des séries" target="_blank" rel="noopener noreferrer">Signaler une erreur</a>
+            </li>
             <li className="aside-footer-list-item">
-              Suggérer une série
-                </li>
+            <a href="mailto:florian.delafoi@ringieraxelspringer.ch?subject=Suggestion pour le guide des séries" target="_blank" rel="noopener noreferrer">Suggérer une série</a>
+            </li>
             <li className="aside-footer-list-item">
               <LogoLtGray />
             </li>
           </ul>
         </aside>
-        <main className={`${asideVisible ? "is-moved-right" : ""}`}>
+        <main className={`${asideVisible ? "is-moved-right" : ""}`} id="main" className="mainmain">
+          
           <div className={`main-header ${headerVisible ? "is-visible" : ""}`}>
             <AsideToggle asideToggle={this.asideToggle} />
             {/* <input type="text" ></input> */}

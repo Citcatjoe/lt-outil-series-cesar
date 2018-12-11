@@ -8,7 +8,9 @@ class FilterButton extends Component {
 
     render() {
         const ButtonLabel = this.props.button.label;
-        return <button onClick={this.props.buttonHandle.bind(this, this.props.index)} className={this.props.button.status ? 'is-selected' : ''}>{ButtonLabel}</button>;
+        return <button onClick={this.props.buttonHandle.bind(this, this.props.index)} className={`filter-button ${this.props.button.status ? 'is-selected' : ''}`}>
+            {ButtonLabel}
+          </button>;
     }
 
 }
