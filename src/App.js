@@ -315,63 +315,80 @@ class App extends Component {
       }
     }
 
+    // inner func pour filtrage ET décompte
+    function filterArticles(articles, index, value=false){
+      switch (true) {
+
+        // diffuseurs: plusieurs choix, plusieurs éléments
+        case index === 'lt_distributor':
+
+          const containsDiffusor = function(show_diffusors, choosen_diffusors) {
+            let found_list = choosen_diffusors.map(function(choice){
+              if(show_diffusors.includes(choice)){
+                return true;
+              }
+              return false;
+            });
+            return found_list.some(item => item === true);
+          }
+
+          // On extrait les valeurs du tableau généré par le plugin react-select
+          if(selectedOption !== null && selectedOption.length > 0){
+            let selectedDiffusors = selectedOption.map(function(item){ return item.value; });
+            articles = articles.filter(article => containsDiffusor(article[index], selectedDiffusors) === true );
+          }else{
+            // TODO Problème à débugger (Ivo?)
+            console.log('selectedOption était nul')
+          }
+          break;
+
+        // categories pouvant contenir plusieurs éléments
+        case ['lt_tv_show_genre', 'lt_country'].indexOf(index) >= 0:
+          articles = articles.filter(article => article[index].includes( filteredOptions[index] ) );
+          break;
+
+        // durée
+        case index === 'lt_reading_time':
+          const categorizeLength = function(lengthTime) {
+            lengthTime = parseInt(lengthTime, 10);
+            if ( lengthTime < 15 ){
+              return '<15';
+            } else if ( lengthTime <= 30 ) {
+              return '<=30';
+            } else {
+              return '>30';
+            }
+          }
+          articles = articles.filter(article => categorizeLength(article[index]) === filteredOptions[index] );
+          break;
+
+        // série en cours / searchTerminée
+        case index === 'np8_end_date':
+          articles = articles.filter(article => article['completed'] === filteredOptions[index]);
+          break;
+
+        // simple égalité
+        default:
+          articles = articles.filter(article => article[index] === filteredOptions[index]);
+      }
+      return articles;
+    }
+
+    /*
+    // test décompte au changement select -> nouvelle branche
+    for(let index in this.state.selects){
+      for(let item of this.state.selects[index]['selectOptions']){
+        let temp = filterArticles(articles, index, item['value'])
+        console.log(item['label'] + ' ' + temp.length)
+      }
+      break;
+    }
+    */
+
     // on utilise *let* pour eviter de déclencher no-loop-func
     for (let index in filteredOptions) {
       if (filteredOptions.hasOwnProperty(index)) {
-        switch (true) {
-
-          // diffuseurs: plusieurs choix, plusieurs éléments
-          case index === 'lt_distributor':
-
-            const containsDiffusor = function(show_diffusors, choosen_diffusors) {
-              let found_list = choosen_diffusors.map(function(choice){
-                if(show_diffusors.includes(choice)){
-                  return true;
-                }
-                return false;
-              });
-              return found_list.some(item => item === true);
-            }
-
-            // On extrait les valeurs du tableau généré par le plugin react-select
-            if(selectedOption !== null && selectedOption.length > 0){
-              let selectedDiffusors = selectedOption.map(function(item){ return item.value; });
-              articles = articles.filter(article => containsDiffusor(article[index], selectedDiffusors) === true );
-            }else{
-              // TODO Problème à débugger (Ivo?)
-              console.log('selectedOption était nul')
-            }
-            break;
-
-          // categories pouvant contenir plusieurs éléments
-          case ['lt_tv_show_genre', 'lt_country'].indexOf(index) >= 0:
-            articles = articles.filter(article => article[index].includes( filteredOptions[index] ) );
-            break;
-
-          // durée
-          case index === 'lt_reading_time':
-            const categorizeLength = function(lengthTime) {
-              lengthTime = parseInt(lengthTime, 10);
-              if ( lengthTime < 15 ){
-                return '<15';
-              } else if ( lengthTime <= 30 ) {
-                return '<=30';
-              } else {
-                return '>30';
-              }
-            }
-            articles = articles.filter(article => categorizeLength(article[index]) === filteredOptions[index] );
-            break;
-
-          // série en cours / searchTerminée
-          case index === 'np8_end_date':
-            articles = articles.filter(article => article['completed'] === filteredOptions[index]);
-            break;
-
-          // simple égalité
-          default:
-            articles = articles.filter(article => article[index] === filteredOptions[index]);
-        }
+        articles = filterArticles(articles, index)
       }
 
       this.setState({
@@ -589,7 +606,7 @@ class App extends Component {
             </li>
           </ul>
         </aside>
-        <main className={`${asideVisible ? "is-moved-right" : ""}`} id="main" className="mainmain">
+        <main className={`${asideVisible ? "is-moved-right" : ""}`} id="main">
 
           <div className={`main-header ${headerVisible ? "is-visible" : ""}`}>
             <AsideToggle asideToggle={this.asideToggle} />
