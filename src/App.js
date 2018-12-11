@@ -63,6 +63,7 @@ class App extends Component {
     this.searchHandler = this.searchHandler.bind(this);
     this.searchingFor = this.searchingFor.bind(this);
     this.orderHandle = this.orderHandle.bind(this);
+    this.handleScroll = this.handleScroll.bind(this);
     //this.scrollTop = this.scrollTop.bind(this);
     // this.selectCategoryHandle = this.selectCategoryHandle.bind(this);
     // this.selectFormatHandle = this.selectFormatHandle.bind(this);
@@ -71,6 +72,7 @@ class App extends Component {
       articlesFiltered: null,
       asideCloseButtonVisible: false,
       asideVisible: false,
+      backToTopVisible: false,
       introVisible: true,
       introInnerVisible: true,
       headerVisible: true,
@@ -173,19 +175,42 @@ class App extends Component {
     };
   }
 
-  scrollTop() {
-    // window.scrollTo(0, 0);
-    // document.getElementById('main').scrollTo(0, 0);
-    // var x = document.getElementsByClassName("mainmain").scrollTo(0, 0);
-    // const tabScroll = document.getElementById("main");
-    // window.scrollTo({
-    //   'behavior': 'smooth',
-    //   'left': 0,
-    //   'top': tabScroll.offsetTop - 80
-    // });
-    alert('scrollup')
-    // window.scrollTo(0, window.scrollY - 30);
+  // scrollTop() {
+    
+  //   alert('scrollup');
+  //   document.querySelector(".App").scrollTo({ 
+  //     top: 0,
+  //     behavior: 'smooth',
+  //   });
+
+  //   // document.querySelector(".content").scrollTo({
+  //   //   top: 0,
+  //   //   behavior: 'smooth',
+  //   // });
+    
+  // }
+
+  
+ 
+  handleScroll() {
+    
+    var scrollHeight = document.querySelector(".App").scrollTop;
+
+    if(scrollHeight > 200 && this.state.backToTopVisible == false)
+    {
+      this.setState({
+        backToTopVisible: true
+      });
+    }
+    if (scrollHeight < 200 && this.state.backToTopVisible == true) {
+      this.setState({
+        backToTopVisible: false
+      });
+    }
+    //console.log(scrollHeight);
+
   }
+  
 
   orderHandle(value, sort, label) {
     // if (typeof sort === 'string' && sort.length === 0) {
@@ -547,8 +572,8 @@ class App extends Component {
     articles = articles.filter(this.searchingFor(this.state.searchTerm));
     //console.log('articles: ' + articles.length);
 
-    return <div className="App">
-        <BackToTop onClick={this.scrollTop} />
+    return <div className="App" onScroll={this.handleScroll}>
+        <BackToTop backToTopVisible={this.state.backToTopVisible} onClick={this.scrollTop} />
         <aside style={asideBg1Style} className={`${asideVisible ? "is-visible" : ""}`}>
           <div className="aside-top">
             <div className={`aside--close-button ${asideCloseButtonVisible ? "is-visible" : ""}`} onClick={this.asideToggle}>
@@ -580,17 +605,19 @@ class App extends Component {
             <AsideCount articlesVar={articles} />
             <AsideReset onClick={this.resetFilters} />
 
-          
-
             {/* <img className="aside-footer-bg" alt="" src={asideFooterBg} /> */}
           </div>
           <ul className="aside-footer-list" style={asideFooterBgStyle}>
             <ShareButtons />
             <li className="aside-footer-list-item">
-              <a href="mailto:florian.delafoi@ringieraxelspringer.ch?subject=Une erreur dans le guide des séries" target="_blank" rel="noopener noreferrer">Signaler une erreur</a>
+              <a href="mailto:florian.delafoi@ringieraxelspringer.ch?subject=Une erreur dans le guide des séries" target="_blank" rel="noopener noreferrer">
+                Signaler une erreur
+              </a>
             </li>
             <li className="aside-footer-list-item">
-            <a href="mailto:florian.delafoi@ringieraxelspringer.ch?subject=Suggestion pour le guide des séries" target="_blank" rel="noopener noreferrer">Suggérer une série</a>
+              <a href="mailto:florian.delafoi@ringieraxelspringer.ch?subject=Suggestion pour le guide des séries" target="_blank" rel="noopener noreferrer">
+                Suggérer une série
+              </a>
             </li>
             <li className="aside-footer-list-item">
               <LogoLtGray />
@@ -598,7 +625,6 @@ class App extends Component {
           </ul>
         </aside>
         <main className={`${asideVisible ? "is-moved-right" : ""}`} id="main" className="mainmain">
-          
           <div className={`main-header ${headerVisible ? "is-visible" : ""}`}>
             <AsideToggle asideToggle={this.asideToggle} />
             {/* <input type="text" ></input> */}
@@ -614,21 +640,9 @@ class App extends Component {
                   </div>
                 )
               } */}
-            {articles.length > 0 ? articles
-                .map((item, index) => {
-                  return (
-                    <ItemTeaser
-                      index={index}
-                      key={index}
-                      item={item}
-                      introVisible={introVisible}
-                      introInnerVisible={introInnerVisible}
-                      articleOpen={this.articleOpen}
-                      introClose={this.introClose}
-                      hideLoading={this.hideLoading}
-                    />
-                  );
-                }) : <div className="no-results">
+            {articles.length > 0 ? articles.map((item, index) => {
+                return <ItemTeaser index={index} key={index} item={item} introVisible={introVisible} introInnerVisible={introInnerVisible} articleOpen={this.articleOpen} introClose={this.introClose} hideLoading={this.hideLoading} />;
+              }) : <div className="no-results">
                 <div className="no-results--inner">
                   <img className="aside--close-button--img" src={noResults} alt="" />
                   <h4 className="no-results--title">

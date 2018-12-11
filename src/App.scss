@@ -112,6 +112,7 @@ aside
   z-index: 10;
   transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
   overflow: visible;
+  z-index: 2000;
   //-webkit-overflow-scrolling: touch;
 
   // @include breakpoint(xl) { 
