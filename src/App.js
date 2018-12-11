@@ -27,7 +27,7 @@ import "./scss/FilterSearch.scss";
 import "./scss/FilterOrder.scss";
 import "./scss/FilterButton.scss";
 import "./scss/FilterSelect.scss";
-import "./scss/AsideCount.scss"; 
+import "./scss/AsideCount.scss";
 import "./scss/AsideReset.scss";
 import "./scss/LogoLtGray.scss";
 import "./scss/BackToTop.scss";
@@ -44,7 +44,7 @@ var sortJsonArray = require("sort-json-array");
 // import { throws } from 'assert';
 
 const asideBg1Style = { backgroundImage: "url(" + asideBg1 + ")" };
-const asideFooterBgStyle = { 
+const asideFooterBgStyle = {
     backgroundImage: "url(" + asideFooterBg + ")",
     backgroundPosition: 'top right',
     backgroundSize: 'cover'
@@ -309,22 +309,11 @@ class App extends Component {
     // puis on sauve ça dans notre variable locale
     if (selectedOption !== null) {
       filteredOptions[selectJsonLabel] = selectedOption.length > 0 ? selectedOption : selectedOption.value;
-
-      /* Si select multiple - fonctionne mais l’interface perd la sélection
-      if (selectedOption.length){
-        filteredOptions[selectJsonLabel] = [];
-        for (let item of selectedOption) {
-          filteredOptions[selectJsonLabel].push( item.value );
-        }
-      */
     }else{
       if (filteredOptions[selectJsonLabel]) {
         delete filteredOptions[selectJsonLabel];
       }
     }
-
-    // On ne réaffiche pas l’intro «Le guide ultime…»
-    //articles = articles.filter(article => article['lt_tv_show_tag'] !== 'intro' );
 
     // on utilise *let* pour eviter de déclencher no-loop-func
     for (let index in filteredOptions) {
@@ -387,7 +376,7 @@ class App extends Component {
       });
     }
 
-    // Ici on parcour chaque filtre pour filtre les articles
+    // Ici on parcourt chaque filtre pour filtre les articles
     // c'est un filtre additionnel, c'est à dire que nous allons
     // filtre le reste des articles qui sont déjà filtré.
     filteredOptions.forEach((filter, index) => {
@@ -580,7 +569,7 @@ class App extends Component {
             <AsideCount articlesVar={articles} />
             <AsideReset onClick={this.resetFilters} />
 
-          
+
 
             {/* <img className="aside-footer-bg" alt="" src={asideFooterBg} /> */}
           </div>
@@ -598,7 +587,7 @@ class App extends Component {
           </ul>
         </aside>
         <main className={`${asideVisible ? "is-moved-right" : ""}`} id="main" className="mainmain">
-          
+
           <div className={`main-header ${headerVisible ? "is-visible" : ""}`}>
             <AsideToggle asideToggle={this.asideToggle} />
             {/* <input type="text" ></input> */}
