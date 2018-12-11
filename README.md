@@ -30,7 +30,7 @@ TODO LIST AVANT V1:
 - [X] Delete automatiquement l'introduction dès qu'on fait une action
 - [ ] Compte des résultat dans les filtre lors de leur usage
 - [X] Compte des résultat dans aside pour que l'utilisateur sache toujours le nb de résultats
-- [ ] Bouton retour en haut
+- [X] Bouton retour en haut
 - [X] Le reset doit il reset l'ordre ? Done: le reset ne reset plus l'ordre. Ordre initial: 'Ajouts récents'
 
 ### Autre
