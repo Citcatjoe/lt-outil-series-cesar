@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+/*
+ cf https://reacttraining.com/react-router/web/example/basic
+*/
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-//import Select from "react-select";
-
 import Frame from "./components/Frame";
 import ContentDetails from "./components/ContentDetails";
 import Loading from "./components/Loading";
@@ -556,7 +558,10 @@ class App extends Component {
     articles = articles.filter(this.searchingFor(this.state.searchTerm));
     //console.log('articles: ' + articles.length);
 
-    return <div className="App">
+    return(
+      <Router>
+      <Route>
+       <div className="App">
         <BackToTop onClick={this.scrollTop} />
         <aside style={asideBg1Style} className={`${asideVisible ? "is-visible" : ""}`}>
           <div className="aside-top">
@@ -654,7 +659,9 @@ class App extends Component {
         <Frame frameVisible={frameVisible}>
           <ContentDetails articleClose={this.articleClose} item={this.state.item} />
         </Frame>
-      </div>;
+      </div>
+    </Route>
+  </Router>);
   }
 }
 
