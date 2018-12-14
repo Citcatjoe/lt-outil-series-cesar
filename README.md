@@ -3,19 +3,22 @@
 TODO LIST AVANT V1:
 
 ### À faire pour la sortie mi-décembe
+- [ ] /!\ BUG SAFARI
 - [ ] Définir les partage et les faire
 - [ ] Titre / Desc
+- [ ] Rédiger intro (N.Du.)
+- [ ] Image de partage
+- [ ] Changer url en dur dans index et dans sharebuttons.js
 - [X] Responsive
 - [X] Partage
 - [X] Footer Aside
-- [ ] Rédiger intro (N.Du.)
 - [X] "Distributeur" -> "Diffuseur"
 - [X] Lien "signaler une erreur"
 - [X] Lien "Faire une suggestion"
 - [X] Bouton Reset dans la colonne de gauche
 - [X] Select pour diffuseur
 - [X] "Format" -> "Durée"
-- [ ] Style des onglet
+- [X] Style des onglet
 - [X] Favicon
 - [X] Reset du multiselect (diffuseur)
 - [X] Google Tag Manager
