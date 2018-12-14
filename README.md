@@ -3,6 +3,7 @@
 TODO LIST AVANT V1:
 
 ### À faire pour la sortie mi-décembe
+- [ ] /!\ BUG SAFARI
 - [ ] Définir les partage et les faire
 - [ ] Titre / Desc
 - [ ] Rédiger intro (N.Du.)
