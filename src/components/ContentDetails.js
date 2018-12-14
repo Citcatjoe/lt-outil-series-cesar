@@ -89,7 +89,7 @@ class ContentDetails extends Component {
                   this.props.item.np8_news_ref === '' ? '' : Parser('<li className="related-news"><span className="col1">Lire aussi:</span><span className="col2"><img src=' + faviconLt + ' alt="">' + this.props.item.np8_news_ref + '</span></li>')
                 }
 
-                <ShareButtons />
+                {/* <ShareButtons /> */}
                
 
      

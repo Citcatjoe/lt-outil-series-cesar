@@ -16,6 +16,7 @@
     transition: all 0.5s;
     visibility: hidden;
     -webkit-overflow-scrolling: touch;
+    z-index: 5000;
 
     @include breakpoint(md) { 
         width: 100%;

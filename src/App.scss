@@ -104,6 +104,8 @@ aside
 {
   width: 400px;
   height: 100%;
+  //min-height: 950px;
+  min-height:635px;
   background-color: $color2;
   background-repeat: no-repeat !important;
   float: left;
@@ -128,7 +130,12 @@ aside
   @include breakpoint(xl) { 
       overflow-y: scroll;
       overflow-x: visible;
+      
   }
+
+  // @include breakpoint(lg) { 
+  //     min-height:500px;
+  // }
 
   @include breakpoint(md) { 
       transform: translateX(-400px);
@@ -154,6 +161,8 @@ aside
   {
     padding: 0 40px;
 
+    min-height: 580px;
+
     @include breakpoint(xs) { 
       padding: 0 20px;
     }
@@ -164,7 +173,8 @@ aside
     position: absolute;
     z-index: 100;
     top: 36px;
-    right: 0;
+    // right: 0;
+    right: 60px;
     transform: translateX(50%) scale(0);
     background-image: linear-gradient(33deg, #ff0078 0%, #ff0049 100%);
     border: 3px solid $color2;
@@ -179,9 +189,9 @@ aside
         display: block;
     }
 
-    @include breakpoint(xs) { 
-      right: 60px;
-    }
+    // @include breakpoint(xs) { 
+      
+    // }
     
 
     &.is-visible 

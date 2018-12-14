@@ -31,6 +31,8 @@
 
     @include breakpoint(xs) { 
         padding: 7px;
+        width: 100%;
+        margin: 0;
     }
 
     

@@ -43,7 +43,10 @@ require("typeface-montserrat");
 var sortJsonArray = require("sort-json-array");
 // import { throws } from 'assert';
 
-const asideBg1Style = { backgroundImage: "url(" + asideBg1 + ")" };
+const asideBg1Style = { 
+  backgroundImage: "url(" + asideBg1 + ")",
+  backgroundColor: "#ffffff" 
+};
 const asideFooterBgStyle = {
     backgroundImage: "url(" + asideFooterBg + ")",
     backgroundPosition: 'top right',
@@ -196,16 +199,14 @@ class App extends Component {
     
     var scrollHeight = document.querySelector(".App").scrollTop;
 
-    if(scrollHeight > 200 && this.state.backToTopVisible == false)
+    if(scrollHeight > 200 && this.state.backToTopVisible === false && this.state.gridVisible === true)
     {
       this.setState({
         backToTopVisible: true
       });
     }
-    if (scrollHeight < 200 && this.state.backToTopVisible == true) {
-      this.setState({
-        backToTopVisible: false
-      });
+    if (scrollHeight < 200 && this.state.backToTopVisible === true) {
+      this.setState({ backToTopVisible: false });
     }
     //console.log(scrollHeight);
 
@@ -582,7 +583,7 @@ class App extends Component {
     //console.log('articles: ' + articles.length);
 
     return <div className="App" onScroll={this.handleScroll}>
-        <BackToTop backToTopVisible={this.state.backToTopVisible} onClick={this.scrollTop} />
+        <BackToTop backToTopVisible={this.state.backToTopVisible}  onClick={this.scrollTop} />
         <aside style={asideBg1Style} className={`${asideVisible ? "is-visible" : ""}`}>
           <div className="aside-top">
             <div className={`aside--close-button ${asideCloseButtonVisible ? "is-visible" : ""}`} onClick={this.asideToggle}>
