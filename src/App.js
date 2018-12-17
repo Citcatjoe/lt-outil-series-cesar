@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-//import Select from "react-select";
-
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Frame from "./components/Frame";
 import ContentDetails from "./components/ContentDetails";
 import Loading from "./components/Loading";
@@ -43,9 +42,9 @@ require("typeface-montserrat");
 var sortJsonArray = require("sort-json-array");
 // import { throws } from 'assert';
 
-const asideBg1Style = { 
+const asideBg1Style = {
   backgroundImage: "url(" + asideBg1 + ")",
-  backgroundColor: "#ffffff" 
+  backgroundColor: "#ffffff"
 };
 const asideFooterBgStyle = {
     backgroundImage: "url(" + asideFooterBg + ")",
@@ -179,9 +178,9 @@ class App extends Component {
   }
 
   // scrollTop() {
-    
+
   //   alert('scrollup');
-  //   document.querySelector(".App").scrollTo({ 
+  //   document.querySelector(".App").scrollTo({
   //     top: 0,
   //     behavior: 'smooth',
   //   });
@@ -190,13 +189,13 @@ class App extends Component {
   //   //   top: 0,
   //   //   behavior: 'smooth',
   //   // });
-    
+
   // }
 
-  
- 
+
+
   handleScroll() {
-    
+
     var scrollHeight = document.querySelector(".App").scrollTop;
 
     if(scrollHeight > 200 && this.state.backToTopVisible === false && this.state.gridVisible === true)
@@ -211,7 +210,7 @@ class App extends Component {
     //console.log(scrollHeight);
 
   }
-  
+
 
   orderHandle(value, sort, label) {
     // if (typeof sort === 'string' && sort.length === 0) {
@@ -400,17 +399,6 @@ class App extends Component {
       return articles;
     }
 
-    /*
-    // test décompte au changement select -> nouvelle branche
-    for(let index in this.state.selects){
-      for(let item of this.state.selects[index]['selectOptions']){
-        let temp = filterArticles(articles, index, item['value'])
-        console.log(item['label'] + ' ' + temp.length)
-      }
-      break;
-    }
-    */
-
     // on utilise *let* pour eviter de déclencher no-loop-func
     for (let index in filteredOptions) {
       if (filteredOptions.hasOwnProperty(index)) {
@@ -516,10 +504,13 @@ class App extends Component {
     fetch("http://web.tcch.ch/tv-test/index_read.php") // prod: https://www.letemps.ch/tv-shows
       .then(response => response.json())
       .then(json => {
-
           // ajout d’une colonne pour «En cours / searchTerminé»
           json.map((row, index) => {
             return row['completed'] = row['np8_end_date'] === '' ? 'terminee' : 'en-cours';
+          });
+
+          json.map((row, index) => {
+            return row['uniquekey'] = row['title'].normalize('NFD').replace(/[\u0300-\u036f\,\:\(\)\.’\[\]]/g, "").replace(/[  ]/g, "-").toLowerCase();
           });
 
           this.setState({ baseData: json, articles: json, loading: false });
@@ -554,6 +545,18 @@ class App extends Component {
               item.selectOptions = countryOptions;
             }
           });
+
+          let pageMatch = document.location.href.match(/.*detail-([a-z0-9-]*).*?/);
+          if (pageMatch) {
+            console.log(pageMatch[1])
+            if (pageMatch.length > 0){
+              let targetArticle = json.filter(article => article['uniquekey'] === pageMatch[1]);
+              if (targetArticle.length === 1){
+                this.articleOpen(targetArticle[0]);
+              }
+            }
+          }
+
           this.setState( {'selects': selects} );
       })
       .catch(function () {
@@ -582,95 +585,99 @@ class App extends Component {
     articles = articles.filter(this.searchingFor(this.state.searchTerm));
     //console.log('articles: ' + articles.length);
 
-    return <div className="App" onScroll={this.handleScroll}>
-        <BackToTop backToTopVisible={this.state.backToTopVisible}  onClick={this.scrollTop} />
-        <aside style={asideBg1Style} className={`${asideVisible ? "is-visible" : ""}`}>
-          <div className="aside-top">
-            <div className={`aside--close-button ${asideCloseButtonVisible ? "is-visible" : ""}`} onClick={this.asideToggle}>
-              <img className="aside--close-button--img" alt="Fermer" src={cross} />
+    return(
+      <Router>
+        <div className="App" onScroll={this.handleScroll}>
+          <BackToTop backToTopVisible={this.state.backToTopVisible}  onClick={this.scrollTop} />
+          <aside style={asideBg1Style} className={`${asideVisible ? "is-visible" : ""}`}>
+            <div className="aside-top">
+              <div className={`aside--close-button ${asideCloseButtonVisible ? "is-visible" : ""}`} onClick={this.asideToggle}>
+                <img className="aside--close-button--img" alt="Fermer" src={cross} />
+              </div>
+              <Tabs defaultIndex={0}>
+                <TabList>
+                  <Tab onClick={this.resetFilters}>Suggestions</Tab>
+                  <Tab onClick={this.resetFilters}>Sur mesure</Tab>
+                </TabList>
+
+                <TabPanel>
+                  <h3 className="aside-title">Nos suggestions rapides</h3>
+                  {buttons.length > 0 ? buttons.map((button, index) => {
+                        return <FilterButton index={index} key={index} button={button} buttonHandle={this.buttonHandle} />;
+                      }) : null}
+                </TabPanel>
+                <TabPanel>
+                  <h3 className="aside-title">Filtrage personnalisé</h3>
+                  {/* <FilterSelect articles={articles} selectCategoryHandle={this.selectCategoryHandle} /> */}
+                  {selects.length > 0 ? selects.map((select, index) => {
+                        //console.log(select);
+                        return <FilterSelect index={index} key={index} articles={articles} select={select} selectHandle={this.selectHandle} filteredOptions={this.state.filteredOptions} />;
+                      }) : null}
+                  {/* <FilterSelect selectCategoryHandle={this.selectCategoryHandle} selectCategory={selectCategory} />
+                  <FilterSelect selectFormatHandle={this.selectFormatHandle} selectFormat={selectFormat} /> */}
+                </TabPanel>
+              </Tabs>
+              <AsideCount articlesVar={articles} />
+              <AsideReset onClick={this.resetFilters} />
+
+              {/* <img className="aside-footer-bg" alt="" src={asideFooterBg} /> */}
             </div>
-            <Tabs defaultIndex={0}>
-              <TabList>
-                <Tab onClick={this.resetFilters}>Suggestions</Tab>
-                <Tab onClick={this.resetFilters}>Sur mesure</Tab>
-              </TabList>
+            <ul className="aside-footer-list" style={asideFooterBgStyle}>
+              <ShareButtons />
+              <li className="aside-footer-list-item">
+                <a href="mailto:florian.delafoi@ringieraxelspringer.ch?subject=Une erreur dans le guide des séries" target="_blank" rel="noopener noreferrer">
+                  Signaler une erreur
+                </a>
+              </li>
+              <li className="aside-footer-list-item">
+                <a href="mailto:florian.delafoi@ringieraxelspringer.ch?subject=Suggestion pour le guide des séries" target="_blank" rel="noopener noreferrer">
+                  Suggérer une série
+                </a>
+              </li>
+              <li className="aside-footer-list-item">
+                <LogoLtGray />
+              </li>
+            </ul>
+          </aside>
+          <main className={`${asideVisible ? "is-moved-right" : ""}`} id="main">
 
-              <TabPanel>
-                <h3 className="aside-title">Nos suggestions rapides</h3>
-                {buttons.length > 0 ? buttons.map((button, index) => {
-                      return <FilterButton index={index} key={index} button={button} buttonHandle={this.buttonHandle} />;
-                    }) : null}
-              </TabPanel>
-              <TabPanel>
-                <h3 className="aside-title">Filtrage personnalisé</h3>
-                {/* <FilterSelect articles={articles} selectCategoryHandle={this.selectCategoryHandle} /> */}
-                {selects.length > 0 ? selects.map((select, index) => {
-                      //console.log(select);
-                      return <FilterSelect index={index} key={index} articles={articles} select={select} selectHandle={this.selectHandle} filteredOptions={this.state.filteredOptions} />;
-                    }) : null}
-                {/* <FilterSelect selectCategoryHandle={this.selectCategoryHandle} selectCategory={selectCategory} />
-                <FilterSelect selectFormatHandle={this.selectFormatHandle} selectFormat={selectFormat} /> */}
-              </TabPanel>
-            </Tabs>
-            <AsideCount articlesVar={articles} />
-            <AsideReset onClick={this.resetFilters} />
-
-            {/* <img className="aside-footer-bg" alt="" src={asideFooterBg} /> */}
-          </div>
-          <ul className="aside-footer-list" style={asideFooterBgStyle}>
-            <ShareButtons />
-            <li className="aside-footer-list-item">
-              <a href="mailto:florian.delafoi@ringieraxelspringer.ch?subject=Une erreur dans le guide des séries" target="_blank" rel="noopener noreferrer">
-                Signaler une erreur
-              </a>
-            </li>
-            <li className="aside-footer-list-item">
-              <a href="mailto:florian.delafoi@ringieraxelspringer.ch?subject=Suggestion pour le guide des séries" target="_blank" rel="noopener noreferrer">
-                Suggérer une série
-              </a>
-            </li>
-            <li className="aside-footer-list-item">
-              <LogoLtGray />
-            </li>
-          </ul>
-        </aside>
-        <main className={`${asideVisible ? "is-moved-right" : ""}`} id="main">
-
-          <div className={`main-header ${headerVisible ? "is-visible" : ""}`}>
-            <AsideToggle asideToggle={this.asideToggle} />
-            {/* <input type="text" ></input> */}
-            <FilterSearch onChange={this.searchHandler} searchTerm={this.state.searchTerm} />
-            <FilterOrder orderHandle={this.orderHandle} orderLabel={this.state.orderLabel} />
-          </div>
-          <Loading loading={loading} />
-          <div className={`grid ${gridVisible ? "is-visible" : ""}`}>
-            {/* {
-                articles.filter(this.searchingFor(this.state.searchTerm)).map(article =>
-                  <div>
-                    <p>{article.title}</p>
+            <div className={`main-header ${headerVisible ? "is-visible" : ""}`}>
+              <AsideToggle asideToggle={this.asideToggle} />
+              {/* <input type="text" ></input> */}
+              <FilterSearch onChange={this.searchHandler} searchTerm={this.state.searchTerm} />
+              <FilterOrder orderHandle={this.orderHandle} orderLabel={this.state.orderLabel} />
+            </div>
+            <Loading loading={loading} />
+            <div className={`grid ${gridVisible ? "is-visible" : ""}`}>
+              {/* {
+                  articles.filter(this.searchingFor(this.state.searchTerm)).map(article =>
+                    <div>
+                      <p>{article.title}</p>
+                    </div>
+                  )
+                } */}
+              {articles.length > 0 ? articles.map((item, index) => {
+                  return <ItemTeaser index={index} key={index} item={item} introVisible={introVisible} introInnerVisible={introInnerVisible} articleOpen={this.articleOpen} introClose={this.introClose} hideLoading={this.hideLoading} />;
+                }) : <div className="no-results">
+                  <div className="no-results--inner">
+                    <img className="aside--close-button--img" src={noResults} alt="" />
+                    <h4 className="no-results--title">
+                      Votre recherche n'a produit aucun résultat
+                    </h4>
+                    <button className="no-results--button" onClick={this.resetFilters}>
+                      Réinitialiser les filtres
+                    </button>
                   </div>
-                )
-              } */}
-            {articles.length > 0 ? articles.map((item, index) => {
-                return <ItemTeaser index={index} key={index} item={item} introVisible={introVisible} introInnerVisible={introInnerVisible} articleOpen={this.articleOpen} introClose={this.introClose} hideLoading={this.hideLoading} />;
-              }) : <div className="no-results">
-                <div className="no-results--inner">
-                  <img className="aside--close-button--img" src={noResults} alt="" />
-                  <h4 className="no-results--title">
-                    Votre recherche n'a produit aucun résultat
-                  </h4>
-                  <button className="no-results--button" onClick={this.resetFilters}>
-                    Réinitialiser les filtres
-                  </button>
-                </div>
-              </div>}
-          </div>
-        </main>
+                </div>}
+            </div>
+          </main>
 
-        <Frame frameVisible={frameVisible}>
-          <ContentDetails articleClose={this.articleClose} item={this.state.item} />
-        </Frame>
-      </div>;
+          <Frame frameVisible={frameVisible}>
+            <ContentDetails articleClose={this.articleClose} item={this.state.item} />
+          </Frame>
+        </div>
+      </Router>
+    );
   }
 }
 

@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import Parser from 'html-react-parser';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-import ShareButtons from "../components/ShareButtons";
+// import ShareButtons from "../components/ShareButtons";
 
 import "../scss/ShareButtons.scss";
 
@@ -42,12 +43,14 @@ class ContentDetails extends Component {
         <div className={`content-gradient`} />
         <div className={`content-details`}>
           <div className={`content-details-header`}>
-            <button
-              className={`content-close`}
-              onClick={this.props.articleClose}
-            >
+            <Link to="/">
+              <button
+                className={`content-close`}
+                onClick={this.props.articleClose}
+              >
               Fermer
             </button>
+            </Link>
           </div>
           <div className={`content-details-body`}>
             <div className={`content-details-body-col1`}>
@@ -60,7 +63,7 @@ class ContentDetails extends Component {
                 {this.props.item.lt_tv_show_genre}
               </span>
               <div className={`body-p`}>{Parser(this.props.item.body)}<span className={`body-author`}>&nbsp;&nbsp;– {this.props.item.np8_author_ref}</span></div>
-              
+
               <ul>
                 <li>
                   <span className="col1">Années prod. :</span>
@@ -90,9 +93,9 @@ class ContentDetails extends Component {
                 }
 
                 {/* <ShareButtons /> */}
-               
 
-     
+
+
               </ul>
               <div className="links">
 
