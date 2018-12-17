@@ -498,6 +498,11 @@ class App extends Component {
             return row['completed'] = row['np8_end_date'] === '' ? 'terminee' : 'en-cours';
           });
 
+          // test: colonne avec identifiant unique
+          json.map((row, index) => {
+            return row['unique-key'] = row['title'].normalize('NFD').replace(/[\u0300-\u036f\,\:\(\)\.’\[\]]/g, "").replace(/[  ]/g, "-").toLowerCase();
+          });
+
           this.setState({ baseData: json, articles: json, loading: false });
 
           // test: génération auto du menu déroulant «Provenance»
@@ -531,6 +536,23 @@ class App extends Component {
             }
           });
           this.setState( {'selects': selects} );
+
+
+          /* article open directy to url...?
+          ... avoir un identifiant unique */
+          console.log('Location>'+ this.props.location);
+          console.log(document.location.href.split('detail-'))
+
+          let pageMatch = document.location.href.match(/.*detail-([a-z0-9-]*).*?/);
+          if (pageMatch) {
+            if (pageMatch.length > 0){
+              let targetArticle = json.filter(article => article['unique-key'] === pageMatch[1]);
+              if (targetArticle.length === 1){
+                this.articleOpen(targetArticle[0]);
+              }
+            }
+          }
+
       })
       .catch(function () {
         console.log("Error when loading json");
@@ -631,16 +653,18 @@ class App extends Component {
             {articles.length > 0 ? articles
                 .map((item, index) => {
                   return (
-                    <ItemTeaser
-                      index={index}
-                      key={index}
-                      item={item}
-                      introVisible={introVisible}
-                      introInnerVisible={introInnerVisible}
-                      articleOpen={this.articleOpen}
-                      introClose={this.introClose}
-                      hideLoading={this.hideLoading}
-                    />
+                    <Link to={`detail-` + item['unique-key']}>
+                      <ItemTeaser
+                        index={index}
+                        key={index}
+                        item={item}
+                        introVisible={introVisible}
+                        introInnerVisible={introInnerVisible}
+                        articleOpen={this.articleOpen}
+                        introClose={this.introClose}
+                        hideLoading={this.hideLoading}
+                      />
+                    </Link>
                   );
                 }) : <div className="no-results">
                 <div className="no-results--inner">

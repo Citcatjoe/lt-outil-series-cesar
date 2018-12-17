@@ -29,15 +29,28 @@ class FilterSelect extends Component {
 
     // test décompte dans component -> nouvelle branche
     let selectOptionsAndCount = Array.from(selectOptions);
-    if(selectName === 'Genre'){
-      for(let item of selectOptionsAndCount){
-        // hideux truc temporaire
-        if(item['label'].indexOf('(') > 0){
-          item['label'] = item['label'].substr(0, item['label'].indexOf('('));
-        }
 
-        let temp = this.props.articles.filter(article => article['lt_tv_show_genre'] === item['value']);
-        item['label'] = item['label'] + ' (' + temp.length + ')';
+    /*case ['lt_tv_show_genre', 'lt_country'].indexOf(index) >= 0:
+      articles = articles.filter(article => article[index].includes( filteredOptions[index] ) );
+      break;*/
+
+
+    if(['lt_tv_show_genre', 'lt_tv_show_serial'].indexOf(this.state.selectJsonLabel) >= 0){
+
+      // update uniquement si le filtre n’est pas actif
+      // a améliorer
+      // problème: tenir compte des articles du filtre
+      if(! this.state.selectedOption){
+        for(let item of selectOptionsAndCount){
+          console.log(item);
+          // hideux truc temporaire
+          if(item['label'].indexOf('(') > 0){
+            item['label'] = item['label'].substr(0, item['label'].indexOf('('));
+          }
+
+          let temp = this.props.articles.filter(article => article[this.state.selectJsonLabel] === item['value']);
+          item['label'] = item['label'] + ' (' + temp.length + ')';
+        }
       }
     }
 
