@@ -43,9 +43,9 @@ require("typeface-montserrat");
 var sortJsonArray = require("sort-json-array");
 // import { throws } from 'assert';
 
-const asideBg1Style = { 
+const asideBg1Style = {
   backgroundImage: "url(" + asideBg1 + ")",
-  backgroundColor: "#ffffff" 
+  backgroundColor: "#ffffff"
 };
 const asideFooterBgStyle = {
     backgroundImage: "url(" + asideFooterBg + ")",
@@ -102,11 +102,15 @@ class App extends Component {
           selectOptions: [
             { value: "Action", label: "Action" },
             { value: "Comédie", label: "Comédie" },
+            { value: "Guerre", label: "Guerre" },
             { value: "Historique", label: "Historique" },
+            { value: "Hospitalier", label: "Hospitalier" },
             { value: "Policier", label: "Policier" },
+            { value: "Politique", label: "Politique" },
             { value: "Science-fiction, fantastique", label: "Science-fiction, fantastique" },
             { value: "Sentimental", label: "Sentimental" },
             { value: "Société", label: "Société" },
+            { value: "Western", label: "Western" },
           ]
         },
         {
@@ -179,9 +183,9 @@ class App extends Component {
   }
 
   // scrollTop() {
-    
+
   //   alert('scrollup');
-  //   document.querySelector(".App").scrollTo({ 
+  //   document.querySelector(".App").scrollTo({
   //     top: 0,
   //     behavior: 'smooth',
   //   });
@@ -190,13 +194,13 @@ class App extends Component {
   //   //   top: 0,
   //   //   behavior: 'smooth',
   //   // });
-    
+
   // }
 
-  
- 
+
+
   handleScroll() {
-    
+
     var scrollHeight = document.querySelector(".App").scrollTop;
 
     if(scrollHeight > 200 && this.state.backToTopVisible === false && this.state.gridVisible === true)
@@ -211,7 +215,7 @@ class App extends Component {
     //console.log(scrollHeight);
 
   }
-  
+
 
   orderHandle(value, sort, label) {
     // if (typeof sort === 'string' && sort.length === 0) {
@@ -513,7 +517,9 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch("http://web.tcch.ch/tv-test/index_read.php") // prod: https://www.letemps.ch/tv-shows
+    // dev: http://web.tcch.ch/tv-test/index_read.php
+    // prod: https://www.letemps.ch/tv-shows
+    fetch("http://web.tcch.ch/tv-test/index_read.php")
       .then(response => response.json())
       .then(json => {
 
