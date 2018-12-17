@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import Frame from "./components/Frame";
 import ContentDetails from "./components/ContentDetails";
 import Loading from "./components/Loading";
@@ -546,16 +546,16 @@ class App extends Component {
             }
           });
 
-          let pageMatch = document.location.href.match(/.*detail-([a-z0-9-]*).*?/);
+          /*let pageMatch = document.location.href.match(/.*series\/([a-z0-9-]*).*?/);
           if (pageMatch) {
-            console.log(pageMatch[1])
             if (pageMatch.length > 0){
               let targetArticle = json.filter(article => article['uniquekey'] === pageMatch[1]);
               if (targetArticle.length === 1){
                 this.articleOpen(targetArticle[0]);
+                console.log('open...')
               }
             }
-          }
+          }*/
 
           this.setState( {'selects': selects} );
       })
@@ -672,8 +672,15 @@ class App extends Component {
             </div>
           </main>
 
+
           <Frame frameVisible={frameVisible}>
-            <ContentDetails articleClose={this.articleClose} item={this.state.item} />
+            <Switch>
+              <Route path="/:seriez"
+                render={(props) =>
+                  <ContentDetails articleClose={this.articleClose} item={this.state.item} />
+                }
+              />
+            </Switch>
           </Frame>
         </div>
       </Router>

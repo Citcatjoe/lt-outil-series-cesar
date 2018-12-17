@@ -31,7 +31,8 @@ class ContentDetails extends Component {
     if (!this.props.item) {
       return false;
     }
-
+    console.log(this);
+    
     const backgroundImg = {
       background: "url(" + this.props.item.np8_main_media + ")"
     };
