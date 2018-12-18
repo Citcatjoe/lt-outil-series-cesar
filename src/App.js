@@ -14,6 +14,7 @@ import AsideCount from "./components/AsideCount";
 import AsideReset from "./components/AsideReset";
 import LogoLtGray from "./components/LogoLtGray";
 import BackToTop from "./components/BackToTop";
+import {GetContents, SetContents, ProcessContents, GetCountries} from "./utilities/ProcessContents";
 
 import './App.scss';
 import "./scss/AsideTabs.scss";
@@ -37,7 +38,6 @@ import cross from "./img/cross.svg";
 import noResults from "./img/no-results.svg";
 import ShareButtons from './components/ShareButtons';
 
-
 require("typeface-montserrat");
 var sortJsonArray = require("sort-json-array");
 // import { throws } from 'assert';
@@ -51,6 +51,9 @@ const asideFooterBgStyle = {
     backgroundPosition: 'top right',
     backgroundSize: 'cover'
 };
+
+// landing sur un détail ou sur l’ensemble
+const landingOnDetailView = /series/.test(document.location.href) ? true : false;
 
 class App extends Component {
   constructor(props) {
@@ -66,6 +69,7 @@ class App extends Component {
     this.searchingFor = this.searchingFor.bind(this);
     this.orderHandle = this.orderHandle.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
+
     //this.scrollTop = this.scrollTop.bind(this);
     // this.selectCategoryHandle = this.selectCategoryHandle.bind(this);
     // this.selectFormatHandle = this.selectFormatHandle.bind(this);
@@ -207,7 +211,6 @@ class App extends Component {
     if (scrollHeight < 200 && this.state.backToTopVisible === true) {
       this.setState({ backToTopVisible: false });
     }
-    //console.log(scrollHeight);
 
   }
 
@@ -291,6 +294,7 @@ class App extends Component {
     );
   }
 
+
   articleOpen(item) {
     this.setState(
       {
@@ -310,6 +314,9 @@ class App extends Component {
   }
 
   articleClose() {
+    console.group('CLOSE')
+    console.groupEnd();
+
     this.setState(
       {
         frameVisible: false
@@ -343,7 +350,6 @@ class App extends Component {
     // inner func pour filtrage ET décompte
     function filterArticles(articles, index, value=false){
       switch (true) {
-
         // diffuseurs: plusieurs choix, plusieurs éléments
         case index === 'lt_distributor':
 
@@ -396,6 +402,7 @@ class App extends Component {
         default:
           articles = articles.filter(article => article[index] === filteredOptions[index]);
       }
+
       return articles;
     }
 
@@ -463,14 +470,9 @@ class App extends Component {
       articlesFiltered: articles
     });
     }
-
-
-
   }
 
   asideToggle() {
-    //alert("coucou");
-    //e.preventDefault();
     if (this.state.asideVisible) {
       this.setState(
         {
@@ -501,71 +503,58 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch("http://web.tcch.ch/tv-test/index_read.php") // prod: https://www.letemps.ch/tv-shows
-      .then(response => response.json())
-      .then(json => {
-          // ajout d’une colonne pour «En cours / searchTerminé»
-          json.map((row, index) => {
-            return row['completed'] = row['np8_end_date'] === '' ? 'terminee' : 'en-cours';
-          });
+    // On regarde si déjà sauvé dans le localStorage
+    let data = GetContents();
+    if (data) {
+      console.log('Data already stored')
+      this.setState({ baseData: data['contents'], articles: data['contents'], loading: false });
+      this.setState( {'selects': data['selects']} );
+    } else {
+      fetch("http://web.tcch.ch/tv-test/index_read.php") // prod: https://www.letemps.ch/tv-shows
+        .then(response => response.json())
+        .then(json => {
+            console.log('No stored content, ajax')
+            json = ProcessContents(json);
+            this.setState({ baseData: json, articles: json, loading: false });
 
-          json.map((row, index) => {
-            return row['uniquekey'] = row['title'].normalize('NFD').replace(/[\u0300-\u036f\,\:\(\)\.’\[\]]/g, "").replace(/[  ]/g, "-").toLowerCase();
-          });
-
-          this.setState({ baseData: json, articles: json, loading: false });
-
-          // test: génération auto du menu déroulant «Provenance»
-          var countryList = [];
-          json.map((row, index) => {
-            // on saute les pays non renseignés et on splitte les coproductions
-            var countries = row['lt_country'].length > 0 ? row['lt_country'].split(', ') : [];
-            return countryList = countryList.concat(countries);
-          });
-
-          // filtrage et tri
-          countryList = countryList.filter (function (value, index, countryList) {
-              return countryList.indexOf(value) === index;
-          });
-          countryList.sort(
-            function (a, b) {
-              // Pour États-Unis, ... (accent initial)
-              return a.localeCompare(b);
-          });
-
-          var countryOptions = [];
-          countryList.map((item, index) => {
-            return countryOptions.push({ value: item, label: item });
-          });
-
-          // on update les selects souhaités
-          let selects = this.state.selects;
-          selects.forEach((item) => {
-            if ( item.selectJsonLabel === 'lt_country'){
-              item.selectOptions = countryOptions;
-            }
-          });
-
-          /*let pageMatch = document.location.href.match(/.*series\/([a-z0-9-]*).*?/);
-          if (pageMatch) {
-            if (pageMatch.length > 0){
-              let targetArticle = json.filter(article => article['uniquekey'] === pageMatch[1]);
-              if (targetArticle.length === 1){
-                this.articleOpen(targetArticle[0]);
-                console.log('open...')
+            // update du select des pays
+            let countryOptions = GetCountries(json)
+            let selects = this.state.selects;
+            selects.forEach((item) => {
+              if ( item.selectJsonLabel === 'lt_country'){
+                item.selectOptions = countryOptions;
               }
-            }
-          }*/
+            });
+            this.setState( {'selects': selects} );
 
-          this.setState( {'selects': selects} );
-      })
-      .catch(function () {
-        console.log("Error when loading json");
-    });
+            // Sauvegarde dans le localStorage
+            SetContents(json, selects);
+        })
+        .catch(function () {
+          console.log("Error when loading json");
+      });
+    }
+
+    // TODO dry
+    if(landingOnDetailView){
+      this.setState(
+        {
+          headerVisible: false,
+          gridVisible: false,
+        },
+        () => {
+          setTimeout(() => {
+            this.setState({
+              frameVisible: true
+            });
+            document.body.classList.add("no-scroll");
+          }, 500);
+        }
+      );
+    }
   }
 
   render() {
-
     let { articles, articlesFiltered } = this.state;
     const { asideCloseButtonVisible } = this.state;
     const { asideVisible } = this.state;
@@ -578,12 +567,18 @@ class App extends Component {
     const { introVisible } = this.state;
     const { introInnerVisible } = this.state;
 
-    if(articlesFiltered !== null && articlesFiltered.length > 0) {
+    function getArticleByParam(theParam){
+      let targetArticle = articles.filter(article => article['uniquekey'] === theParam);
+      if (targetArticle.length === 1){
+        return targetArticle[0]
+      }
+    }
+
+    if(articlesFiltered !== null || (articlesFiltered && articlesFiltered.length > 0)) {
       articles = articlesFiltered;
     }
 
     articles = articles.filter(this.searchingFor(this.state.searchTerm));
-    //console.log('articles: ' + articles.length);
 
     return(
       <Router>
@@ -610,7 +605,6 @@ class App extends Component {
                   <h3 className="aside-title">Filtrage personnalisé</h3>
                   {/* <FilterSelect articles={articles} selectCategoryHandle={this.selectCategoryHandle} /> */}
                   {selects.length > 0 ? selects.map((select, index) => {
-                        //console.log(select);
                         return <FilterSelect index={index} key={index} articles={articles} select={select} selectHandle={this.selectHandle} filteredOptions={this.state.filteredOptions} />;
                       }) : null}
                   {/* <FilterSelect selectCategoryHandle={this.selectCategoryHandle} selectCategory={selectCategory} />
@@ -675,10 +669,17 @@ class App extends Component {
 
           <Frame frameVisible={frameVisible}>
             <Switch>
-              <Route path="/:seriez"
+              <Route path="/x/series/:uniquekey"
                 render={(props) =>
-                  <ContentDetails articleClose={this.articleClose} item={this.state.item} />
+                  /* param Frame: {frameVisible} */
+
+                  /* pour debugger absence d’ouverture au premier clic */
+                  <h1>{props.match.params.uniquekey} <Link to="../">Retour</Link></h1>
                 }
+              />
+              <Route
+                path='/series/:uniquekey'
+                render={(props) => <ContentDetails {...props} item={getArticleByParam(props.match.params.uniquekey)} homepage='/' articleClose={this.articleClose} />}
               />
             </Switch>
           </Frame>
@@ -687,5 +688,11 @@ class App extends Component {
     );
   }
 }
+/*              <Route path="/:series"
+                render={(match) =>
+                  <h1>{match.params}</h1>
+                  //<ContentDetails articleClose={this.articleClose} item={this.state.item} />
+                }
+              />*/
 
 export default App;

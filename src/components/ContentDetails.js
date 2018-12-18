@@ -23,6 +23,12 @@ class ContentDetails extends Component {
   //     }
   // }
 
+  // TODO a virer
+  componentDidMount() {
+    console.log(this.props);
+    console.log(this.props.location.pathname);
+  }
+
 
 
   render() {
@@ -31,8 +37,7 @@ class ContentDetails extends Component {
     if (!this.props.item) {
       return false;
     }
-    console.log(this);
-    
+
     const backgroundImg = {
       background: "url(" + this.props.item.np8_main_media + ")"
     };
@@ -44,7 +49,7 @@ class ContentDetails extends Component {
         <div className={`content-gradient`} />
         <div className={`content-details`}>
           <div className={`content-details-header`}>
-            <Link to="/">
+            <Link to={this.props.homepage}>
               <button
                 className={`content-close`}
                 onClick={this.props.articleClose}
