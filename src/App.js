@@ -318,9 +318,6 @@ class App extends Component {
   }
 
   articleClose() {
-    console.group('CLOSE')
-    console.groupEnd();
-
     this.setState(
       {
         frameVisible: false
@@ -371,9 +368,6 @@ class App extends Component {
           if(selectedOption !== null && selectedOption.length > 0){
             let selectedDiffusors = selectedOption.map(function(item){ return item.value; });
             articles = articles.filter(article => containsDiffusor(article[index], selectedDiffusors) === true );
-          }else{
-            // TODO Problème à débugger (Ivo?)
-            console.log('selectedOption était nul')
           }
           break;
 
@@ -424,9 +418,6 @@ class App extends Component {
     // Ici on parcourt chaque filtre pour filtre les articles
     // c'est un filtre additionnel, c'est à dire que nous allons
     // filtre le reste des articles qui sont déjà filtré.
-    filteredOptions.forEach((filter, index) => {
-      // DEBUG console.log(filter, index);
-    });
 
     // On place tout ça dans le state
     this.setState({

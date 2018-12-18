@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Parser from 'html-react-parser';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-// import ShareButtons from "../components/ShareButtons";
+import ShareButtons from "../components/ShareButtons";
 
 import "../scss/ShareButtons.scss";
 
@@ -22,14 +22,6 @@ class ContentDetails extends Component {
   //         itemFull: this.props.itemFull
   //     }
   // }
-
-  // TODO a virer
-  componentDidMount() {
-    console.log(this.props);
-    console.log(this.props.location.pathname);
-  }
-
-
 
   render() {
     //const itemFull = this.props.itemFull;
@@ -79,7 +71,7 @@ class ContentDetails extends Component {
                       : "aujourd’hui"}</span>
                 </li>
                 <li>
-                  <span className="col1">Réalisé par :</span>
+                  <span className="col1">Auteur{/,|et/.test(this.props.item.np8_gallery_author) ? 's' : ''} :</span>
                   <span className="col2">{this.props.item.np8_gallery_author}</span>
                 </li>
                 <li>
@@ -98,7 +90,7 @@ class ContentDetails extends Component {
                   this.props.item.np8_news_ref === '' ? '' : Parser('<li className="related-news"><span className="col1">Lire aussi:</span><span className="col2"><img src=' + faviconLt + ' alt="">' + this.props.item.np8_news_ref + '</span></li>')
                 }
 
-                {/* <ShareButtons /> */}
+                { <ShareButtons shareURL={this.props.location.pathname} /> }
 
 
 
