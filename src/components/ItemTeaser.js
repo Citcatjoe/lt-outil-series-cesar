@@ -1,5 +1,6 @@
 import React from 'react';
 import Parser from "html-react-parser";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import cross from "../img/cross.svg";
 
@@ -10,10 +11,10 @@ class ItemTeaser extends React.Component {
     //     this.setState({
     //         introInnerVisible: !this.state.introVisible
     //     });
-    // } 
+    // }
 
-    
-    
+
+
 
     render(){
         const introVisible = this.props.introVisible;
@@ -22,19 +23,22 @@ class ItemTeaser extends React.Component {
         const body = this.props.item.body;
         const image = this.props.item.np8_main_media;
         const intro = this.props.item.lt_tv_show_tag;
+        const uniquekey = this.props.item.uniquekey;
 
         if (!intro) {
-            return <div className="item-teaser" onClick={this.props.articleOpen.bind(this, this.props.item)}>
-                <div className="item-teaser--overlay">
-                    <img className="item-teaser--overlay-icon" src={cross} alt="" />
-                </div>
-                <figure className="item-teaser--figure" style={{ backgroundImage: "url(" + image + ")" }} />
-                {/* <img src={image} alt={title} /> */}
-                <div className="item-teaser--body">
-                    <h2 className="item-teaser--body--title">{title}</h2>
-                </div>
-                
-            </div>;
+            return <Link to={"/series/" + uniquekey}>
+                <div className="item-teaser" onClick={this.props.articleOpen.bind(this, this.props.item)}>
+                  <div className="item-teaser--overlay">
+                      <img className="item-teaser--overlay-icon" src={cross} alt="" />
+                  </div>
+                  <figure className="item-teaser--figure" style={{ backgroundImage: "url(" + image + ")" }} />
+                  {/* <img src={image} alt={title} /> */}
+                  <div className="item-teaser--body">
+                      <h2 className="item-teaser--body--title">{title}</h2>
+                  </div>
+
+              </div>
+            </Link>;
         }
         return <div className={`intro ${introVisible ? "is-visible" : ""}`}>
             <div className={`intro-inner ${introInnerVisible ? "is-visible" : ""}`}>
@@ -45,7 +49,7 @@ class ItemTeaser extends React.Component {
               </button>
             </div>
           </div>;
-        
+
     }
 
 }
