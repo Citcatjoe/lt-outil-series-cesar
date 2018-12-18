@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://labs.letemps.ch/guide-des-series",
   "dependencies": {
+    "ajv": "^6.6.2",
     "html-react-parser": "^0.4.7",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
@@ -30,7 +31,6 @@
     "css-loader": "^1.0.1",
     "node-sass": "^4.10.0",
     "react-google-tag-manager": "^2.2.1",
-    "react-router-dom": "^4.3.1",
     "react-scroll-up-button": "^1.6.4",
     "react-select": "^2.1.2",
     "react-tabs": "^2.3.0",
