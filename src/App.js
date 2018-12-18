@@ -612,7 +612,7 @@ class App extends Component {
               {/* <img className="aside-footer-bg" alt="" src={asideFooterBg} /> */}
             </div>
             <ul className="aside-footer-list" style={asideFooterBgStyle}>
-              <ShareButtons />
+              <ShareButtons path="/" title="Le guide des séries du «Temps»" description="Pour se délasser ou pour frissoner, pour découvrir ou simplement pour en parler, «Le Temps» vous propose sa sélection de séries TV" />
               <li className="aside-footer-list-item">
                 <a href="mailto:florian.delafoi@ringieraxelspringer.ch?subject=Une erreur dans le guide des séries" target="_blank" rel="noopener noreferrer">
                   Signaler une erreur
