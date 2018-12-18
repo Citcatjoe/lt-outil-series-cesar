@@ -611,81 +611,50 @@ class App extends Component {
 
               {/* <img className="aside-footer-bg" alt="" src={asideFooterBg} /> */}
             </div>
-            <Tabs defaultIndex={0}>
-              <TabList>
-                <Tab onClick={this.resetFilters}>Suggestions</Tab>
-                <Tab onClick={this.resetFilters}>Sur mesure</Tab>
-              </TabList>
+            <ul className="aside-footer-list" style={asideFooterBgStyle}>
+              <ShareButtons />
+              <li className="aside-footer-list-item">
+                <a href="mailto:redactionweb@letemps.ch?subject=Une erreur dans le guide des séries" target="_blank" rel="noopener noreferrer">
+                  Signaler une erreur
+                </a>
+              </li>
+              <li className="aside-footer-list-item">
+                <a href="mailto:redactionweb@letemps.ch?subject=Suggestion pour le guide des séries" target="_blank" rel="noopener noreferrer">
+                  Suggérer une série
+                </a>
+              </li>
+              <li className="aside-footer-list-item">
+                <LogoLtGray />
+              </li>
+            </ul>
+          </aside>
+          <main className={`${asideVisible ? "is-moved-right" : ""}`} id="main">
 
-              <TabPanel>
-                <h3 className="aside-title">Nos suggestions rapides</h3>
-                {buttons.length > 0 ? buttons.map((button, index) => {
-                      return <FilterButton index={index} key={index} button={button} buttonHandle={this.buttonHandle} />;
-                    }) : null}
-              </TabPanel>
-              <TabPanel>
-                <h3 className="aside-title">Filtrage personnalisé</h3>
-                {/* <FilterSelect articles={articles} selectCategoryHandle={this.selectCategoryHandle} /> */}
-                {selects.length > 0 ? selects.map((select, index) => {
-                      //console.log(select);
-                      return <FilterSelect index={index} key={index} articles={articles} select={select} selectHandle={this.selectHandle} filteredOptions={this.state.filteredOptions} />;
-                    }) : null}
-                {/* <FilterSelect selectCategoryHandle={this.selectCategoryHandle} selectCategory={selectCategory} />
-                <FilterSelect selectFormatHandle={this.selectFormatHandle} selectFormat={selectFormat} /> */}
-              </TabPanel>
-            </Tabs>
-            <AsideCount articlesVar={articles} />
-            <AsideReset onClick={this.resetFilters} />
-
-            {/* <img className="aside-footer-bg" alt="" src={asideFooterBg} /> */}
-          </div>
-          <ul className="aside-footer-list" style={asideFooterBgStyle}>
-            <ShareButtons />
-            <li className="aside-footer-list-item">
-              <a href="mailto:redactionweb@letemps.ch?subject=Une erreur dans le guide des séries" target="_blank" rel="noopener noreferrer">
-                Signaler une erreur
-              </a>
-            </li>
-            <li className="aside-footer-list-item">
-              <a href="mailto:redactionweb@letemps.ch?subject=Suggestion pour le guide des séries" target="_blank" rel="noopener noreferrer">
-                Suggérer une série
-              </a>
-            </li>
-            <li className="aside-footer-list-item">
-              <LogoLtGray />
-            </li>
-          </ul>
-        </aside>
-        <main className={`${asideVisible ? "is-moved-right" : ""}`} id="main">
-
-          <div className={`main-header ${headerVisible ? "is-visible" : ""}`}>
-            <AsideToggle asideToggle={this.asideToggle} />
-            {/* <input type="text" ></input> */}
-            <FilterSearch onChange={this.searchHandler} searchTerm={this.state.searchTerm} />
-            <FilterOrder orderHandle={this.orderHandle} orderLabel={this.state.orderLabel} />
-          </div>
-          <Loading loading={loading} />
-          <div className={`grid ${gridVisible ? "is-visible" : ""}`}>
-            {/* {
-                articles.filter(this.searchingFor(this.state.searchTerm)).map(article =>
-                  <div>
-                    <p>{article.title}</p>
+            <div className={`main-header ${headerVisible ? "is-visible" : ""}`}>
+              <AsideToggle asideToggle={this.asideToggle} />
+              {/* <input type="text" ></input> */}
+              <FilterSearch onChange={this.searchHandler} searchTerm={this.state.searchTerm} />
+              <FilterOrder orderHandle={this.orderHandle} orderLabel={this.state.orderLabel} />
+            </div>
+            <Loading loading={loading} />
+            <div className={`grid ${gridVisible ? "is-visible" : ""}`}>
+              {articles.length > 0 ? articles.map((item, index) => {
+                  return <ItemTeaser index={index} key={index} item={item} introVisible={introVisible} introInnerVisible={introInnerVisible} articleOpen={this.articleOpen} introClose={this.introClose} hideLoading={this.hideLoading} />;
+                }) : <div className="no-results">
+                  <div className="no-results--inner">
+                    <img className="aside--close-button--img" src={noResults} alt="" />
+                    <h4 className="no-results--title">
+                      Votre recherche n'a produit aucun résultat
+                    </h4>
+                    <button className="no-results--button" onClick={this.resetFilters}>
+                      Réinitialiser les filtres
+                    </button>
                   </div>
                 </div>}
             </div>
           </main>
-
-
           <Frame frameVisible={frameVisible}>
             <Switch>
-              <Route path="/x/series/:uniquekey"
-                render={(props) =>
-                  /* param Frame: {frameVisible} */
-
-                  /* pour debugger absence d’ouverture au premier clic */
-                  <h1>{props.match.params.uniquekey} <Link to="../">Retour</Link></h1>
-                }
-              />
               <Route
                 path='/series/:uniquekey'
                 render={(props) => <ContentDetails {...props} item={getArticleByParam(props.match.params.uniquekey)} homepage='/' articleClose={this.articleClose} />}
@@ -697,11 +666,5 @@ class App extends Component {
     );
   }
 }
-/*              <Route path="/:series"
-                render={(match) =>
-                  <h1>{match.params}</h1>
-                  //<ContentDetails articleClose={this.articleClose} item={this.state.item} />
-                }
-              />*/
 
 export default App;
