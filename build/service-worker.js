@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.2/workbox-sw.js");
 
 importScripts(
-  "/guide-des-series/precache-manifest.1f0307eecf59b974cc8a5e72211fb21a.js"
+  "/guide-des-series/precache-manifest.d5d802a0a1e42f07d68e752428f239f8.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/interactive/2018/_sandbox/gus-router/index.html", {
-
+workbox.routing.registerNavigationRoute("/guide-des-series/index.html", {
+  
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });

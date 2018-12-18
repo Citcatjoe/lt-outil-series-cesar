@@ -1,19 +1,19 @@
 self.__precacheManifest = [
   {
-    "revision": "501ce09c42716a2f6e1503a25eb174c9",
-    "url": "/guide-des-series/static/media/montserrat-latin-400.501ce09c.woff2"
+    "revision": "60e3cb5bcf77197445a2",
+    "url": "/guide-des-series/static/css/main.7c1277ff.chunk.css"
   },
   {
-    "revision": "5276d78f98e8bcfd94fb",
-    "url": "/guide-des-series/static/css/main.fc9e976e.chunk.css"
+    "revision": "60e3cb5bcf77197445a2",
+    "url": "/guide-des-series/static/js/main.60e3cb5b.chunk.js"
   },
   {
-    "revision": "43b527fe77254f97ea36e2b54e845ec4",
-    "url": "/guide-des-series/static/media/montserrat-latin-900italic.43b527fe.woff"
+    "revision": "ca03c7754d086c8ea6d0",
+    "url": "/guide-des-series/static/css/1.335e6cd3.chunk.css"
   },
   {
-    "revision": "79ca421cf97a78b72338",
-    "url": "/guide-des-series/static/js/1.79ca421c.chunk.js"
+    "revision": "ca03c7754d086c8ea6d0",
+    "url": "/guide-des-series/static/js/1.ca03c775.chunk.js"
   },
   {
     "revision": "682d4f46cffd096f67ce",
@@ -26,6 +26,10 @@ self.__precacheManifest = [
   {
     "revision": "418e31ac83a2ad354a66bf2e4e852b19",
     "url": "/guide-des-series/static/media/favicon-lt.418e31ac.svg"
+  },
+  {
+    "revision": "d8c4e9dccc2f3f64faedab42943dd285",
+    "url": "/guide-des-series/static/media/img-loading.d8c4e9dc.svg"
   },
   {
     "revision": "7a0aa683248b2a85481cc0c596c22107",
@@ -52,12 +56,16 @@ self.__precacheManifest = [
     "url": "/guide-des-series/static/media/no-results.0033cc21.svg"
   },
   {
-    "revision": "e4bf47bd171a9b2a72dd84c58bf90edf",
-    "url": "/guide-des-series/static/media/montserrat-latin-100italic.e4bf47bd.woff2"
-  },
-  {
     "revision": "4124805c0503dbfe42dd67d7f5715964",
     "url": "/guide-des-series/static/media/montserrat-latin-100.4124805c.woff2"
+  },
+  {
+    "revision": "c8fb2f714bbc7bc3e8dfffa916b286dc",
+    "url": "/guide-des-series/static/media/montserrat-latin-100.c8fb2f71.woff"
+  },
+  {
+    "revision": "e4bf47bd171a9b2a72dd84c58bf90edf",
+    "url": "/guide-des-series/static/media/montserrat-latin-100italic.e4bf47bd.woff2"
   },
   {
     "revision": "d1f3f2d02ee4d7d2d4b1ad865014f189",
@@ -66,10 +74,6 @@ self.__precacheManifest = [
   {
     "revision": "444ae007121264bc1969d49b4031f9b2",
     "url": "/guide-des-series/static/media/montserrat-latin-200.444ae007.woff2"
-  },
-  {
-    "revision": "c8fb2f714bbc7bc3e8dfffa916b286dc",
-    "url": "/guide-des-series/static/media/montserrat-latin-100.c8fb2f71.woff"
   },
   {
     "revision": "edbce16a90aa22c297a0307b85789837",
@@ -84,6 +88,10 @@ self.__precacheManifest = [
     "url": "/guide-des-series/static/media/montserrat-latin-200italic.d7bbb730.woff"
   },
   {
+    "revision": "0a7c6df06e85d978d096d4d18fd8d43d",
+    "url": "/guide-des-series/static/media/montserrat-latin-300.0a7c6df0.woff2"
+  },
+  {
     "revision": "5e86df2cad22d2ef2b03516334afae5e",
     "url": "/guide-des-series/static/media/montserrat-latin-300.5e86df2c.woff"
   },
@@ -92,16 +100,12 @@ self.__precacheManifest = [
     "url": "/guide-des-series/static/media/montserrat-latin-300italic.c076c489.woff2"
   },
   {
-    "revision": "0a7c6df06e85d978d096d4d18fd8d43d",
-    "url": "/guide-des-series/static/media/montserrat-latin-300.0a7c6df0.woff2"
+    "revision": "501ce09c42716a2f6e1503a25eb174c9",
+    "url": "/guide-des-series/static/media/montserrat-latin-400.501ce09c.woff2"
   },
   {
     "revision": "37c74a8d2d0d36a0a2c6e9a37ee15b0c",
     "url": "/guide-des-series/static/media/montserrat-latin-300italic.37c74a8d.woff"
-  },
-  {
-    "revision": "5276d78f98e8bcfd94fb",
-    "url": "/guide-des-series/static/js/main.5276d78f.chunk.js"
   },
   {
     "revision": "f29d2b8559699b6beb5b29b25b8bc572",
@@ -132,6 +136,10 @@ self.__precacheManifest = [
     "url": "/guide-des-series/static/media/montserrat-latin-500italic.f3d41e4c.woff"
   },
   {
+    "revision": "15c24f7109941777774ddd2c636c6a50",
+    "url": "/guide-des-series/static/media/montserrat-latin-600.15c24f71.woff2"
+  },
+  {
     "revision": "f6dc6096f48956908c1787d9a722570a",
     "url": "/guide-des-series/static/media/montserrat-latin-600.f6dc6096.woff"
   },
@@ -140,28 +148,24 @@ self.__precacheManifest = [
     "url": "/guide-des-series/static/media/montserrat-latin-600italic.6d10b805.woff2"
   },
   {
-    "revision": "15c24f7109941777774ddd2c636c6a50",
-    "url": "/guide-des-series/static/media/montserrat-latin-600.15c24f71.woff2"
-  },
-  {
     "revision": "02c4833312d94b1b0866f073023a250e",
     "url": "/guide-des-series/static/media/montserrat-latin-600italic.02c48333.woff"
-  },
-  {
-    "revision": "957e93fbbe131a59791cd820d98b7109",
-    "url": "/guide-des-series/static/media/montserrat-latin-700.957e93fb.woff"
   },
   {
     "revision": "79982cd1f74c6fa7451bf9b37ead09ff",
     "url": "/guide-des-series/static/media/montserrat-latin-700.79982cd1.woff2"
   },
   {
-    "revision": "ca627c5ccc65cf80c2ecaea44b997de9",
-    "url": "/guide-des-series/static/media/montserrat-latin-700italic.ca627c5c.woff"
+    "revision": "957e93fbbe131a59791cd820d98b7109",
+    "url": "/guide-des-series/static/media/montserrat-latin-700.957e93fb.woff"
   },
   {
     "revision": "283438e9577fe6a684466bb100e105ec",
     "url": "/guide-des-series/static/media/montserrat-latin-700italic.283438e9.woff2"
+  },
+  {
+    "revision": "ca627c5ccc65cf80c2ecaea44b997de9",
+    "url": "/guide-des-series/static/media/montserrat-latin-700italic.ca627c5c.woff"
   },
   {
     "revision": "35386154b78d046218fc8f88a44ff515",
@@ -180,23 +184,23 @@ self.__precacheManifest = [
     "url": "/guide-des-series/static/media/montserrat-latin-800italic.a69f0add.woff"
   },
   {
-    "revision": "260c2ea3ef57feb82251952e605a36d5",
-    "url": "/guide-des-series/static/media/montserrat-latin-900.260c2ea3.woff2"
-  },
-  {
     "revision": "186cae8091da578150d81958e217714a",
     "url": "/guide-des-series/static/media/montserrat-latin-900.186cae80.woff"
+  },
+  {
+    "revision": "260c2ea3ef57feb82251952e605a36d5",
+    "url": "/guide-des-series/static/media/montserrat-latin-900.260c2ea3.woff2"
   },
   {
     "revision": "d785fb9fc74588ffb7f306799709a97d",
     "url": "/guide-des-series/static/media/montserrat-latin-900italic.d785fb9f.woff2"
   },
   {
-    "revision": "79ca421cf97a78b72338",
-    "url": "/guide-des-series/static/css/1.cb9bf483.chunk.css"
+    "revision": "43b527fe77254f97ea36e2b54e845ec4",
+    "url": "/guide-des-series/static/media/montserrat-latin-900italic.43b527fe.woff"
   },
   {
-    "revision": "2f57ccc1f19649ad5e923143e4b122cc",
+    "revision": "fb0cdb52b073ce934a682b99baafedec",
     "url": "/guide-des-series/index.html"
   }
 ];
