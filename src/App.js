@@ -626,12 +626,12 @@ class App extends Component {
           <ul className="aside-footer-list" style={asideFooterBgStyle}>
             <ShareButtons />
             <li className="aside-footer-list-item">
-              <a href="mailto:florian.delafoi@ringieraxelspringer.ch?subject=Une erreur dans le guide des séries" target="_blank" rel="noopener noreferrer">
+              <a href="mailto:redactionweb@letemps.ch?subject=Une erreur dans le guide des séries" target="_blank" rel="noopener noreferrer">
                 Signaler une erreur
               </a>
             </li>
             <li className="aside-footer-list-item">
-              <a href="mailto:florian.delafoi@ringieraxelspringer.ch?subject=Suggestion pour le guide des séries" target="_blank" rel="noopener noreferrer">
+              <a href="mailto:redactionweb@letemps.ch?subject=Suggestion pour le guide des séries" target="_blank" rel="noopener noreferrer">
                 Suggérer une série
               </a>
             </li>
