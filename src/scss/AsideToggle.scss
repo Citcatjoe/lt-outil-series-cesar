@@ -19,7 +19,7 @@
         display: block;
     }
 
-    @include breakpoint(xs) { 
+    @include breakpoint(sm) { 
         top: 115px;
         left: calc(8.5px * 2);
     }

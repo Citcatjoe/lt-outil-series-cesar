@@ -29,7 +29,7 @@
         //margin: 17.5px 0;
     }
 
-    @include breakpoint(xs) { 
+    @include breakpoint(sm) { 
         padding: 7px;
         width: 100%;
         margin: 0;
@@ -145,7 +145,7 @@
         width: calc(50% - 35px)
     }
 
-    @include breakpoint(xs) { 
+    @include breakpoint(sm) { 
         margin: 7px;
         //width: calc(100% - 35px)
         width: calc(50% - 14px)

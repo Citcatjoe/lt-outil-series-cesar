@@ -244,8 +244,13 @@ aside
     @include breakpoint(xl) { 
       
         position: static;
-        padding: 140px 20px 0 20px;;
+        //padding: 140px 20px 0 20px;;
       //background: url('/static/media/aside-footer-bg.e1ffebce.svg');
+    }
+
+    @include breakpoint(xs) { 
+      
+        padding: 140px 20px 0 20px;
     }
 
     // @include breakpoint(xs) { 
@@ -321,7 +326,7 @@ main
     transition: all 0.5s;
     //padding: 17.5px;
 
-    @include breakpoint(xs) { 
+    @include breakpoint(sm) { 
         height: 150px;
     }
 
@@ -343,7 +348,7 @@ main
   padding: 17.5px;
   //position: relative;
 
-  @include breakpoint(xs) { 
+  @include breakpoint(sm) { 
       padding: 10px;
       padding-top: 17.5px;
   }

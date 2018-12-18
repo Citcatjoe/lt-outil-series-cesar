@@ -7,7 +7,19 @@
     top: 35px;
     transform: translateX(-50%);
 
-    @include breakpoint(xs) { 
+    @include breakpoint(lg) { 
+        left: 35px;
+        transform: translateX(0);
+        
+    }
+
+    @include breakpoint(md) { 
+        left: 50%;
+        transform: translateX(-50%);
+        
+    }
+
+    @include breakpoint(sm) { 
         width: calc(100% - 31px);
         //top: 14px;
     }
@@ -26,7 +38,7 @@
         border-radius: 50px;
         outline: 0 !important;
 
-        @include breakpoint(xs) { 
+        @include breakpoint(sm) { 
             width: 100%;
         }
     }
