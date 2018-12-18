@@ -3,6 +3,11 @@ import Parser from "html-react-parser";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import cross from "../img/cross.svg";
+import imgLoading from "../img/img-loading.svg";
+
+const itemTeaserBg = {
+    backgroundImage: "url(" + imgLoading + ")"
+};
 
 class ItemTeaser extends React.Component {
 
@@ -27,7 +32,8 @@ class ItemTeaser extends React.Component {
 
         if (!intro) {
             return <Link to={"/series/" + uniquekey}>
-                <div className="item-teaser" onClick={this.props.articleOpen.bind(this, this.props.item)}>
+                {/* <div className="loader">Loading...</div> */}
+                <div className="item-teaser" onClick={this.props.articleOpen.bind(this, this.props.item)} style={itemTeaserBg}>
                   <div className="item-teaser--overlay">
                       <img className="item-teaser--overlay-icon" src={cross} alt="" />
                   </div>
