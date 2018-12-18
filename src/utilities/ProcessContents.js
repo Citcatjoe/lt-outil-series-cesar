@@ -6,26 +6,26 @@
 
 */
 
-export function GetContents () {
+export var GetContents = function () {
   let data =  localStorage.getItem('guide-series');
   if (!data){
     return false;
   }
   data = JSON.parse(data);
-  return false; // no cache
-  // expire après 24 heures:                       milli  sec  min  heures
-  if( (data['timestamp'] - new Date().getTime()) < (1000 * 60 * 60 * 24) ){
+
+  // expire après 1 heure:                       milli  sec  min  heures
+  if( (data['timestamp'] - new Date().getTime()) < (1000 * 60 * 60 * 1) ){
     return data;
   }else{
     return false;
   }
-}
+};
 
-export function SetContents (contents, selects) {
+ export var SetContents = function (contents, selects) {
   return localStorage.setItem('guide-series', JSON.stringify({'timestamp': new Date().getTime(), 'contents': contents, 'selects': selects}));
-}
+};
 
-export function ProcessContents (json) {
+ export var ProcessContents = function (json) {
   // ajout d’une colonne pour «En cours / searchTerminé»
   json.map((row, index) => {
     return row['completed'] = row['np8_end_date'] === '' ? 'terminee' : 'en-cours';
@@ -35,9 +35,9 @@ export function ProcessContents (json) {
     return row['uniquekey'] = row['path'].split('/')[2];
   });
   return json;
-}
+};
 
-export function GetCountries (json) {
+ export var GetCountries = function(json) {
   // test: génération auto du menu déroulant «Provenance»
   var countryList = [];
   json.map((row, index) => {
@@ -61,4 +61,4 @@ export function GetCountries (json) {
     return countryOptions.push({ value: item, label: item });
   });
   return countryOptions;
-}
+};

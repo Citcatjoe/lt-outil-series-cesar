@@ -11,7 +11,7 @@ class AsideCount extends Component {
             Résultats:&nbsp;&nbsp;
             <b className="aside--count--highlight">
               {
-                  
+
                   this.props.articlesVar.length
 
               //this.props.articlesFiltered !== null ? (this.props.articlesFiltered.length -1) : (this.props.articles.length -1)

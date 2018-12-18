@@ -576,13 +576,13 @@ class App extends Component {
                   <FilterSelect selectFormatHandle={this.selectFormatHandle} selectFormat={selectFormat} /> */}
                 </TabPanel>
               </Tabs>
-              <AsideCount articlesVar={articles} />
+              <AsideCount articlesVar={articles} introVisible={introVisible} />
               <AsideReset onClick={this.resetFilters} />
 
               {/* <img className="aside-footer-bg" alt="" src={asideFooterBg} /> */}
             </div>
             <ul className="aside-footer-list" style={asideFooterBgStyle}>
-              <ShareButtons title="" description="Pour se délasser ou pour frissoner, pour découvrir ou simplement pour en parler, «Le Temps» vous propose sa sélection de séries TV" path="/" />
+              <ShareButtons title="Test" description="Pour se délasser ou pour frissoner, pour découvrir ou simplement pour en parler, «Le Temps» vous propose sa sélection de séries TV" path="/" />
               <li className="aside-footer-list-item">
                 <a href="mailto:redactionweb@letemps.ch?subject=Une erreur dans le guide des séries" target="_blank" rel="noopener noreferrer">
                   Signaler une erreur
@@ -598,11 +598,10 @@ class App extends Component {
               </li>
             </ul>
           </aside>
-          <main className={`${asideVisible ? "is-moved-right" : ""}`} id="main">
 
+          <main className={`${asideVisible ? "is-moved-right" : ""}`} id="main">
             <div className={`main-header ${headerVisible ? "is-visible" : ""}`}>
               <AsideToggle asideToggle={this.asideToggle} />
-              {/* <input type="text" ></input> */}
               <FilterSearch onChange={this.searchHandler} searchTerm={this.state.searchTerm} />
               <FilterOrder orderHandle={this.orderHandle} orderLabel={this.state.orderLabel} />
             </div>

@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import Parser from "html-react-parser";
-import getBaseurl from "../utilities/GetBaseurl"
+//import getBaseurl from "../utilities/GetBaseurl"
 
 //import pictoFacebook from "../img/picto-facebook.svg";
 
 class ShareButtons extends Component {
 
   render() {
-    let url = getBaseurl();
+    let url = 'https://labs.letemps.ch/guide-des-series'; //getBaseurl();
     if (this.props.path) {
        // url += this.props.path;
     }
