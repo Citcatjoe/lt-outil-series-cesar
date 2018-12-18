@@ -70,9 +70,6 @@ class App extends Component {
     this.orderHandle = this.orderHandle.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
 
-    //this.scrollTop = this.scrollTop.bind(this);
-    // this.selectCategoryHandle = this.selectCategoryHandle.bind(this);
-    // this.selectFormatHandle = this.selectFormatHandle.bind(this);
     this.state = {
       articles: [],
       articlesFiltered: null,
@@ -185,23 +182,6 @@ class App extends Component {
     };
   }
 
-  // scrollTop() {
-
-  //   alert('scrollup');
-  //   document.querySelector(".App").scrollTo({
-  //     top: 0,
-  //     behavior: 'smooth',
-  //   });
-
-  //   // document.querySelector(".content").scrollTo({
-  //   //   top: 0,
-  //   //   behavior: 'smooth',
-  //   // });
-
-  // }
-
-
-
   handleScroll() {
 
     var scrollHeight = document.querySelector(".App").scrollTop;
@@ -220,11 +200,6 @@ class App extends Component {
 
 
   orderHandle(value, sort, label) {
-    // if (typeof sort === 'string' && sort.length === 0) {
-    //   sort = 'desc';
-    // }
-
-
 
     var o = null;
     if (this.state.articlesFiltered !== null)
@@ -280,10 +255,6 @@ class App extends Component {
   }
 
   introClose() {
-    // this.setState({
-    //   introInnerVisible: false
-    // });
-
     this.setState(
       {
         introInnerVisible: false
@@ -297,7 +268,6 @@ class App extends Component {
       }
     );
   }
-
 
   articleOpen(item) {
     this.setState(
@@ -417,7 +387,7 @@ class App extends Component {
 
     // Ici on parcourt chaque filtre pour filtre les articles
     // c'est un filtre additionnel, c'est à dire que nous allons
-    // filtre le reste des articles qui sont déjà filtré.
+    // filtre le reste des articles qui sont déjà filtrés.
 
     // On place tout ça dans le state
     this.setState({

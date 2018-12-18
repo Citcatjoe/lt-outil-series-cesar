@@ -1,6 +1,6 @@
 import React from 'react';
 import Parser from "html-react-parser";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Link } from "react-router-dom";
 
 import cross from "../img/cross.svg";
 import imgLoading from "../img/img-loading.svg";
@@ -10,16 +10,6 @@ const itemTeaserBg = {
 };
 
 class ItemTeaser extends React.Component {
-
-    // introClose(e) {
-    //     e.preventDefault();
-    //     this.setState({
-    //         introInnerVisible: !this.state.introVisible
-    //     });
-    // }
-
-
-
 
     render(){
         const introVisible = this.props.introVisible;
@@ -32,13 +22,11 @@ class ItemTeaser extends React.Component {
 
         if (!intro) {
             return <Link to={"/series/" + uniquekey}>
-                {/* <div className="loader">Loading...</div> */}
                 <div className="item-teaser" onClick={this.props.articleOpen.bind(this, this.props.item)} style={itemTeaserBg}>
                   <div className="item-teaser--overlay">
                       <img className="item-teaser--overlay-icon" src={cross} alt="" />
                   </div>
                   <figure className="item-teaser--figure" style={{ backgroundImage: "url(" + image + ")" }} />
-                  {/* <img src={image} alt={title} /> */}
                   <div className="item-teaser--body">
                       <h2 className="item-teaser--body--title">{title}</h2>
                   </div>
@@ -55,9 +43,7 @@ class ItemTeaser extends React.Component {
               </button>
             </div>
           </div>;
-
     }
-
 }
 
 export default ItemTeaser;
