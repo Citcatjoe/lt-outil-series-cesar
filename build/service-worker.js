@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/guide-des-series/index.html", {
-  
+workbox.routing.registerNavigationRoute("/interactive/2018/_sandbox/gus-router/index.html", {
+
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });

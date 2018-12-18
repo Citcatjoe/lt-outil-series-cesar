@@ -1,15 +1,20 @@
 import React, { Component } from "react";
 import Parser from "html-react-parser";
+import getBaseurl from "../utilities/GetBaseurl"
 
 //import pictoFacebook from "../img/picto-facebook.svg";
 
 class ShareButtons extends Component {
 
   render() {
+    const url = getBaseurl() + this.props.path;
+    const title = this.props.title;
+    const description = this.props.description;
+
     return <li className="share-buttons">
         <span className="col1">Partager :</span>
         <span className="col2">
-          <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=http://labs.letemps.ch/interactive/2018/_sandbox/gus/&display=popup&ref=plugin&src=share_button">
+          <a target="_blank" rel="noopener noreferrer" href={"https://www.facebook.com/sharer.php?u=" + url + "&display=popup&ref=plugin&src=share_button"}>
             <button className="share-buttons--button">
               {Parser(
                 '<svg version="1.1" class="facebook" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 264 512" style="enable-background:new 0 0 264 512;" xml:space="preserve"><path class="st0" d="M76.7,512V283H0v-91h76.7v-71.7C76.7,42.4,124.3,0,193.8,0c33.3,0,61.9,2.5,70.2,3.6V85h-48.2	c-37.8,0-45.1,18-45.1,44.3V192H256l-11.7,91h-73.6v229"/></svg>'

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-//import Select from "react-select";
-
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import Frame from "./components/Frame";
 import ContentDetails from "./components/ContentDetails";
 import Loading from "./components/Loading";
@@ -15,6 +14,7 @@ import AsideCount from "./components/AsideCount";
 import AsideReset from "./components/AsideReset";
 import LogoLtGray from "./components/LogoLtGray";
 import BackToTop from "./components/BackToTop";
+import {GetContents, SetContents, ProcessContents, GetCountries} from "./utilities/ProcessContents";
 
 import './App.scss';
 import "./scss/AsideTabs.scss";
@@ -38,7 +38,6 @@ import cross from "./img/cross.svg";
 import noResults from "./img/no-results.svg";
 import ShareButtons from './components/ShareButtons';
 
-
 require("typeface-montserrat");
 var sortJsonArray = require("sort-json-array");
 // import { throws } from 'assert';
@@ -52,6 +51,9 @@ const asideFooterBgStyle = {
     backgroundPosition: 'top right',
     backgroundSize: 'cover'
 };
+
+// landing sur un détail ou sur l’ensemble
+const landingOnDetailView = /series/.test(document.location.href) ? true : false;
 
 class App extends Component {
   constructor(props) {
@@ -67,6 +69,7 @@ class App extends Component {
     this.searchingFor = this.searchingFor.bind(this);
     this.orderHandle = this.orderHandle.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
+
     //this.scrollTop = this.scrollTop.bind(this);
     // this.selectCategoryHandle = this.selectCategoryHandle.bind(this);
     // this.selectFormatHandle = this.selectFormatHandle.bind(this);
@@ -212,7 +215,6 @@ class App extends Component {
     if (scrollHeight < 200 && this.state.backToTopVisible === true) {
       this.setState({ backToTopVisible: false });
     }
-    //console.log(scrollHeight);
 
   }
 
@@ -296,6 +298,7 @@ class App extends Component {
     );
   }
 
+
   articleOpen(item) {
     this.setState(
       {
@@ -348,7 +351,6 @@ class App extends Component {
     // inner func pour filtrage ET décompte
     function filterArticles(articles, index, value=false){
       switch (true) {
-
         // diffuseurs: plusieurs choix, plusieurs éléments
         case index === 'lt_distributor':
 
@@ -366,9 +368,6 @@ class App extends Component {
           if(selectedOption !== null && selectedOption.length > 0){
             let selectedDiffusors = selectedOption.map(function(item){ return item.value; });
             articles = articles.filter(article => containsDiffusor(article[index], selectedDiffusors) === true );
-          }else{
-            // TODO Problème à débugger (Ivo?)
-            console.log('selectedOption était nul')
           }
           break;
 
@@ -401,19 +400,9 @@ class App extends Component {
         default:
           articles = articles.filter(article => article[index] === filteredOptions[index]);
       }
+
       return articles;
     }
-
-    /*
-    // test décompte au changement select -> nouvelle branche
-    for(let index in this.state.selects){
-      for(let item of this.state.selects[index]['selectOptions']){
-        let temp = filterArticles(articles, index, item['value'])
-        console.log(item['label'] + ' ' + temp.length)
-      }
-      break;
-    }
-    */
 
     // on utilise *let* pour eviter de déclencher no-loop-func
     for (let index in filteredOptions) {
@@ -429,9 +418,6 @@ class App extends Component {
     // Ici on parcourt chaque filtre pour filtre les articles
     // c'est un filtre additionnel, c'est à dire que nous allons
     // filtre le reste des articles qui sont déjà filtré.
-    filteredOptions.forEach((filter, index) => {
-      // DEBUG console.log(filter, index);
-    });
 
     // On place tout ça dans le state
     this.setState({
@@ -479,14 +465,9 @@ class App extends Component {
       articlesFiltered: articles
     });
     }
-
-
-
   }
 
   asideToggle() {
-    //alert("coucou");
-    //e.preventDefault();
     if (this.state.asideVisible) {
       this.setState(
         {
@@ -517,58 +498,58 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // dev: http://web.tcch.ch/tv-test/index_read.php
-    // prod: https://www.letemps.ch/tv-shows
-    fetch("http://web.tcch.ch/tv-test/index_read.php")
-      .then(response => response.json())
-      .then(json => {
+    // On regarde si déjà sauvé dans le localStorage
+    let data = GetContents();
+    if (data) {
+      console.log('Data already stored')
+      this.setState({ baseData: data['contents'], articles: data['contents'], loading: false });
+      this.setState( {'selects': data['selects']} );
+    } else {
+      fetch("http://web.tcch.ch/tv-test/index_read.php") // prod: https://www.letemps.ch/tv-shows
+        .then(response => response.json())
+        .then(json => {
+            console.log('No stored content, ajax')
+            json = ProcessContents(json);
+            this.setState({ baseData: json, articles: json, loading: false });
 
-          // ajout d’une colonne pour «En cours / searchTerminé»
-          json.map((row, index) => {
-            return row['completed'] = row['np8_end_date'] === '' ? 'terminee' : 'en-cours';
-          });
+            // update du select des pays
+            let countryOptions = GetCountries(json)
+            let selects = this.state.selects;
+            selects.forEach((item) => {
+              if ( item.selectJsonLabel === 'lt_country'){
+                item.selectOptions = countryOptions;
+              }
+            });
+            this.setState( {'selects': selects} );
 
-          this.setState({ baseData: json, articles: json, loading: false });
+            // Sauvegarde dans le localStorage
+            SetContents(json, selects);
+        })
+        .catch(function () {
+          console.log("Error when loading json");
+      });
+    }
 
-          // test: génération auto du menu déroulant «Provenance»
-          var countryList = [];
-          json.map((row, index) => {
-            // on saute les pays non renseignés et on splitte les coproductions
-            var countries = row['lt_country'].length > 0 ? row['lt_country'].split(', ') : [];
-            return countryList = countryList.concat(countries);
-          });
-
-          // filtrage et tri
-          countryList = countryList.filter (function (value, index, countryList) {
-              return countryList.indexOf(value) === index;
-          });
-          countryList.sort(
-            function (a, b) {
-              // Pour États-Unis, ... (accent initial)
-              return a.localeCompare(b);
-          });
-
-          var countryOptions = [];
-          countryList.map((item, index) => {
-            return countryOptions.push({ value: item, label: item });
-          });
-
-          // on update les selects souhaités
-          let selects = this.state.selects;
-          selects.forEach((item) => {
-            if ( item.selectJsonLabel === 'lt_country'){
-              item.selectOptions = countryOptions;
-            }
-          });
-          this.setState( {'selects': selects} );
-      })
-      .catch(function () {
-        console.log("Error when loading json");
-    });
+    // TODO dry
+    if(landingOnDetailView){
+      this.setState(
+        {
+          headerVisible: false,
+          gridVisible: false,
+        },
+        () => {
+          setTimeout(() => {
+            this.setState({
+              frameVisible: true
+            });
+            document.body.classList.add("no-scroll");
+          }, 500);
+        }
+      );
+    }
   }
 
   render() {
-
     let { articles, articlesFiltered } = this.state;
     const { asideCloseButtonVisible } = this.state;
     const { asideVisible } = this.state;
@@ -581,19 +562,54 @@ class App extends Component {
     const { introVisible } = this.state;
     const { introInnerVisible } = this.state;
 
-    if(articlesFiltered !== null && articlesFiltered.length > 0) {
+    function getArticleByParam(theParam){
+      let targetArticle = articles.filter(article => article['uniquekey'] === theParam);
+      if (targetArticle.length === 1){
+        return targetArticle[0]
+      }
+    }
+
+    if(articlesFiltered !== null || (articlesFiltered && articlesFiltered.length > 0)) {
       articles = articlesFiltered;
     }
 
     articles = articles.filter(this.searchingFor(this.state.searchTerm));
-    //console.log('articles: ' + articles.length);
 
-    return <div className="App" onScroll={this.handleScroll}>
-        <BackToTop backToTopVisible={this.state.backToTopVisible}  onClick={this.scrollTop} />
-        <aside style={asideBg1Style} className={`${asideVisible ? "is-visible" : ""}`}>
-          <div className="aside-top">
-            <div className={`aside--close-button ${asideCloseButtonVisible ? "is-visible" : ""}`} onClick={this.asideToggle}>
-              <img className="aside--close-button--img" alt="Fermer" src={cross} />
+    return(
+      <Router>
+        <div className="App" onScroll={this.handleScroll}>
+          <BackToTop backToTopVisible={this.state.backToTopVisible}  onClick={this.scrollTop} />
+          <aside style={asideBg1Style} className={`${asideVisible ? "is-visible" : ""}`}>
+            <div className="aside-top">
+              <div className={`aside--close-button ${asideCloseButtonVisible ? "is-visible" : ""}`} onClick={this.asideToggle}>
+                <img className="aside--close-button--img" alt="Fermer" src={cross} />
+              </div>
+              <Tabs defaultIndex={0}>
+                <TabList>
+                  <Tab onClick={this.resetFilters}>Suggestions</Tab>
+                  <Tab onClick={this.resetFilters}>Sur mesure</Tab>
+                </TabList>
+
+                <TabPanel>
+                  <h3 className="aside-title">Nos suggestions rapides</h3>
+                  {buttons.length > 0 ? buttons.map((button, index) => {
+                        return <FilterButton index={index} key={index} button={button} buttonHandle={this.buttonHandle} />;
+                      }) : null}
+                </TabPanel>
+                <TabPanel>
+                  <h3 className="aside-title">Filtrage personnalisé</h3>
+                  {/* <FilterSelect articles={articles} selectCategoryHandle={this.selectCategoryHandle} /> */}
+                  {selects.length > 0 ? selects.map((select, index) => {
+                        return <FilterSelect index={index} key={index} articles={articles} select={select} selectHandle={this.selectHandle} filteredOptions={this.state.filteredOptions} />;
+                      }) : null}
+                  {/* <FilterSelect selectCategoryHandle={this.selectCategoryHandle} selectCategory={selectCategory} />
+                  <FilterSelect selectFormatHandle={this.selectFormatHandle} selectFormat={selectFormat} /> */}
+                </TabPanel>
+              </Tabs>
+              <AsideCount articlesVar={articles} />
+              <AsideReset onClick={this.resetFilters} />
+
+              {/* <img className="aside-footer-bg" alt="" src={asideFooterBg} /> */}
             </div>
             <Tabs defaultIndex={0}>
               <TabList>
@@ -655,29 +671,37 @@ class App extends Component {
                   <div>
                     <p>{article.title}</p>
                   </div>
-                )
-              } */}
-            {articles.length > 0 ? articles.map((item, index) => {
-                return <ItemTeaser index={index} key={index} item={item} introVisible={introVisible} introInnerVisible={introInnerVisible} articleOpen={this.articleOpen} introClose={this.introClose} hideLoading={this.hideLoading} />;
-              }) : <div className="no-results">
-                <div className="no-results--inner">
-                  <img className="aside--close-button--img" src={noResults} alt="" />
-                  <h4 className="no-results--title">
-                    Votre recherche n'a produit aucun résultat
-                  </h4>
-                  <button className="no-results--button" onClick={this.resetFilters}>
-                    Réinitialiser les filtres
-                  </button>
-                </div>
-              </div>}
-          </div>
-        </main>
+                </div>}
+            </div>
+          </main>
 
-        <Frame frameVisible={frameVisible}>
-          <ContentDetails articleClose={this.articleClose} item={this.state.item} />
-        </Frame>
-      </div>;
+
+          <Frame frameVisible={frameVisible}>
+            <Switch>
+              <Route path="/x/series/:uniquekey"
+                render={(props) =>
+                  /* param Frame: {frameVisible} */
+
+                  /* pour debugger absence d’ouverture au premier clic */
+                  <h1>{props.match.params.uniquekey} <Link to="../">Retour</Link></h1>
+                }
+              />
+              <Route
+                path='/series/:uniquekey'
+                render={(props) => <ContentDetails {...props} item={getArticleByParam(props.match.params.uniquekey)} homepage='/' articleClose={this.articleClose} />}
+              />
+            </Switch>
+          </Frame>
+        </div>
+      </Router>
+    );
   }
 }
+/*              <Route path="/:series"
+                render={(match) =>
+                  <h1>{match.params}</h1>
+                  //<ContentDetails articleClose={this.articleClose} item={this.state.item} />
+                }
+              />*/
 
 export default App;
