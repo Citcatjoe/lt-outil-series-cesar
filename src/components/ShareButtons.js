@@ -13,7 +13,6 @@ class ShareButtons extends Component {
     }
     const title = encodeURI(this.props.title).replace(/ /g, "%20");
     const description = encodeURI(this.props.description).replace(/ /g, "%20");
-    console.log(title);
 
     return <li className="share-buttons">
         <span className="col1">Partager :</span>

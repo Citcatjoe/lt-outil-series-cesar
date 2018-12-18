@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Frame from "./components/Frame";
 import ContentDetails from "./components/ContentDetails";
 import Loading from "./components/Loading";
@@ -612,7 +612,7 @@ class App extends Component {
               {/* <img className="aside-footer-bg" alt="" src={asideFooterBg} /> */}
             </div>
             <ul className="aside-footer-list" style={asideFooterBgStyle}>
-              <ShareButtons />
+              <ShareButtons title="" description="Pour se délasser ou pour frissoner, pour découvrir ou simplement pour en parler, «Le Temps» vous propose sa sélection de séries TV" path="/" />
               <li className="aside-footer-list-item">
                 <a href="mailto:redactionweb@letemps.ch?subject=Une erreur dans le guide des séries" target="_blank" rel="noopener noreferrer">
                   Signaler une erreur
