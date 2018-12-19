@@ -38,6 +38,14 @@ import cross from "./img/cross.svg";
 import noResults from "./img/no-results.svg";
 import ShareButtons from './components/ShareButtons';
 
+// version avec # ne fonctionne pas
+// pour ça il faudrait utiliser un <HashRouter>
+const useRewriting = true;
+const routePath = useRewriting ? '/guide-des-series/series/:uniquekey' : '/guide-des-series/#:uniquekey';
+const routeHomepage = '/guide-des-series/';
+const childRoute = useRewriting ? "/guide-des-series/series/" : '/guide-des-series/#';
+const landingOnDetailTest = useRewriting ? /series\/series/ : /series\/#/;
+
 require("typeface-montserrat");
 var sortJsonArray = require("sort-json-array");
 // import { throws } from 'assert';
@@ -53,7 +61,7 @@ const asideFooterBgStyle = {
 };
 
 // landing sur un détail ou sur l’ensemble -- TODO a retablier
-const landingOnDetailView = /series\/series/.test(document.location.href) ? true : false;
+const landingOnDetailView = landingOnDetailTest.test(document.location.href) ? true : false;
 
 class App extends Component {
   constructor(props) {
@@ -147,8 +155,6 @@ class App extends Component {
             { value: "Netflix", label: "Netflix" },
             { value: "RTS", label: "RTS" },
             { value: "ShowTime", label: "ShowTime" },
-            { value: "Showcase", label: "Showcase" },
-            { value: "TF1", label: "TF1" },
             { value: "USA Network", label: "USA Network" },
             { value: "YouTube", label: "YouTube" },
           ]
@@ -584,7 +590,7 @@ class App extends Component {
               {/* <img className="aside-footer-bg" alt="" src={asideFooterBg} /> */}
             </div>
             <ul className="aside-footer-list" style={asideFooterBgStyle}>
-              <ShareButtons title="Quelle série TV regarder ce soir? Le guide complet du «Temps»" description="Pour se délasser ou pour frissoner, pour découvrir ou simplement pour en parler, «Le Temps» vous propose sa sélection de séries TV" path="/" />
+              <ShareButtons title="Les meilleures séries des 20 dernières années: notre guide" description="Quelle série TV regarder ce soir? Nous vous proposons de composer votre menu grâce à notre plateforme interactive" path="/" />
               <li className="aside-footer-list-item">
                 <a href="mailto:redactionweb@letemps.ch?subject=Une erreur dans le guide des séries" target="_blank" rel="noopener noreferrer">
                   Signaler une erreur
@@ -613,7 +619,7 @@ class App extends Component {
             <Loading loading={loading} />
             <div className={`grid ${gridVisible ? "is-visible" : ""}`}>
               {articles.length > 0 ? articles.map((item, index) => {
-                  return <ItemTeaser index={index} key={index} item={item} introVisible={introVisible} introInnerVisible={introInnerVisible} articleOpen={this.articleOpen} introClose={this.introClose} hideLoading={this.hideLoading} />;
+                  return <ItemTeaser index={index} key={index} item={item} introVisible={introVisible} introInnerVisible={introInnerVisible} articleOpen={this.articleOpen} introClose={this.introClose} hideLoading={this.hideLoading} childRoute={childRoute} />;
                 }) : <div className="no-results">
                   <div className="no-results--inner">
                     <img className="aside--close-button--img" src={noResults} alt="" />
@@ -630,8 +636,12 @@ class App extends Component {
           <Frame frameVisible={frameVisible}>
             <Switch>
               <Route
-                path='/guide-des-series/series/:uniquekey'
-                render={(props) => <ContentDetails {...props} item={getArticleByParam(props.match.params.uniquekey)} homepage='/guide-des-series/' articleClose={this.articleClose} />}
+                path={routePath}
+                render={(props) => <ContentDetails {...props} item={getArticleByParam(props.match.params.uniquekey)} homepage={routeHomepage} articleClose={this.articleClose} />}
+              />
+              <Route
+                path=':test'
+                render={(props) => <h1>{props.match.params.test}</h1> }
               />
             </Switch>
           </Frame>
