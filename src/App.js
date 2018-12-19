@@ -613,7 +613,7 @@ class App extends Component {
                   <div className="no-results--inner">
                     <img className="aside--close-button--img" src={noResults} alt="" />
                     <h4 className="no-results--title">
-                      Votre recherche n'a produit aucun résultat
+                      Votre recherche n’a produit aucun résultat
                     </h4>
                     <button className="no-results--button" onClick={this.resetFilters}>
                       Réinitialiser les filtres
