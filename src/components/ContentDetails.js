@@ -24,8 +24,7 @@ class ContentDetails extends Component {
   // }
 
   render() {
-    //const itemFull = this.props.itemFull;
-    //console.log(itemFull)
+
     if (!this.props.item) {
       return false;
     }
@@ -71,7 +70,7 @@ class ContentDetails extends Component {
                       : "aujourd’hui"}</span>
                 </li>
                 <li>
-                  <span className="col1">Auteur{/,|et/.test(this.props.item.np8_gallery_author) ? 's' : ''} :</span>
+                  <span className="col1">Auteur{/,| et /.test(this.props.item.np8_gallery_author) ? 's' : ''} :</span>
                   <span className="col2">{this.props.item.np8_gallery_author}</span>
                 </li>
                 <li>
