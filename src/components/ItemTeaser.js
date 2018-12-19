@@ -21,7 +21,7 @@ class ItemTeaser extends React.Component {
         const uniquekey = this.props.item.uniquekey;
 
         if (!intro) {
-            return <Link to={"/series/" + uniquekey}>
+            return <Link to={"/guide-des-series/series/" + uniquekey}>
                 <div className="item-teaser" onClick={this.props.articleOpen.bind(this, this.props.item)} style={itemTeaserBg}>
                   <div className="item-teaser--overlay">
                       <img className="item-teaser--overlay-icon" src={cross} alt="" />
