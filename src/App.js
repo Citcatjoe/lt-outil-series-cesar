@@ -41,10 +41,19 @@ import ShareButtons from './components/ShareButtons';
 // version avec # ne fonctionne pas
 // pour ça il faudrait utiliser un <HashRouter>
 const useRewriting = true;
+// const localDev = /localhost$/.test(host);
+/*
+prod
 const routePath = useRewriting ? '/guide-des-series/series/:uniquekey' : '/guide-des-series/#:uniquekey';
 const routeHomepage = '/guide-des-series/';
 const childRoute = useRewriting ? "/guide-des-series/series/" : '/guide-des-series/#';
 const landingOnDetailTest = useRewriting ? /series\/series/ : /series\/#/;
+*/
+/* dev */
+const routePath = useRewriting ? '/series/:uniquekey' : '/guide-des-series/#:uniquekey';
+const routeHomepage = '/';
+const childRoute = useRewriting ? "/series/" : '/guide-des-series/#';
+const landingOnDetailTest = useRewriting ? /series/ : /series\/#/;
 
 require("typeface-montserrat");
 var sortJsonArray = require("sort-json-array");
@@ -540,7 +549,7 @@ class App extends Component {
     const { introInnerVisible } = this.state;
 
     function getArticleByParam(theParam){
-      console.log('param = ' + theParam);
+      console.log('param = ' + theParam + ' / frameVisible = ' + frameVisible);
       let targetArticle = articles.filter(article => article['uniquekey'] === theParam);
       if (targetArticle.length === 1){
         return targetArticle[0]
