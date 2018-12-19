@@ -1,6 +1,6 @@
 import React from 'react';
 import Parser from "html-react-parser";
-import { BrowserRouter as Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import cross from "../img/cross.svg";
 import imgLoading from "../img/img-loading.svg";

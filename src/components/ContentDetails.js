@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Parser from 'html-react-parser';
-import { BrowserRouter as Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import ShareButtons from "../components/ShareButtons";
 
