@@ -52,8 +52,8 @@ const asideFooterBgStyle = {
     backgroundSize: 'cover'
 };
 
-// landing sur un détail ou sur l’ensemble
-const landingOnDetailView = /series/.test(document.location.href) ? true : false;
+// landing sur un détail ou sur l’ensemble -- TODO a retablier
+const landingOnDetailView = /series\/series/.test(document.location.href) ? true : false;
 
 class App extends Component {
   constructor(props) {
@@ -502,6 +502,7 @@ class App extends Component {
 
     // TODO dry
     if(landingOnDetailView){
+      console.log('Landing on detail view')
       this.setState(
         {
           headerVisible: false,
@@ -533,6 +534,7 @@ class App extends Component {
     const { introInnerVisible } = this.state;
 
     function getArticleByParam(theParam){
+      console.log('param = ' + theParam);
       let targetArticle = articles.filter(article => article['uniquekey'] === theParam);
       if (targetArticle.length === 1){
         return targetArticle[0]
@@ -582,7 +584,7 @@ class App extends Component {
               {/* <img className="aside-footer-bg" alt="" src={asideFooterBg} /> */}
             </div>
             <ul className="aside-footer-list" style={asideFooterBgStyle}>
-              <ShareButtons title="Test" description="Pour se délasser ou pour frissoner, pour découvrir ou simplement pour en parler, «Le Temps» vous propose sa sélection de séries TV" path="/" />
+              <ShareButtons title="Quelle série TV regarder ce soir? Le guide complet du «Temps»" description="Pour se délasser ou pour frissoner, pour découvrir ou simplement pour en parler, «Le Temps» vous propose sa sélection de séries TV" path="/" />
               <li className="aside-footer-list-item">
                 <a href="mailto:redactionweb@letemps.ch?subject=Une erreur dans le guide des séries" target="_blank" rel="noopener noreferrer">
                   Signaler une erreur
@@ -592,6 +594,9 @@ class App extends Component {
                 <a href="mailto:redactionweb@letemps.ch?subject=Suggestion pour le guide des séries" target="_blank" rel="noopener noreferrer">
                   Suggérer une série
                 </a>
+              </li>
+              <li className="aside-footer-list-item">
+                <a href="#apropos">À propos</a>
               </li>
               <li className="aside-footer-list-item">
                 <LogoLtGray />
@@ -625,8 +630,8 @@ class App extends Component {
           <Frame frameVisible={frameVisible}>
             <Switch>
               <Route
-                path='/series/:uniquekey'
-                render={(props) => <ContentDetails {...props} item={getArticleByParam(props.match.params.uniquekey)} homepage='/' articleClose={this.articleClose} />}
+                path='/guide-des-series/series/:uniquekey'
+                render={(props) => <ContentDetails {...props} item={getArticleByParam(props.match.params.uniquekey)} homepage='/guide-des-series/' articleClose={this.articleClose} />}
               />
             </Switch>
           </Frame>
