@@ -33,6 +33,9 @@ Temporary Items
 
 ### npm ###
 
+build/*
+!build/build.xml
+
 # Logs
 logs
 *.log
