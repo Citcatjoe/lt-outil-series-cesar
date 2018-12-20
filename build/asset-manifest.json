@@ -1,7 +1,7 @@
 {
   "main.css": "/guide-des-series/static/css/main.e467006a.chunk.css",
-  "main.js": "/guide-des-series/static/js/main.6fc7f9b6.chunk.js",
-  "main.js.map": "/guide-des-series/static/js/main.6fc7f9b6.chunk.js.map",
+  "main.js": "/guide-des-series/static/js/main.65a9e06a.chunk.js",
+  "main.js.map": "/guide-des-series/static/js/main.65a9e06a.chunk.js.map",
   "static/css/1.7d9aa2b9.chunk.css": "/guide-des-series/static/css/1.7d9aa2b9.chunk.css",
   "static/js/1.a68e36ad.chunk.js": "/guide-des-series/static/js/1.a68e36ad.chunk.js",
   "static/js/1.a68e36ad.chunk.js.map": "/guide-des-series/static/js/1.a68e36ad.chunk.js.map",
@@ -19,6 +19,6 @@
   "static/css/main.e467006a.chunk.css.map": "/guide-des-series/static/css/main.e467006a.chunk.css.map",
   "static/css/1.7d9aa2b9.chunk.css.map": "/guide-des-series/static/css/1.7d9aa2b9.chunk.css.map",
   "index.html": "/guide-des-series/index.html",
-  "precache-manifest.825748171541a9a909bc4950f784d99d.js": "/guide-des-series/precache-manifest.825748171541a9a909bc4950f784d99d.js",
+  "precache-manifest.e78cf6576c9902f0d4c096e4ad3c16fa.js": "/guide-des-series/precache-manifest.e78cf6576c9902f0d4c096e4ad3c16fa.js",
   "service-worker.js": "/guide-des-series/service-worker.js"
 }
