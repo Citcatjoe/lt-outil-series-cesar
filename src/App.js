@@ -458,6 +458,7 @@ class App extends Component {
             this.setState({
               asideVisible: false
             });
+            document.body.classList.remove("no-scroll");
           }, 250);
         }
       );
@@ -471,6 +472,7 @@ class App extends Component {
             this.setState({
               asideCloseButtonVisible: true
             });
+            document.body.classList.add("no-scroll");
           }, 250);
         }
       );
@@ -580,7 +582,7 @@ class App extends Component {
               <meta property="og:type" content="website" />
           </Helmet>
           <BackToTop backToTopVisible={this.state.backToTopVisible} onClick={this.scrollTop} />
-          <aside style={asideBg1Style} className={`${asideVisible ? "is-visible" : ""}`}>
+          <aside style={asideBg1Style} className={`${asideVisible ? "is-visible is-touch" : ""}`}>
             <div className="aside-top">
               <div className={`aside--close-button ${asideCloseButtonVisible ? "is-visible" : ""}`} onClick={this.asideToggle}>
                 <img className="aside--close-button--img" alt="Fermer" src={cross} />
