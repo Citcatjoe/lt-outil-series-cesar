@@ -1,6 +1,6 @@
 import React from 'react';
 import Parser from "html-react-parser";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+// import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import cross from "../img/cross.svg";
 import imgLoading from "../img/img-loading.svg";
@@ -21,8 +21,8 @@ class ItemTeaser extends React.Component {
         const uniquekey = this.props.item.uniquekey;
 
         if (!intro) {
-            return <Link to={this.props.childRoute + uniquekey}>
-                <div className="item-teaser" onClick={this.props.articleOpen.bind(this, this.props.item)} style={itemTeaserBg}>
+            /*<Link to={this.props.childRoute + uniquekey}>*/
+            return <div className="item-teaser" onClick={this.props.articleOpen.bind(this, this.props.item)} style={itemTeaserBg}>
                   <div className="item-teaser--overlay">
                       <img className="item-teaser--overlay-icon" src={cross} alt="" />
                   </div>
@@ -31,8 +31,7 @@ class ItemTeaser extends React.Component {
                       <h2 className="item-teaser--body--title">{title}</h2>
                   </div>
 
-              </div>
-            </Link>;
+              </div>; /*</Link>*/
         }
         return <div className={`intro ${introVisible ? "is-visible" : ""}`}>
             <div className={`intro-inner ${introInnerVisible ? "is-visible" : ""}`}>

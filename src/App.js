@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+// import { BrowserRouter as Router, HashRouter, Route, Switch } from "react-router-dom"; // Router
 import Frame from "./components/Frame";
 import ContentDetails from "./components/ContentDetails";
 import Loading from "./components/Loading";
@@ -40,7 +40,7 @@ import ShareButtons from './components/ShareButtons';
 
 // version avec # ne fonctionne pas
 // pour ça il faudrait utiliser un <HashRouter>
-const useRewriting = true;
+const useRewriting = false;
 // const localDev = /localhost$/.test(host);
 /*
 prod
@@ -50,10 +50,10 @@ const childRoute = useRewriting ? "/guide-des-series/series/" : '/guide-des-seri
 const landingOnDetailTest = useRewriting ? /series\/series/ : /series\/#/;
 */
 /* dev */
-const routePath = useRewriting ? '/series/:uniquekey' : '/guide-des-series/#:uniquekey';
+const routePath = useRewriting ? '/series/:uniquekey' : '/#/uniquekey';
 const routeHomepage = '/';
-const childRoute = useRewriting ? "/series/" : '/guide-des-series/#';
-const landingOnDetailTest = useRewriting ? /series/ : /series\/#/;
+const childRoute = useRewriting ? "/series/" : '/';
+const landingOnDetailTest = useRewriting ? /series/ : /#/;
 
 require("typeface-montserrat");
 var sortJsonArray = require("sort-json-array");
@@ -563,7 +563,7 @@ class App extends Component {
     articles = articles.filter(this.searchingFor(this.state.searchTerm));
 
     return(
-      <Router>
+      /*<Router> */
         <div className="App" onScroll={this.handleScroll}>
           <BackToTop backToTopVisible={this.state.backToTopVisible}  onClick={this.scrollTop} />
           <aside style={asideBg1Style} className={`${asideVisible ? "is-visible" : ""}`}>
@@ -643,7 +643,7 @@ class App extends Component {
             </div>
           </main>
           <Frame frameVisible={frameVisible}>
-            <Switch>
+            {/*<Switch>
               <Route
                 path={routePath}
                 render={(props) => <ContentDetails {...props} item={getArticleByParam(props.match.params.uniquekey)} homepage={routeHomepage} articleClose={this.articleClose} />}
@@ -652,12 +652,14 @@ class App extends Component {
                 path=':test'
                 render={(props) => <h1>{props.match.params.test}</h1> }
               />
-            </Switch>
+            </Switch>*/}
+            <ContentDetails articleClose={this.articleClose} item={this.state.item} />
           </Frame>
         </div>
-      </Router>
+      /*</Router>*/
     );
   }
+  return
 }
 
 export default App;

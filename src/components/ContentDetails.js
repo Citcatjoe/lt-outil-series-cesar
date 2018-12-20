@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Parser from 'html-react-parser';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+// import { BrowserRouter as Router, Route, Link } from "react-router-dom"; // Router
 
 import ShareButtons from "../components/ShareButtons";
 
@@ -40,14 +40,14 @@ class ContentDetails extends Component {
         <div className={`content-gradient`} />
         <div className={`content-details`}>
           <div className={`content-details-header`}>
-            <Link to={this.props.homepage}>
+            {/*<Link to={this.props.homepage}> */}
               <button
                 className={`content-close`}
                 onClick={this.props.articleClose}
               >
               Fermer
             </button>
-            </Link>
+            {/*</Link>*/}
           </div>
           <div className={`content-details-body`}>
             <div className={`content-details-body-col1`}>
@@ -89,7 +89,7 @@ class ContentDetails extends Component {
                   this.props.item.np8_news_ref === '' ? '' : Parser('<li className="related-news"><span className="col1">Lire aussi:</span><span className="col2"><img src=' + faviconLt + ' alt="">' + this.props.item.np8_news_ref + '</span></li>')
                 }
 
-                <ShareButtons path={this.props.location.pathname} title={"Guide des séries: " + this.props.item.title} description={'Pour se délasser ou pour frissoner, pour découvrir ou simplement pour en parler, «Le Temps» vous propose sa sélection de séries TV'} />
+                {/*<ShareButtons path={this.props.location.pathname} title={"Guide des séries: " + this.props.item.title} description={'Pour se délasser ou pour frissoner, pour découvrir ou simplement pour en parler, «Le Temps» vous propose sa sélection de séries TV'} />*/ }
 
 
 
