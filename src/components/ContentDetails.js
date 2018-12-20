@@ -6,7 +6,7 @@ import ShareButtons from "../components/ShareButtons";
 
 import "../scss/ShareButtons.scss";
 
-import faviconLt from "../img/favicon-lt.svg";
+// import faviconLt from "../img/favicon-lt.svg";
 
 class ContentDetails extends Component {
   // hantableeToggle(e) {
@@ -86,7 +86,7 @@ class ContentDetails extends Component {
                         <span className="col2">{this.props.item.lt_country}</span>
                 </li>
                 {
-                  this.props.item.np8_news_ref === '' ? '' : Parser('<li className="related-news"><span className="col1">Lire aussi:</span><span className="col2"><img src=' + faviconLt + ' alt="">' + this.props.item.np8_news_ref + '</span></li>')
+                  this.props.item.np8_news_ref === '' ? '' : Parser('<li className="related-news"><span className="col1">Lire aussi:</span><span className="col2"><img src="/guide-des-series/img/favicon-lt.svg" alt="">' + this.props.item.np8_news_ref + '</span></li>')
                 }
 
                 <ShareButtons path={this.props.location.pathname} title={"Guide des séries: " + this.props.item.title} description={'Pour se délasser ou pour frissoner, pour découvrir ou simplement pour en parler, «Le Temps» vous propose sa sélection de séries TV'} />
