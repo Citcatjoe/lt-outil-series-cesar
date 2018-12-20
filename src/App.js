@@ -89,6 +89,7 @@ class App extends Component {
       headerVisible: true,
       gridVisible: true,
       frameVisible: false,
+      mainVisible: true,
       loading: true,
       selectedOption: false,
       filteredOptions: [],
@@ -285,7 +286,8 @@ class App extends Component {
       () => {
         setTimeout(() => {
           this.setState({
-            frameVisible: true
+            frameVisible: true,
+           //mainVisible: false
           });
           document.body.classList.add("no-scroll");
         }, 500);
@@ -295,8 +297,9 @@ class App extends Component {
 
   articleClose() {
     this.setState(
-      {
-        frameVisible: false
+      { 
+        frameVisible: false,
+        //mainVisible: true
       },
       () => {
         setTimeout(() => {
@@ -533,6 +536,7 @@ class App extends Component {
     const { headerVisible } = this.state;
     const { frameVisible } = this.state;
     const { gridVisible } = this.state;
+    const { mainVisible } = this.state;
     const { loading } = this.state;
     const { buttons } = this.state;
     const { selects } = this.state;
@@ -553,28 +557,31 @@ class App extends Component {
 
     articles = articles.filter(this.searchingFor(this.state.searchTerm));
 
-    return(
-      <Router>
+    return <Router>
         <div className="App" onScroll={this.handleScroll}>
           <Helmet>
-              <title>Les meilleures séries des 20 dernières années: notre guide</title>
-              <link rel="canonical" href="https://labs.letemps.ch/guide-des-series/" />
-              <meta charset="utf-8" />
-              <title>Les meilleures séries des 20 dernières années: notre guide</title>
-              <meta name="description" content="«Le Temps» vous propose de composer votre menu parmi les meilleures séries des 20 dernières années." />
-              <meta name="image" content="https://labs.letemps.ch/guide-des-series/img/social.jpg" />
-              <meta itemprop="name" content="Les meilleures séries des 20 dernières années: notre guide" />
-              <meta itemprop="description" content="«Le Temps» vous propose de composer votre menu parmi les meilleures séries des 20 dernières années." />
-              <meta itemprop="image" content="https://labs.letemps.ch/guide-des-series/img/social.jpg" />
-              <meta name="og:title" content="Les meilleures séries des 20 dernières années: notre guide" />
-              <meta name="og:description" content="«Le Temps» vous propose de composer votre menu parmi les meilleures séries des 20 dernières années." />
-              <meta name="og:image" content="https://labs.letemps.ch/guide-des-series/img/social.jpg" />
-              <meta name="og:url" content="https://labs.letemps.ch/guide-des-series/" />
-              <meta name="og:site_name" content="Les meilleures séries des 20 dernières années: notre guide" />
-              <meta name="og:locale" content="fr_CH" />
-              <meta name="og:type" content="website" />
+            <title>
+              Les meilleures séries des 20 dernières années: notre guide
+            </title>
+            <link rel="canonical" href="https://labs.letemps.ch/guide-des-series/" />
+            <meta charset="utf-8" />
+            <title>
+              Les meilleures séries des 20 dernières années: notre guide
+            </title>
+            <meta name="description" content="«Le Temps» vous propose de composer votre menu parmi les meilleures séries des 20 dernières années." />
+            <meta name="image" content="https://labs.letemps.ch/guide-des-series/img/social.jpg" />
+            <meta itemprop="name" content="Les meilleures séries des 20 dernières années: notre guide" />
+            <meta itemprop="description" content="«Le Temps» vous propose de composer votre menu parmi les meilleures séries des 20 dernières années." />
+            <meta itemprop="image" content="https://labs.letemps.ch/guide-des-series/img/social.jpg" />
+            <meta name="og:title" content="Les meilleures séries des 20 dernières années: notre guide" />
+            <meta name="og:description" content="«Le Temps» vous propose de composer votre menu parmi les meilleures séries des 20 dernières années." />
+            <meta name="og:image" content="https://labs.letemps.ch/guide-des-series/img/social.jpg" />
+            <meta name="og:url" content="https://labs.letemps.ch/guide-des-series/" />
+            <meta name="og:site_name" content="Les meilleures séries des 20 dernières années: notre guide" />
+            <meta name="og:locale" content="fr_CH" />
+            <meta name="og:type" content="website" />
           </Helmet>
-          <BackToTop backToTopVisible={this.state.backToTopVisible}  onClick={this.scrollTop} />
+          <BackToTop backToTopVisible={this.state.backToTopVisible} onClick={this.scrollTop} />
           <aside style={asideBg1Style} className={`${asideVisible ? "is-visible" : ""}`}>
             <div className="aside-top">
               <div className={`aside--close-button ${asideCloseButtonVisible ? "is-visible" : ""}`} onClick={this.asideToggle}>
@@ -628,7 +635,7 @@ class App extends Component {
             </ul>
           </aside>
 
-          <main className={`${asideVisible ? "is-moved-right" : ""}`} id="main">
+          <main className={`${asideVisible ? "is-moved-right" : ""} ${mainVisible ? "is-visible" : ""}`} id="main">
             <div className={`main-header ${headerVisible ? "is-visible" : ""}`}>
               <AsideToggle asideToggle={this.asideToggle} />
               <FilterSearch onChange={this.searchHandler} searchTerm={this.state.searchTerm} />
@@ -653,19 +660,14 @@ class App extends Component {
           </main>
           <Frame frameVisible={frameVisible}>
             <Switch>
-              <Route
-                path={routePath}
-                render={(props) => <ContentDetails {...props} item={getArticleByParam(props.match.params.uniquekey)} homepage={routeHomepage} articleClose={this.articleClose} />}
-              />
-              <Route
-                path=':test'
-                render={(props) => <h1>{props.match.params.test}</h1> }
-              />
+              <Route path={routePath} render={props => <ContentDetails {...props} item={getArticleByParam(props.match.params.uniquekey)} homepage={routeHomepage} articleClose={this.articleClose} />} />
+              <Route path=":test" render={props => <h1>
+                    {props.match.params.test}
+                  </h1>} />
             </Switch>
           </Frame>
         </div>
-      </Router>
-    );
+      </Router>;
   }
 }
 
