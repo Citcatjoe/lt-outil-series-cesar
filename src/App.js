@@ -39,22 +39,11 @@ import cross from "./img/cross.svg";
 import noResults from "./img/no-results.svg";
 import ShareButtons from './components/ShareButtons';
 
-// version avec # ne fonctionne pas
-// pour ça il faudrait utiliser un <HashRouter>
-const devServer = false;
-// const localDev = /localhost$/.test(host);
+const devServer = /localhost$/.test(window.location.hostname);
 const routePath = devServer ? '/series/:uniquekey' : '/guide-des-series/series/:uniquekey';
 const routeHomepage = devServer ? '/' : '/guide-des-series/';
 const childRoute = devServer ? "/series/":  "/guide-des-series/series/";
 const landingOnDetailTest = devServer ? /series/ : /series\/series/;
-
-/*
-// dev
-const routePath = devServer ? '/series/:uniquekey' : '/guide-des-series/#:uniquekey';
-const routeHomepage = '/';
-const childRoute = devServer ? "/series/" : '/guide-des-series/#';
-const landingOnDetailTest = devServer ? /series/ : /series\/#/;
-*/
 
 require("typeface-montserrat");
 var sortJsonArray = require("sort-json-array");
@@ -566,6 +555,24 @@ class App extends Component {
     return(
       <Router>
         <div className="App" onScroll={this.handleScroll}>
+          <Helmet>
+              {/*<title>Les meilleures séries des 20 dernières années: notre guide</title>
+              <link rel="canonical" href="https://labs.letemps.ch/guide-des-series/" />
+              <meta charset="utf-8" />
+              <title>Les meilleures séries des 20 dernières années: notre guide</title>
+              <meta name="description" content="«Le Temps» vous propose de composer votre menu parmi les meilleures séries des 20 dernières années." />
+              <meta name="image" content="https://labs.letemps.ch/guide-des-series/img/social.jpg" />
+              <meta itemprop="name" content="Les meilleures séries des 20 dernières années: notre guide" />
+              <meta itemprop="description" content="«Le Temps» vous propose de composer votre menu parmi les meilleures séries des 20 dernières années." />
+              <meta itemprop="image" content="https://labs.letemps.ch/guide-des-series/img/social.jpg" />
+              <meta name="og:title" content="Les meilleures séries des 20 dernières années: notre guide" />
+              <meta name="og:description" content="«Le Temps» vous propose de composer votre menu parmi les meilleures séries des 20 dernières années." />
+              <meta name="og:image" content="https://labs.letemps.ch/guide-des-series/img/social.jpg" />
+              <meta name="og:url" content="https://labs.letemps.ch/guide-des-series/" />
+              <meta name="og:site_name" content="Les meilleures séries des 20 dernières années: notre guide" />
+              <meta name="og:locale" content="fr_CH" />
+              <meta name="og:type" content="website" />*/}
+          </Helmet>
           <BackToTop backToTopVisible={this.state.backToTopVisible}  onClick={this.scrollTop} />
           <aside style={asideBg1Style} className={`${asideVisible ? "is-visible" : ""}`}>
             <div className="aside-top">

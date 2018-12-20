@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Parser from 'html-react-parser';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-
 import ShareButtons from "../components/ShareButtons";
+import {Helmet} from "react-helmet";
 
 import "../scss/ShareButtons.scss";
 
@@ -33,9 +33,28 @@ class ContentDetails extends Component {
       background: "url(" + this.props.item.np8_main_media + ")"
     };
 
+    const shareURL = this.props.location.pathname;
+    const shareTitle = "Guide des séries: " + this.props.item.title;
+    const shareDescription = 'Quelle série TV regarder ce soir? Nous vous proposons de composer votre menu grâce à notre plateforme interactive.';
+
     return (
       // petite structure header-body-footer, on est pas obligés de garder bien sur
       <div className={`content`}>
+        <Helmet>
+            <title>{shareTitle}</title>
+            <meta name="description" content={shareDescription} />
+            <meta name="image" content={this.props.item.np8_main_media} />
+            <meta itemprop="name" content={shareTitle} />
+            <meta itemprop="description" content={shareDescription} />
+            <meta itemprop="image" content={this.props.item.np8_main_media} />
+            <meta name="og:title" content={shareTitle} />
+            <meta name="og:description" content={shareDescription} />
+            <meta name="og:image" content={this.props.item.np8_main_media} />
+            <meta name="og:url" content={shareURL} />
+            <meta name="og:site_name" content={shareTitle} />
+            <meta name="og:locale" content="fr_CH" />
+            <meta name="og:type" content="website" />
+        </Helmet>
         <div className={`content-background`} style={backgroundImg} />
         <div className={`content-gradient`} />
         <div className={`content-details`}>
@@ -89,7 +108,7 @@ class ContentDetails extends Component {
                   this.props.item.np8_news_ref === '' ? '' : Parser('<li className="related-news"><span className="col1">Lire aussi:</span><span className="col2"><img src="/guide-des-series/img/favicon-lt.svg" alt="">' + this.props.item.np8_news_ref + '</span></li>')
                 }
 
-                <ShareButtons path={this.props.location.pathname} title={"Guide des séries: " + this.props.item.title} description={'Pour se délasser ou pour frissoner, pour découvrir ou simplement pour en parler, «Le Temps» vous propose sa sélection de séries TV'} />
+                <ShareButtons path={shareURL} title={shareTitle} description={shareDescription} />
 
 
 
