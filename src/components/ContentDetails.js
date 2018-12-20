@@ -34,7 +34,7 @@ class ContentDetails extends Component {
     };
 
     const shareURL = 'https://labs.letemps.ch/guide-des-series/' + this.props.location.pathname;
-    const shareTitle = "Guide des séries: " + this.props.item.title;
+    const shareTitle = "Guide des séries: «" + this.props.item.title + "»";
     const shareDescription = 'Quelle série TV regarder ce soir? Nous vous proposons de composer votre menu grâce à notre plateforme interactive.';
 
     return (
