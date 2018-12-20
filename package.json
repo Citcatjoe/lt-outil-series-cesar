@@ -36,6 +36,7 @@
     "react-tabs": "^2.3.0",
     "sass-loader": "^7.1.0",
     "sort-json-array": "^0.1.7",
-    "style-loader": "^0.23.1"
+    "style-loader": "^0.23.1",
+    "whatwg-fetch": "^3.0.0"
   }
 }

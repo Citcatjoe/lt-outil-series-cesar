@@ -15,6 +15,7 @@ import AsideReset from "./components/AsideReset";
 import LogoLtGray from "./components/LogoLtGray";
 import BackToTop from "./components/BackToTop";
 import {GetContents, SetContents, ProcessContents, GetCountries} from "./utilities/ProcessContents";
+import "whatwg-fetch"; 
 
 import './App.scss';
 import "./scss/AsideTabs.scss";
