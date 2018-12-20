@@ -14,6 +14,7 @@ import AsideCount from "./components/AsideCount";
 import AsideReset from "./components/AsideReset";
 import LogoLtGray from "./components/LogoLtGray";
 import BackToTop from "./components/BackToTop";
+import {Helmet} from "react-helmet";
 import {GetContents, SetContents, ProcessContents, GetCountries} from "./utilities/ProcessContents";
 
 import './App.scss';
@@ -40,19 +41,19 @@ import ShareButtons from './components/ShareButtons';
 
 // version avec # ne fonctionne pas
 // pour ça il faudrait utiliser un <HashRouter>
-const useRewriting = true;
+const devServer = false;
 // const localDev = /localhost$/.test(host);
-const routePath = useRewriting ? '/guide-des-series/series/:uniquekey' : '/guide-des-series/#:uniquekey';
-const routeHomepage = '/guide-des-series/';
-const childRoute = useRewriting ? "/guide-des-series/series/" : '/guide-des-series/#';
-const landingOnDetailTest = useRewriting ? /series\/series/ : /series\/#/;
+const routePath = devServer ? '/series/:uniquekey' : '/guide-des-series/series/:uniquekey';
+const routeHomepage = devServer ? '/' : '/guide-des-series/';
+const childRoute = devServer ? "/series/":  "/guide-des-series/series/";
+const landingOnDetailTest = devServer ? /series/ : /series\/series/;
 
 /*
 // dev
-const routePath = useRewriting ? '/series/:uniquekey' : '/guide-des-series/#:uniquekey';
+const routePath = devServer ? '/series/:uniquekey' : '/guide-des-series/#:uniquekey';
 const routeHomepage = '/';
-const childRoute = useRewriting ? "/series/" : '/guide-des-series/#';
-const landingOnDetailTest = useRewriting ? /series/ : /series\/#/;
+const childRoute = devServer ? "/series/" : '/guide-des-series/#';
+const landingOnDetailTest = devServer ? /series/ : /series\/#/;
 */
 
 require("typeface-montserrat");
