@@ -43,6 +43,7 @@ class ContentDetails extends Component {
         <Helmet>
             <title>{shareTitle}</title>
             <meta name="description" content={shareDescription} />
+            <link rel="canonical" href={shareURL} />
             <meta name="image" content={this.props.item.np8_main_media} />
             <meta itemprop="name" content={shareTitle} />
             <meta itemprop="description" content={shareDescription} />

@@ -557,7 +557,7 @@ class App extends Component {
       <Router>
         <div className="App" onScroll={this.handleScroll}>
           <Helmet>
-              {/*<title>Les meilleures séries des 20 dernières années: notre guide</title>
+              <title>Les meilleures séries des 20 dernières années: notre guide</title>
               <link rel="canonical" href="https://labs.letemps.ch/guide-des-series/" />
               <meta charset="utf-8" />
               <title>Les meilleures séries des 20 dernières années: notre guide</title>
@@ -572,7 +572,7 @@ class App extends Component {
               <meta name="og:url" content="https://labs.letemps.ch/guide-des-series/" />
               <meta name="og:site_name" content="Les meilleures séries des 20 dernières années: notre guide" />
               <meta name="og:locale" content="fr_CH" />
-              <meta name="og:type" content="website" />*/}
+              <meta name="og:type" content="website" />
           </Helmet>
           <BackToTop backToTopVisible={this.state.backToTopVisible}  onClick={this.scrollTop} />
           <aside style={asideBg1Style} className={`${asideVisible ? "is-visible" : ""}`}>
