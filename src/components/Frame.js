@@ -18,7 +18,7 @@ class Frame extends Component {
 
     return (
       // petite structure header-body-footer, on est pas obligés de garder bien sur
-      <div className={`frame ${frameVisible ? 'is-visible is-touch' : ''}`}>
+      <div className={`frame ${frameVisible ? 'is-visible' : ''}`}>
         {children}
       </div>
 
