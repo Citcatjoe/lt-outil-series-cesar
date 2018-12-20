@@ -3,7 +3,7 @@
 TODO LIST AVANT V1:
 
 ### À faire pour la sortie mi-décembe
-- [ ] /!\ BUG SAFARI
+- [X] /!\ BUG SAFARI
 - [ ] Définir les partage et les faire
 - [ ] Titre / Desc
 - [ ] Rédiger intro (N.Du.)
@@ -46,4 +46,3 @@ TODO LIST AVANT V1:
 - [X] Les images utilisées ne sont pas bonne
 - [X] Eléments manquants
 - [X] Quid des caractères bizaroïdes ? (A corriger dans Drupal)
-- [ ] La question des genres
