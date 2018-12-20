@@ -1,7 +1,7 @@
 {
   "main.css": "/guide-des-series/static/css/main.8e39dfc6.chunk.css",
-  "main.js": "/guide-des-series/static/js/main.a9913833.chunk.js",
-  "main.js.map": "/guide-des-series/static/js/main.a9913833.chunk.js.map",
+  "main.js": "/guide-des-series/static/js/main.44e60a4c.chunk.js",
+  "main.js.map": "/guide-des-series/static/js/main.44e60a4c.chunk.js.map",
   "static/css/1.f3654317.chunk.css": "/guide-des-series/static/css/1.f3654317.chunk.css",
   "static/js/1.1e5441c1.chunk.js": "/guide-des-series/static/js/1.1e5441c1.chunk.js",
   "static/js/1.1e5441c1.chunk.js.map": "/guide-des-series/static/js/1.1e5441c1.chunk.js.map",
@@ -16,10 +16,10 @@
   "static/media/aside-footer-bg.svg": "/guide-des-series/static/media/aside-footer-bg.c926f4b7.svg",
   "static/media/aside-bg-1.png": "/guide-des-series/static/media/aside-bg-1.9cebe77f.png",
   "static/media/no-results.svg": "/guide-des-series/static/media/no-results.0033cc21.svg",
-  "static/media/index.css": "/guide-des-series/static/media/montserrat-latin-900italic.d785fb9f.woff2",
+  "static/media/index.css": "/guide-des-series/static/media/montserrat-latin-900italic.43b527fe.woff",
   "static/css/main.8e39dfc6.chunk.css.map": "/guide-des-series/static/css/main.8e39dfc6.chunk.css.map",
   "static/css/1.f3654317.chunk.css.map": "/guide-des-series/static/css/1.f3654317.chunk.css.map",
   "index.html": "/guide-des-series/index.html",
-  "precache-manifest.2254b079e94c8dfb12601518f5e060fb.js": "/guide-des-series/precache-manifest.2254b079e94c8dfb12601518f5e060fb.js",
+  "precache-manifest.d062a9ce2b387cc6b172578fd8eb4539.js": "/guide-des-series/precache-manifest.d062a9ce2b387cc6b172578fd8eb4539.js",
   "service-worker.js": "/guide-des-series/service-worker.js"
 }
