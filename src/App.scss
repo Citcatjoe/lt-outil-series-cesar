@@ -45,9 +45,15 @@ $brand-color: #930025;
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
 
+  html 
+  {
+    background: $color1;
+  }
+
   body 
   {
     -webkit-overflow-scrolling: touch;
+    background: $color1;
     
     &.no-scroll 
     {
@@ -230,7 +236,7 @@ aside
 
     @media (max-height: 950px){
       position: static;
-        padding: 140px 20px 0 20px;
+        //padding: 140px 20px 0 20px;
 
     }
 
