@@ -13,7 +13,7 @@ export var GetContents = function () {
   }
   data = JSON.parse(data);
 
-  return data; // TODO enlever cache après publication
+  return false; // TODO enlever cache après publication
   // expire après 1 heure:                       milli  sec  min  heures
   /*if( (data['timestamp'] - new Date().getTime()) < (1000 * 60 * 60 * 1) ){
     return data;
