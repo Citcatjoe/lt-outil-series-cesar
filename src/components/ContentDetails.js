@@ -33,7 +33,7 @@ class ContentDetails extends Component {
       background: "url(" + this.props.item.np8_main_media + ")"
     };
 
-    const shareURL = this.props.location.pathname;
+    const shareURL = 'https://labs.letemps.ch/guide-des-series/' + this.props.location.pathname;
     const shareTitle = "Guide des séries: " + this.props.item.title;
     const shareDescription = 'Quelle série TV regarder ce soir? Nous vous proposons de composer votre menu grâce à notre plateforme interactive.';
 
@@ -48,13 +48,13 @@ class ContentDetails extends Component {
             <meta itemprop="name" content={shareTitle} />
             <meta itemprop="description" content={shareDescription} />
             <meta itemprop="image" content={this.props.item.np8_main_media} />
-            <meta name="og:title" content={shareTitle} />
-            <meta name="og:description" content={shareDescription} />
-            <meta name="og:image" content={this.props.item.np8_main_media} />
-            <meta name="og:url" content={shareURL} />
-            <meta name="og:site_name" content={shareTitle} />
-            <meta name="og:locale" content="fr_CH" />
-            <meta name="og:type" content="website" />
+            <meta property="og:title" content={shareTitle} />
+            <meta property="og:description" content={shareDescription} />
+            <meta property="og:image" content={this.props.item.np8_main_media} />
+            <meta property="og:url" content={shareURL} />
+            <meta property="og:site_name" content={shareTitle} />
+            <meta property="og:locale" content="fr_CH" />
+            <meta property="og:type" content="website" />
         </Helmet>
         <div className={`content-background`} style={backgroundImg} />
         <div className={`content-gradient`} />
