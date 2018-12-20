@@ -596,14 +596,14 @@ class App extends Component {
                 <TabPanel>
                   <h3 className="aside-title">Nos suggestions rapides</h3>
                   {buttons.length > 0 ? buttons.map((button, index) => {
-                        return <FilterButton index={index} key={index} button={button} buttonHandle={this.buttonHandle} />;
+                        return <FilterButton disabled={frameVisible} index={index} key={index} button={button} buttonHandle={this.buttonHandle} />;
                       }) : null}
                 </TabPanel>
                 <TabPanel>
                   <h3 className="aside-title">Filtrage personnalisé</h3>
                   {/* <FilterSelect articles={articles} selectCategoryHandle={this.selectCategoryHandle} /> */}
                   {selects.length > 0 ? selects.map((select, index) => {
-                        return <FilterSelect index={index} key={index} articles={articles} select={select} selectHandle={this.selectHandle} filteredOptions={this.state.filteredOptions} />;
+                        return <FilterSelect disabled={frameVisible} index={index} key={index} articles={articles} select={select} selectHandle={this.selectHandle} filteredOptions={this.state.filteredOptions} />;
                       }) : null}
                   {/* <FilterSelect selectCategoryHandle={this.selectCategoryHandle} selectCategory={selectCategory} />
                   <FilterSelect selectFormatHandle={this.selectFormatHandle} selectFormat={selectFormat} /> */}
@@ -658,6 +658,7 @@ class App extends Component {
                 </div>}
             </div>
           </main>
+
           <Frame frameVisible={frameVisible}>
             <Switch>
               <Route path={routePath} render={props => <ContentDetails {...props} item={getArticleByParam(props.match.params.uniquekey)} homepage={routeHomepage} articleClose={this.articleClose} />} />

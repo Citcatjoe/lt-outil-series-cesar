@@ -2,21 +2,26 @@
 
 .filter-select
 {
-    margin-bottom: 13px; 
-    @include breakpoint(xl) { 
+    margin-bottom: 13px;
+    @include breakpoint(xl) {
         margin-bottom: 10px;
     }
-    
+
 }
 
 
 
-.select 
+.select
 {
     font-family: 'Montserrat';
     font-weight: 500;
 
-    
+
+    &.select--is-disabled
+    {
+      opacity: 0.5;
+      transition: all 0.2s;      
+    }
 
     .select__control
     {
@@ -25,14 +30,12 @@
         border: 2px solid $flash-color1;
         font-size: 13.5px;
 
-        @include breakpoint(xs) { 
+        @include breakpoint(xs) {
             // min-height: 30px !important;
             // height: 35px;
             font-size: 16px;
             transform: scale(0.9) translateY(-10px);
         }
-
-        
 
         //> .select__value-container.select__value-container--has-value { background: red;}
 
@@ -41,11 +44,11 @@
             border-color: $flash-color1;
         }
 
-        .select__multi-value 
+        .select__multi-value
         {
             background-color: transparent;
         }
-        
+
         &.select__control--is-focused
         {
             box-shadow: none !important;
@@ -71,11 +74,11 @@
                 //     top:0;
                 //     left: 0;
                 //     right: 0;
-                    
+
                 //     content: "";
                 //     //display: block;
-                //     width: 100%; 
-                //     height: 100px; 
+                //     width: 100%;
+                //     height: 100px;
                 //     //background: red;
                 // }
             }

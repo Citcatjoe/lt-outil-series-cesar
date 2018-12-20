@@ -20,8 +20,8 @@ button
   &.filter-button
   {
     display: block;
-    
-    @include breakpoint(xs) { 
+
+    @include breakpoint(xs) {
             // min-height: 30px !important;
             // height: 35px;
             width: 100%;
@@ -30,8 +30,12 @@ button
         }
   }
 
-  
-  
+
+  &:disabled
+  {
+    opacity: 0.5;
+    transition: all 0.2s;
+  }
 
   &.is-selected
   {

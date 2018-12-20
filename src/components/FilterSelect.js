@@ -27,7 +27,7 @@ class FilterSelect extends Component {
     const selectOptions = this.props.select.selectOptions;
     const isMulti = this.props.select.isMulti ? true : false;
 
-    /*    
+    /*
     // test décompte dans component -> nouvelle branche
     let selectOptionsAndCount = Array.from(selectOptions);
     if(selectName === 'Genre'){
@@ -51,6 +51,7 @@ class FilterSelect extends Component {
           isClearable={true}
           isMulti={isMulti}
           placeholder={selectName}
+          isDisabled={this.props.disabled}
         />
       </div>
     );
