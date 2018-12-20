@@ -35,6 +35,7 @@ TODO LIST AVANT V1:
 - [X] Compte des résultat dans aside pour que l'utilisateur sache toujours le nb de résultats
 - [X] Bouton retour en haut
 - [X] Le reset doit il reset l'ordre ? Done: le reset ne reset plus l'ordre. Ordre initial: 'Ajouts récents'
+- [ ] La loupedevient une croix quand on click dessus
 
 ### Autre
 - [X] Générer une colonne qui fera office de classement initial (par date de publication)(plus besoin)
