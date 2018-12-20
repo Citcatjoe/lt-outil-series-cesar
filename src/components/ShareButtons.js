@@ -7,10 +7,7 @@ import Parser from "html-react-parser";
 class ShareButtons extends Component {
 
   render() {
-    let url = 'https://labs.letemps.ch/guide-des-series'; //getBaseurl();
-    if (this.props.path) {
-       // url += this.props.path;
-    }
+    let url = this.props.path;
     const title = encodeURI(this.props.title).replace(/ /g, "%20");
     const description = encodeURI(this.props.description).replace(/ /g, "%20");
 
