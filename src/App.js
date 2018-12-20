@@ -514,7 +514,7 @@ class App extends Component {
 
     // TODO dry
     if(landingOnDetailView){
-      console.log('Landing on detail view')
+      // console.log('Landing on detail view')
       this.setState(
         {
           headerVisible: false,
@@ -547,8 +547,7 @@ class App extends Component {
     const { introInnerVisible } = this.state;
 
     function getArticleByParam(theParam){
-      //console.log('>>' + articles);
-      console.log('param = ' + theParam + ' / frameVisible = ' + frameVisible);
+      // console.log('param = ' + theParam + ' / frameVisible = ' + frameVisible);
       let targetArticle = articles.filter(article => article['uniquekey'] === theParam);
       if (targetArticle.length === 1){
         return targetArticle[0]
@@ -576,7 +575,7 @@ class App extends Component {
               <meta property="og:title" content="Les meilleures séries des 20 dernières années: notre guide" />
               <meta property="og:description" content="«Le Temps» vous propose de composer votre menu parmi les meilleures séries des 20 dernières années." />
               <meta property="og:image" content="https://labs.letemps.ch/guide-des-series/img/social.jpg" />
-              <meta property="og:url" content="https://labs.letemps.ch/guide-des-series/" />
+              {/*<meta property="og:url" content="https://labs.letemps.ch/guide-des-series/" />*/}
               <meta property="og:site_name" content="Les meilleures séries des 20 dernières années: notre guide" />
               <meta property="og:locale" content="fr_CH" />
               <meta property="og:type" content="website" />
@@ -615,7 +614,7 @@ class App extends Component {
               {/* <img className="aside-footer-bg" alt="" src={asideFooterBg} /> */}
             </div>
             <ul className="aside-footer-list" style={asideFooterBgStyle}>
-              <ShareButtons title="Les meilleures séries des 20 dernières années: notre guide" description="Quelle série TV regarder ce soir? Nous vous proposons de composer votre menu grâce à notre plateforme interactive" path="/" />
+              <ShareButtons title="Les meilleures séries des 20 dernières années: notre guide" description="Quelle série TV regarder ce soir? Nous vous proposons de composer votre menu grâce à notre plateforme interactive" path="https://labs.letemps.ch/guide-des-series" />
               <li className="aside-footer-list-item">
                 <a href="mailto:redactionweb@letemps.ch?subject=Une erreur dans le guide des séries" target="_blank" rel="noopener noreferrer">
                   Signaler une erreur
