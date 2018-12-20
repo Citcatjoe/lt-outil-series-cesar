@@ -16,7 +16,7 @@ import LogoLtGray from "./components/LogoLtGray";
 import BackToTop from "./components/BackToTop";
 import {Helmet} from "react-helmet";
 import {GetContents, SetContents, ProcessContents, GetCountries} from "./utilities/ProcessContents";
-import "whatwg-fetch"; 
+import "whatwg-fetch";
 
 import './App.scss';
 import "./scss/AsideTabs.scss";
@@ -566,13 +566,13 @@ class App extends Component {
               <meta itemprop="name" content="Les meilleures séries des 20 dernières années: notre guide" />
               <meta itemprop="description" content="«Le Temps» vous propose de composer votre menu parmi les meilleures séries des 20 dernières années." />
               <meta itemprop="image" content="https://labs.letemps.ch/guide-des-series/img/social.jpg" />
-              <meta name="og:title" content="Les meilleures séries des 20 dernières années: notre guide" />
-              <meta name="og:description" content="«Le Temps» vous propose de composer votre menu parmi les meilleures séries des 20 dernières années." />
-              <meta name="og:image" content="https://labs.letemps.ch/guide-des-series/img/social.jpg" />
-              <meta name="og:url" content="https://labs.letemps.ch/guide-des-series/" />
-              <meta name="og:site_name" content="Les meilleures séries des 20 dernières années: notre guide" />
-              <meta name="og:locale" content="fr_CH" />
-              <meta name="og:type" content="website" />
+              <meta property="og:title" content="Les meilleures séries des 20 dernières années: notre guide" />
+              <meta property="og:description" content="«Le Temps» vous propose de composer votre menu parmi les meilleures séries des 20 dernières années." />
+              <meta property="og:image" content="https://labs.letemps.ch/guide-des-series/img/social.jpg" />
+              <meta property="og:url" content="https://labs.letemps.ch/guide-des-series/" />
+              <meta property="og:site_name" content="Les meilleures séries des 20 dernières années: notre guide" />
+              <meta property="og:locale" content="fr_CH" />
+              <meta property="og:type" content="website" />
           </Helmet>
           <BackToTop backToTopVisible={this.state.backToTopVisible}  onClick={this.scrollTop} />
           <aside style={asideBg1Style} className={`${asideVisible ? "is-visible" : ""}`}>
