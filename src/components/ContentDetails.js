@@ -33,7 +33,7 @@ class ContentDetails extends Component {
       background: "url(" + this.props.item.np8_main_media + ")"
     };
 
-    const shareURL = this.props.location.pathname;
+    const shareURL = 'https://labs.letemps.ch/guide-des-series/' + this.props.location.pathname;
     const shareTitle = "Guide des séries: " + this.props.item.title;
     const shareDescription = 'Quelle série TV regarder ce soir? Nous vous proposons de composer votre menu grâce à notre plateforme interactive.';
 
