@@ -564,7 +564,7 @@ class App extends Component {
         <div className="App" onScroll={this.handleScroll}>
           <Helmet>
               <title>Les meilleures séries des 20 dernières années: notre guide</title>
-              <link rel="canonical" href="https://labs.letemps.ch/guide-des-series/" />
+              {/*<link rel="canonical" href="https://labs.letemps.ch/guide-des-series/" />*/}
               <meta charset="utf-8" />
               <title>Les meilleures séries des 20 dernières années: notre guide</title>
               <meta name="description" content="«Le Temps» vous propose de composer votre menu parmi les meilleures séries des 20 dernières années." />
