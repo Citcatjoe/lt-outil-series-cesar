@@ -41,8 +41,10 @@ import noResults from "./img/no-results.svg";
 import ShareButtons from './components/ShareButtons';
 
 const devServer = /localhost$/.test(window.location.hostname);
-const routePath = devServer ? '/series/:uniquekey' : '/guide-des-series/series/:uniquekey';
-const routeHomepage = devServer ? '/' : '/guide-des-series/';
+
+const jsonfeed = devServer ? "http://web.tcch.ch/tv-test/index_read.php" : "https://www.letemps.ch/tv-shows";
+const routePath = devServer ? "/series/:uniquekey" : "/guide-des-series/series/:uniquekey";
+const routeHomepage = devServer ? "/" : "/guide-des-series/";
 const childRoute = devServer ? "/series/":  "/guide-des-series/series/";
 const landingOnDetailTest = devServer ? /series/ : /series\/series/;
 
@@ -60,7 +62,7 @@ const asideFooterBgStyle = {
     backgroundSize: 'cover'
 };
 
-// landing sur un détail ou sur l’ensemble -- TODO a retablier
+// true si l’utilisateur arrive sur une fiche ouverte
 const landingOnDetailView = landingOnDetailTest.test(document.location.href) ? true : false;
 
 class App extends Component {
@@ -205,7 +207,6 @@ class App extends Component {
 
   }
 
-
   orderHandle(value, sort, label) {
 
     var o = null;
@@ -297,7 +298,7 @@ class App extends Component {
 
   articleClose() {
     this.setState(
-      { 
+      {
         frameVisible: false,
         //mainVisible: true
       },
@@ -484,7 +485,7 @@ class App extends Component {
       this.setState({ baseData: data['contents'], articles: data['contents'], loading: false });
       this.setState( {'selects': data['selects']} );
     } else {
-      fetch("http://web.tcch.ch/tv-test/index_read.php") // prod: https://www.letemps.ch/tv-shows
+      fetch(jsonfeed)
         .then(response => response.json())
         .then(json => {
             console.log('No stored content, ajax')
@@ -544,6 +545,7 @@ class App extends Component {
     const { introInnerVisible } = this.state;
 
     function getArticleByParam(theParam){
+      //console.log('>>' + articles);
       console.log('param = ' + theParam + ' / frameVisible = ' + frameVisible);
       let targetArticle = articles.filter(article => article['uniquekey'] === theParam);
       if (targetArticle.length === 1){
