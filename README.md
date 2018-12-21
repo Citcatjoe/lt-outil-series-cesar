@@ -31,6 +31,8 @@ TODO LIST AVANT V1:
 
 ### UX
 - [X] Delete automatiquement l'introduction dès qu'on fait une action
+- [ ] Bouger le bouton reset et remplacer par un "fermer" ?
+- [ ] Mettre une crois dans le champ de reherche ?
 - [ ] Compte des résultat dans les filtre lors de leur usage
 - [X] Compte des résultat dans aside pour que l'utilisateur sache toujours le nb de résultats
 - [X] Bouton retour en haut
