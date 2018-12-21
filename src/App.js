@@ -14,6 +14,7 @@ import AsideCount from "./components/AsideCount";
 import AsideReset from "./components/AsideReset";
 import LogoLtGray from "./components/LogoLtGray";
 import BackToTop from "./components/BackToTop";
+import Collapsible from "./components/Collapsible";
 import {Helmet} from "react-helmet";
 import {GetContents, SetContents, ProcessContents, GetCountries} from "./utilities/ProcessContents";
 import "whatwg-fetch";
@@ -33,6 +34,7 @@ import "./scss/AsideCount.scss";
 import "./scss/AsideReset.scss";
 import "./scss/LogoLtGray.scss";
 import "./scss/BackToTop.scss";
+import "./scss/Collapsible.scss";
 
 import asideFooterBg from "./img/aside-footer-bg.svg";
 import asideBg1 from "./img/aside-bg-1.png";
@@ -626,7 +628,9 @@ class App extends Component {
                 </a>
               </li>
               <li className="aside-footer-list-item">
-                <a href="#apropos">À propos</a>
+                {/* <a href="#apropos">À propos</a> */}
+                <Collapsible>
+                </Collapsible>
               </li>
               <li className="aside-footer-list-item">
                 <LogoLtGray />

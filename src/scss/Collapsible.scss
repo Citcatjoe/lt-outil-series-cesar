@@ -1,0 +1,37 @@
+@import "../App.scss";
+
+.collapsible 
+{
+    .collapsible-header
+    {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+
+    .collapsible-body
+    {
+        overflow: hidden;
+        transition: height 0.3s ease-out;  
+        height: 0;
+    }
+
+    &.is-expanded 
+    {
+        .collapsible-body
+        {
+            height: auto;
+        }
+    }
+
+    ul 
+    {
+        padding-left: 20px;
+        padding-top: 10px;
+
+        // span
+        // {
+        //     color: $color1;
+        //     display: inline-block;
+        // }
+    }
+}

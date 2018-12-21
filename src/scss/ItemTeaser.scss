@@ -29,6 +29,11 @@
         //margin: 17.5px 0;
     }
 
+    @media (max-width: 1400px){
+        
+        width: 100%;
+    }
+
     @include breakpoint(sm) { 
         padding: 7px;
         width: 100%;
