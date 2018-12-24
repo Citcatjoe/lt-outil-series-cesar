@@ -44,12 +44,12 @@ import ShareButtons from './components/ShareButtons';
 
 const devServer = /localhost$/.test(window.location.hostname);
 
-//const jsonfeed = devServer ? "http://web.tcch.ch/tv-test/index_read.php" : "https://www.letemps.ch/tv-shows";
-const jsonfeed = devServer ? "http://web.tcch.ch/tv-test/index_read.php" : "https://labs.letemps.ch/guide_datafeed/";
-const routePath = devServer ? "/series/:uniquekey" : "/guide-des-series/series/:uniquekey";
-const routeHomepage = devServer ? "/" : "/guide-des-series/";
-const childRoute = devServer ? "/series/":  "/guide-des-series/series/";
-const landingOnDetailTest = devServer ? /series/ : /series\/series/;
+const jsonfeed = devServer ? "http://web.tcch.ch/tv-test/index_read.php" : "https://www.letemps.ch/tv-shows";
+//const jsonfeed = devServer ? "http://web.tcch.ch/tv-test/index_read.php" : "https://labs.letemps.ch/guide_datafeed/";
+const routePath = devServer ? "/series/:uniquekey" : "/_guide-test-cors/series/:uniquekey";
+const routeHomepage = devServer ? "/" : "/_guide-test-cors/";
+const childRoute = devServer ? "/series/":  "/_guide-test-cors/series/";
+const landingOnDetailTest = devServer ? /series/ : /cors\/series/;
 
 require("typeface-montserrat");
 var sortJsonArray = require("sort-json-array");

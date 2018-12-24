@@ -2,7 +2,7 @@
   "name": "lt-outil-series-cesar",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://labs.letemps.ch/guide-des-series",
+  "homepage": "https://labs.letemps.ch/_guide-test-cors",
   "dependencies": {
     "ajv": "^6.6.2",
     "html-react-parser": "^0.4.7",
