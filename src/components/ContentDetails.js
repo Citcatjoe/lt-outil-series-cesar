@@ -36,7 +36,7 @@ class ContentDetails extends Component {
     const shareURL = 'https://labs.letemps.ch' + this.props.location.pathname;
     const shareTitle = "Guide des séries: «" + this.props.item.title + "»";
     const shareDescription = 'Quelle série regarder ce soir? Composez votre menu avec notre plateforme interactive.';
-    console.log('Canonical url = ' + shareURL);
+    // console.log('Canonical url = ' + shareURL);
     return (
       // petite structure header-body-footer, on est pas obligés de garder bien sur
       <div className={`content`}>
