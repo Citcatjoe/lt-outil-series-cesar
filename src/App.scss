@@ -5,7 +5,7 @@ $color4: #3D4552; //text ordre
 $color5: #3C4651; //bg recherche
 $color6: #A2ACBB;
 $flash-color1: #ff0078;
-$flash-color2: #ff0049; 
+$flash-color2: #ff0049;
 $brand-color: #930025;
 
 @mixin breakpoint($class) {
@@ -16,15 +16,15 @@ $brand-color: #930025;
   @if $class == xs {
     @media (max-width: 500px) { @content; }
   }
- 
+
   @else if $class == sm {
-    @media (max-width: 768px) { @content; } 
+    @media (max-width: 768px) { @content; }
   }
- 
+
   @else if $class == md {
     @media (max-width: 992px) { @content; }
   }
- 
+
   @else if $class == lg {
     @media (max-width: 1200px) { @content; }
   }
@@ -32,11 +32,11 @@ $brand-color: #930025;
   @else if $class == xl {
     @media (max-width: 1600px) { @content; }
   }
- 
+
   @else {
     @warn "Breakpoint mixin supports: xxs, xs, sm, md, lg, xl";
   }
-} 
+}
 
 *,
 *:after,
@@ -45,17 +45,17 @@ $brand-color: #930025;
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
 
-  html 
+  html
   {
     background: $color1;
   }
 
-  body 
+  body
   {
     -webkit-overflow-scrolling: touch;
     background: $color1;
-    
-    &.no-scroll 
+
+    &.no-scroll
     {
       overflow: hidden;
        -webkit-overflow-scrolling: auto;
@@ -72,10 +72,10 @@ $brand-color: #930025;
   }
 
 .App {
-  //text-align: center; 
+  //text-align: center;
   height: 100%;
   overflow-x: hidden;
-  
+
 }
 
 .App::-webkit-scrollbar {
@@ -87,7 +87,7 @@ $brand-color: #930025;
     background-color: $flash-color1;
   }
 
-#root 
+#root
 {
   height: 100%;
 }
@@ -98,7 +98,7 @@ aside::-webkit-scrollbar {
     // background-color: $color2;
     // display: none;
 
-    @include breakpoint(xs) { 
+    @include breakpoint(xs) {
         //display: auto;
         //display: inherit;
     }
@@ -125,8 +125,8 @@ aside
   z-index: 2000;
   //-webkit-overflow-scrolling: touch;
 
-  // @include breakpoint(xl) { 
-  //     position: 
+  // @include breakpoint(xl) {
+  //     position:
   // }
 
   @media (max-height: 950px){
@@ -135,24 +135,24 @@ aside
 
   }
 
-  @include breakpoint(xl) { 
+  @include breakpoint(xl) {
       overflow-y: scroll;
       overflow-x: visible;
-      
+
   }
 
-  // @include breakpoint(lg) { 
+  // @include breakpoint(lg) {
   //     min-height:500px;
   // }
 
-  @include breakpoint(md) { 
+  @include breakpoint(md) {
       transform: translateX(-400px);
       width: 400px;
-      
+
       //padding: 0 25px;
   }
 
-  @include breakpoint(xs) { 
+  @include breakpoint(xs) {
       width: 100%;
       overflow-y: scroll;
       overflow-x: visible;
@@ -165,13 +165,14 @@ aside
     transform: translateX(0);
   }
 
-  .aside-top 
+  .aside-top
   {
     padding: 0 40px;
 
-    min-height: 580px;
+    /* min-height: 580px; */
+    min-height: 680px; /* fix après mail Lionel */
 
-    @include breakpoint(xs) { 
+    @include breakpoint(xs) {
       padding: 0 20px;
     }
   }
@@ -193,20 +194,20 @@ aside
     display: none;
     transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
-    @include breakpoint(md) { 
+    @include breakpoint(md) {
         display: block;
     }
 
-    // @include breakpoint(xs) { 
-      
-    // }
-    
+    // @include breakpoint(xs) {
 
-    &.is-visible 
+    // }
+
+
+    &.is-visible
     {
       transform: translateX(50%) scale(1);
     }
-    
+
 
     .aside--close-button--img
     {
@@ -247,27 +248,27 @@ aside
     // backgroundImage: "url(" + asideFooterBg + ")",
     // backgroundPosition: 'top right',
     //  backgroundSize: 'cover'
-    
 
-    @include breakpoint(xl) { 
-      
+
+    @include breakpoint(xl) {
+
         position: static;
         //padding: 140px 20px 0 20px;;
       //background: url('/static/media/aside-footer-bg.e1ffebce.svg');
     }
 
-    @include breakpoint(xs) { 
-      
+    @include breakpoint(xs) {
+
         padding: 140px 20px 0 20px;
     }
 
-    // @include breakpoint(xs) { 
+    // @include breakpoint(xs) {
     //   position: static;
     //   background: url('/static/media/aside-footer-bg.e1ffebce.svg');
     //   background-size: cover;
     // }
 
-    li 
+    li
     {
       list-style: none;
       padding-inline-start: 0;
@@ -277,14 +278,14 @@ aside
       list-style: none;
       padding-inline-start: 0;
 
-      a 
+      a
       {
         //text-decoration: none;
         color: inherit;
       }
     }
-      
-  }  
+
+  }
 
   // .aside-footer-bg
   // {
@@ -296,11 +297,11 @@ aside
   //   left: 0;
   //   transform: translateX(-40px);
 
-    
+
   // }
 }
 
-main 
+main
 {
   width: calc(100% - 400px);
   min-height: 100%;
@@ -319,20 +320,20 @@ main
     visibility: visible;
   }
 
-  // &.is-moved-right 
+  // &.is-moved-right
   // {
   //   transform: translateX(300px);
   // }
 
-  @include breakpoint(md) { 
+  @include breakpoint(md) {
       width: 100%;
   }
-  
+
   // display: flex;
   // justify-content: space-between;
   // flex-wrap: wrap;
 
-  .main-header 
+  .main-header
   {
     width: 100%;
     height: 125px;
@@ -341,7 +342,7 @@ main
     transition: all 0.5s;
     //padding: 17.5px;
 
-    @include breakpoint(sm) { 
+    @include breakpoint(sm) {
         height: 150px;
     }
 
@@ -353,7 +354,7 @@ main
   }
 }
 
-.grid 
+.grid
 {
   overflow: auto;
   transform-origin: center top;
@@ -361,10 +362,10 @@ main
   opacity: 0;
   transition: all 0.5s;
   padding: 17.5px;
- 
+
   //position: relative;
 
-  @include breakpoint(sm) { 
+  @include breakpoint(sm) {
       padding: 10px;
       padding-top: 17.5px;
   }
@@ -389,7 +390,7 @@ main
     //max-width: 500px;
     margin: auto;
 
-    img 
+    img
     {
       width: 100px;
     }
@@ -412,7 +413,7 @@ main
     }
   }
 
-  
+
 }
 
 
@@ -428,7 +429,7 @@ main
 //   height: 40vmin;
 // }
 
-// .App-header {  
+// .App-header {
 //   background-color: #282c34;
 //   min-height: 100vh;
 //   display: flex;
@@ -452,7 +453,7 @@ main
 //   }
 // }
 
-.is-touch 
+.is-touch
 {
    -webkit-overflow-scrolling: touch !important;
 }
