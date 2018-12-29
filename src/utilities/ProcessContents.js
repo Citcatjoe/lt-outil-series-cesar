@@ -15,7 +15,7 @@ export var GetContents = function () {
 
   // return false; // à décommenter pour bybasser le cache
   // expire après 1 heure:                       milli  sec  min  heures
-  if( (data['timestamp'] - new Date().getTime()) < (1000 * 60 * 60 * 1) ){
+  if( (new Date().getTime() - data['timestamp']) < (1000 * 60 * 60 * 1) ){
     return data;
   }else{
     return false;
