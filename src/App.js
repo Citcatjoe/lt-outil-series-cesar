@@ -153,11 +153,13 @@ class App extends Component {
           selectOptions: [
             { value: "Amazon", label: "Amazon" },
             { value: "Arte", label: "Arte" },
+            { value: "BBC", label: "BBC" },
             { value: "Canal+", label: "Canal+" },
             { value: "Facebook Watch", label: "Facebook Watch" },
             { value: "France", label: "France Télévisions" },
             { value: "HBO", label: "HBO" },
             { value: "Hulu", label: "Hulu" },
+            { value: "ITV", label: "ITV" },
             { value: "Netflix", label: "Netflix" },
             { value: "RTS", label: "RTS" },
             { value: "ShowTime", label: "ShowTime" },
