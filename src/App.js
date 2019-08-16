@@ -627,11 +627,10 @@ class App extends Component {
                   Suggérer une série
                 </a>
               </li>
-              <li className="aside-footer-list-item">
-                {/* <a href="#apropos">À propos</a> */}
+              {/* <li className="aside-footer-list-item">
                 <Collapsible>
                 </Collapsible>
-              </li>
+              </li> */}
               <li className="aside-footer-list-item">
                 <LogoLtGray />
               </li>
