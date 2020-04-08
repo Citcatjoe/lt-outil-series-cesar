@@ -105,7 +105,7 @@ class App extends Component {
       buttons: [
         { status: false, label: "Se délasser en mangeant ou repassant" },
         { status: false, label: "Frissonner" },
-        { status: false, label: "En discuter demain au bureau" },
+        { status: false, label: "En parler à l’apéro Skype" },
         { status: false, label: "Remonter le temps" },
         { status: false, label: "Regarder un truc complètement frappé" }
       ],
