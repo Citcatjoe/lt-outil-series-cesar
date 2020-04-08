@@ -29,7 +29,7 @@ export var GetContents = function () {
  export var ProcessContents = function (json) {
   // ajout d’une colonne pour «En cours / searchTerminé»
   json.map((row, index) => {
-    return row['completed'] = row['np8_end_date'] === '' ? 'terminee' : 'en-cours';
+    return row['completed'] = row['np8_end_date'] === '' ? 'en-cours' : 'terminee';
   });
 
   json.map((row, index) => {
