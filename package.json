@@ -30,7 +30,7 @@
   ],
   "devDependencies": {
     "css-loader": "^2.0.1",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "react-google-tag-manager": "^2.2.1",
     "react-scroll-up-button": "^1.6.4",
     "react-select": "^2.1.2",
